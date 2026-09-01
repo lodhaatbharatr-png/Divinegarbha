@@ -7,520 +7,289 @@
   <meta name="description" content="उमाभरत गर्भसंवाद — प्रेम • संस्कार • प्रार्थना">
   <title>उमाभरत गर्भसंवाद</title>
 
-  <!-- Existing React 18 + Lucide CDN architecture preserved -->
+  <!-- Google Marathi Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Noto+Serif+Devanagari:wght@500;600;700&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&family=Noto+Serif+Devanagari:wght@400;600;700&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- React 18 & Lucide Icons -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    :root{
-      --bg:#0d0b12;--surface:#1a1622;--surface-soft:#211b2a;--surface-hover:#282031;
-      --text:#fffbf7;--content:#eee5e1;--muted:#aaa0a4;--dim:#81767d;
-      --rose:#f0a8c8;--rose-strong:#a1547b;--gold:#e2ba6f;--violet:#c7a8df;
-      --line:rgba(255,255,255,.09);--line-strong:rgba(240,168,200,.2);
-      --shadow:0 24px 70px rgba(0,0,0,.48);--radius:22px;--reader:740px;
+    /* CSS Architecture & Variables */
+    :root {
+      --bg: #0d0b12;
+      --surface: rgba(26, 22, 34, 0.96);
+      --surface-soft: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(240, 185, 205, 0.12);
+      --text: #fffbf7;
+      --text-muted: #a69b9e;
+      --content: #e8e0dc;
+      --accent-rose: #f0a8c8;
+      --accent-gold: #e2ba6f;
+      --accent-violet: #ba8ce0;
+      --primary: #a1547b;
+      --line: rgba(255, 255, 255, 0.08);
+      --shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+      --radius: 20px;
     }
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    html{scroll-behavior:smooth}
-    body{margin:0;min-width:320px;background:
-      radial-gradient(circle at 50% -15%,rgba(200,110,155,.17),transparent 42%),
-      radial-gradient(circle at 90% 85%,rgba(130,80,120,.12),transparent 38%),var(--bg);
-      color:var(--text);font-family:"Noto Sans Devanagari","Nirmala UI",sans-serif;overflow-x:hidden}
-    button,input{font:inherit}
-    button{cursor:pointer}
-    button:disabled{cursor:not-allowed}
-    :focus-visible{outline:2px solid var(--rose);outline-offset:2px}
-    .app{min-height:100dvh;padding:max(14px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
-    .shell{width:min(1180px,100%);margin:auto}
-    .topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:8px 2px 16px}
-    .brand{display:flex;align-items:center;gap:11px;min-width:0}
-    .logo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#d482a5,#713652);border:1px solid rgba(255,230,240,.22);box-shadow:0 6px 22px rgba(212,130,165,.2);font-weight:800}
-    .brand h1{margin:0;font-size:1rem;font-weight:800;line-height:1.15}
-    .brand p{margin:3px 0 0;color:var(--muted);font-size:.7rem}
-    .person-switch{display:flex;gap:3px;padding:3px;background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:999px}
-    .person-btn{border:0;background:transparent;color:var(--muted);border-radius:999px;padding:7px 13px;font-size:.76rem;font-weight:700;white-space:nowrap}
-    .person-btn.active{background:var(--surface-soft);color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.2)}
-    .hero{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end;margin:8px 0 18px}
-    .hero-copy .eyebrow{color:var(--rose);font-size:.75rem;font-weight:800}
-    .hero-copy h2{font-family:"Noto Serif Devanagari",serif;margin:4px 0 4px;font-size:clamp(1.55rem,4vw,2.15rem);line-height:1.2}
-    .hero-copy p{margin:0;color:var(--muted);font-size:.88rem}
-    .hero-actions{display:flex;gap:8px}
-    .icon-btn,.filter-trigger{min-height:42px;border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--text);border-radius:13px;padding:0 13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:.78rem;font-weight:700}
-    .icon-btn:hover,.filter-trigger:hover{background:rgba(255,255,255,.08)}
-    .searchbar{position:relative;margin-bottom:12px}
-    .searchbar input{width:100%;height:50px;border:1px solid var(--line);background:rgba(26,22,34,.82);color:var(--text);border-radius:15px;padding:0 46px 0 46px;font-size:.9rem;box-shadow:0 10px 30px rgba(0,0,0,.15)}
-    .searchbar input::placeholder{color:#8e8589}
-    .searchbar .search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted)}
-    .searchbar .clear-search{position:absolute;right:9px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--muted);padding:7px}
-    .mobile-filter{display:none;margin-bottom:12px}
-    .layout{display:grid;grid-template-columns:235px minmax(0,1fr);gap:16px;align-items:start}
-    .sidebar{position:sticky;top:14px;border:1px solid var(--line);background:rgba(26,22,34,.78);border-radius:18px;padding:15px}
-    .filter-section+.filter-section{margin-top:20px}
-    .filter-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;font-size:.76rem;font-weight:800;color:#fff}
-    .filter-title small{color:var(--dim);font-weight:600}
-    .filter-list{display:grid;gap:5px}
-    .filter-option{width:100%;border:0;background:transparent;color:var(--muted);padding:8px 9px;border-radius:9px;text-align:left;font-size:.76rem;display:flex;justify-content:space-between;gap:8px}
-    .filter-option:hover{background:rgba(255,255,255,.04);color:var(--text)}
-    .filter-option.active{background:rgba(240,168,200,.09);color:var(--rose);font-weight:800}
-    .count{color:var(--dim);font-size:.68rem}
-    .filter-option.active .count{color:var(--rose)}
-    .tag-cloud{display:flex;flex-wrap:wrap;gap:6px}
-    .tag{border:1px solid var(--line);background:rgba(255,255,255,.035);color:#c8bec2;border-radius:999px;padding:5px 8px;font-size:.67rem}
-    .tag:hover,.tag.active{border-color:var(--line-strong);color:var(--rose);background:rgba(240,168,200,.08)}
-    .clear-all{width:100%;margin-top:16px;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:10px;padding:8px;font-size:.72rem;font-weight:700}
-    .main{min-width:0}
-    .context-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;min-height:30px}
-    .context-left{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
-    .result-count{font-size:.76rem;color:var(--muted)}
-    .active-chip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line-strong);background:rgba(240,168,200,.07);color:var(--rose);border-radius:999px;padding:4px 8px;font-size:.67rem;font-weight:700}
-    .active-chip button{border:0;background:transparent;color:inherit;padding:0;line-height:1}
-    .list{display:grid;gap:10px}
-    .result-card{width:100%;text-align:left;border:1px solid var(--line);background:linear-gradient(145deg,rgba(31,26,40,.95),rgba(23,19,30,.95));color:var(--text);border-radius:17px;padding:15px;transition:transform .16s ease,border-color .16s ease,background .16s ease}
-    .result-card:hover{transform:translateY(-1px);border-color:var(--line-strong);background:var(--surface-hover)}
-    .card-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
-    .person-label,.category-label{font-size:.68rem;font-weight:800}
-    .person-label{color:var(--rose)}
-    .category-label{color:var(--gold)}
-    .result-card h3{margin:0 0 6px;font-family:"Noto Serif Devanagari",serif;font-size:1rem;line-height:1.35}
-    .preview{margin:0;color:var(--muted);font-size:.77rem;line-height:1.65}
-    .result-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
-    .result-tags span{color:#a99da3;font-size:.63rem}
-    .read-link{display:inline-flex;align-items:center;gap:4px;color:var(--rose);font-size:.7rem;font-weight:800;margin-top:10px}
-    .empty{border:1px dashed var(--line-strong);border-radius:17px;padding:34px 20px;text-align:center}
-    .empty h3{margin:0 0 6px;font-family:"Noto Serif Devanagari",serif}
-    .empty p{margin:0;color:var(--muted);font-size:.78rem}
-    .empty .tag-cloud{justify-content:center;margin-top:15px}
-    .reader{border:1px solid var(--line);background:rgba(26,22,34,.93);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-    .reader-head{padding:17px 20px 14px;border-bottom:1px solid var(--line);background:rgba(26,22,34,.97)}
-    .reader-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
-    .reader-person{color:var(--rose);font-size:.72rem;font-weight:800}
-    .reader-day{color:var(--gold);font-size:.73rem;font-weight:800}
-    .crumb{color:var(--dim);font-size:.65rem;margin-bottom:5px}
-    .reader h2{margin:0;font-family:"Noto Serif Devanagari",serif;font-size:clamp(1.25rem,3vw,1.65rem);line-height:1.35}
-    .reader-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
-    .reader-body{max-width:var(--reader);margin:auto;padding:18px 22px 28px}
-    .dialogue{display:grid;gap:18px}
-    .dialogue-item{display:grid;grid-template-columns:29px 1fr;gap:12px;align-items:start}
-    .dialogue-num{color:#81747b;font-size:.66rem;font-weight:800;padding-top:5px;text-align:center}
-    .dialogue-text{margin:0;color:var(--content);font-size:clamp(.98rem,1.5vw,1.08rem);line-height:2;font-weight:500;white-space:pre-wrap}
-    .closing{margin-top:24px;padding:19px 14px;border-top:1px solid var(--line);text-align:center;color:var(--rose);font-family:"Tiro Devanagari Marathi","Noto Serif Devanagari",serif;font-size:.95rem;line-height:1.7}
-    .reader-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding:12px 16px;background:rgba(18,15,23,.78)}
-    .nav-btn{min-height:46px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.045);color:var(--text);padding:0 15px;display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800}
-    .nav-btn.primary{background:linear-gradient(135deg,#a75c82,#7e3b5e);border-color:rgba(255,255,255,.13)}
-    .nav-btn:disabled{opacity:.28}
-    .reader-center{color:var(--muted);font-size:.7rem;font-weight:700}
-    .reader-actions{display:flex;gap:7px}
-    .share-btn,.complete-btn{min-height:42px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.04);color:var(--text);padding:0 12px;display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:800}
-    .complete-btn.done{color:#d9c58f;border-color:rgba(226,186,111,.3);background:rgba(226,186,111,.07)}
-    .journey{margin-top:16px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.025);padding:13px 15px}
-    .journey-top{display:flex;justify-content:space-between;gap:10px;font-size:.73rem;font-weight:800}
-    .journey-top span:last-child{color:var(--rose)}
-    .journey-bar{height:5px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;margin-top:9px}
-    .journey-fill{height:100%;background:linear-gradient(90deg,var(--rose-strong),var(--rose));border-radius:inherit}
-    .journey-copy{margin:7px 0 0;color:var(--muted);font-size:.68rem}
-    .day-picker{position:fixed;inset:0;background:rgba(4,3,6,.72);backdrop-filter:blur(7px);z-index:80;display:grid;place-items:center;padding:18px}
-    .day-dialog{width:min(390px,100%);background:#1a1622;border:1px solid var(--line-strong);border-radius:20px;box-shadow:var(--shadow);padding:17px}
-    .day-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
-    .day-head h3{margin:0;font-family:"Noto Serif Devanagari",serif;font-size:1rem}
-    .day-head button{border:0;background:transparent;color:var(--muted);padding:6px}
-    .day-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
-    .day-cell{aspect-ratio:1;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.035);color:var(--muted);font-weight:800;font-size:.75rem}
-    .day-cell.active{background:rgba(240,168,200,.13);border-color:var(--rose);color:var(--rose)}
-    .day-cell.completed{position:relative}
-    .day-cell.completed:after{content:"✓";position:absolute;right:4px;top:1px;color:var(--gold);font-size:.55rem}
-    .sheet-backdrop{position:fixed;inset:0;background:rgba(4,3,6,.68);z-index:90}
-    .filter-sheet{position:fixed;left:0;right:0;bottom:0;z-index:91;background:#19151f;border:1px solid var(--line-strong);border-radius:22px 22px 0 0;padding:17px 16px max(17px,env(safe-area-inset-bottom));max-height:86dvh;overflow:auto}
-    .sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
-    .sheet-head h3{margin:0;font-family:"Noto Serif Devanagari",serif}
-    .sheet-grid{display:grid;gap:17px}
-    .sheet-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:17px}
-    .sheet-actions button{min-height:44px;border-radius:12px;font-weight:800}
-    .apply{border:0;background:linear-gradient(135deg,#a75c82,#7e3b5e);color:#fff}
-    .sheet-clear{border:1px solid var(--line);background:transparent;color:var(--muted)}
-    .toast{position:fixed;left:50%;bottom:max(78px,calc(70px + env(safe-area-inset-bottom)));transform:translateX(-50%);z-index:120;background:#211c29;border:1px solid var(--line-strong);color:#fff;padding:9px 15px;border-radius:999px;font-size:.72rem;font-weight:800;box-shadow:0 10px 30px rgba(0,0,0,.5)}
-    .loading{min-height:60dvh;display:grid;place-items:center;color:var(--muted);font-size:.8rem}
-    mark{background:rgba(226,186,111,.22);color:#ffe7ae;border-radius:3px;padding:0 2px}
-    @media(max-width:820px){
-      .layout{display:block}.sidebar{display:none}.mobile-filter{display:block}.hero{grid-template-columns:1fr}.hero-actions{justify-content:flex-start}
-      .reader{border-radius:18px}.reader-body{padding:17px 16px 30px}
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
     }
-    @media(max-width:600px){
-      .app{padding-left:10px;padding-right:10px}.topbar{align-items:flex-start;gap:10px}.logo{width:38px;height:38px}
-      .brand h1{font-size:.9rem}.brand p{font-size:.63rem}.person-switch{width:100%;justify-content:stretch}.person-btn{flex:1;padding:7px 5px;font-size:.69rem}
-      .topbar{flex-wrap:wrap}.topbar .brand{flex:1 1 100%}.topbar .person-switch{flex:1 1 100%}
-      .hero{margin-top:3px}.hero-copy h2{font-size:1.4rem}.hero-actions{display:none}
-      .searchbar input{height:48px}.context-row{align-items:flex-start}.reader-head{padding:15px 15px 13px}
-      .reader-foot{position:sticky;bottom:0;z-index:20;padding-bottom:max(10px,env(safe-area-inset-bottom));background:rgba(18,15,23,.96);backdrop-filter:blur(12px)}
-      .reader-center{display:none}.nav-btn{min-height:45px;padding:0 12px}.reader-actions{display:none}
-      .dialogue-item{grid-template-columns:25px 1fr;gap:9px}.dialogue-text{font-size:.96rem;line-height:1.9}
-      .journey{margin-top:12px}
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    
+    html, body {
+      width: 100%; height: 100%; margin: 0; padding: 0;
+      background: var(--bg); color: var(--text);
+      font-family: "Noto Sans Devanagari", sans-serif;
+      overflow-x: hidden;
     }
-    @media(max-width:380px){
-      .person-btn{font-size:.65rem}.reader-body{padding-left:12px;padding-right:12px}.dialogue-item{grid-template-columns:22px 1fr;gap:7px}
+
+    body {
+      background: radial-gradient(circle at 50% -15%, rgba(200, 110, 155, 0.15), transparent 45%), var(--bg);
     }
-    @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+
+    .app {
+      min-height: 100dvh; display: flex; justify-content: center;
+      padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;
     }
+
+    .shell {
+      width: min(760px, 100%);
+      display: flex; flex-direction: column;
+      padding: 12px; gap: 16px;
+    }
+
+    /* Header */
+    .header { text-align: center; padding: 10px 0; }
+    .header h1 { font-family: "Noto Serif Devanagari", serif; font-size: 1.4rem; color: var(--accent-rose); margin: 0; }
+    .header p { font-size: 0.8rem; color: var(--text-muted); margin: 4px 0 0; }
+
+    /* Home & Explore Modes */
+    .home-section-title { font-size: 1.1rem; font-weight: 700; margin: 20px 0 10px; color: var(--accent-gold); }
+    .card-grid { display: grid; gap: 12px; }
+    
+    .listing-card {
+      background: var(--surface); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 16px; cursor: pointer;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .listing-card:hover { background: rgba(36, 30, 46, 0.96); }
+    .meta-row { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); }
+    .card-title { font-size: 1.1rem; font-weight: 700; margin: 0; color: var(--text); }
+    .tag-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag-pill { background: var(--surface-soft); padding: 2px 8px; border-radius: 99px; font-size: 0.7rem; color: var(--accent-rose); }
+
+    /* Reader View */
+    .reader-container {
+      background: var(--surface); border: 1px solid var(--card-border);
+      border-radius: var(--radius); display: flex; flex-direction: column;
+      height: calc(100dvh - 120px); overflow: hidden;
+    }
+    .reader-header {
+      padding: 16px; border-bottom: 1px solid var(--line); position: sticky; top: 0;
+      background: rgba(26, 22, 34, 0.98); z-index: 10;
+    }
+    .reader-body {
+      flex: 1; overflow-y: auto; padding: 20px 16px; font-size: 1.05rem; line-height: 1.8; color: var(--content);
+    }
+    .dialogue-para { margin-bottom: 16px; display: flex; gap: 12px; }
+    .para-num { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; margin-top: 4px; }
+    .closing-blessing {
+      text-align: center; margin-top: 30px; font-family: "Tiro Devanagari Marathi", serif;
+      color: var(--accent-gold); font-size: 1.1rem; border-top: 1px solid var(--line); padding-top: 20px;
+    }
+    
+    /* Filters */
+    .filter-bar { display: flex; gap: 8px; align-items: center; justify-content: space-between; background: var(--surface-soft); padding: 8px; border-radius: 12px; }
+    .filter-btn { background: transparent; color: var(--text); border: 1px solid var(--line); padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; display: flex; gap: 6px; align-items: center; cursor: pointer;}
+    .active-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .chip { display: inline-flex; align-items: center; gap: 4px; background: rgba(240, 168, 200, 0.15); color: var(--accent-rose); padding: 4px 10px; border-radius: 99px; font-size: 0.75rem; }
+
+    /* Bottom Nav */
+    .bottom-nav { display: flex; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--line); background: var(--surface); }
+    .nav-btn { background: var(--surface-soft); color: var(--text); border: 1px solid var(--line); padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: 600; }
+    .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   </style>
 </head>
 <body>
-<div id="root"><div class="loading">गर्भसंवाद…</div></div>
+  <div id="root"></div>
 
-<script>
-const {useState,useEffect,useMemo,useRef}=React;
+  <script>
+    const { useState, useEffect, useMemo } = React;
 
-/* ------------------------------------------------------------------
-   EXISTING FALLBACK CONTENT — wording intentionally preserved.
-   External data paths are also preserved: ./data/mothers.json,
-   ./data/mother.json, ./data/fathers.json, ./data/father.json.
-   ------------------------------------------------------------------ */
-const FALLBACK_MOTHER=[
- ["दिवस १","प्रेम आणि सुरक्षिततेची ऊब","१. माझ्या लाडक्या बाळा, आजपासून मी तुझ्याशी मनापासून एक सुंदर आणि अखंड संवाद सुरू करत आहे.\n२. तू माझ्या उदरात सुरक्षित आहेस आणि माझ्या हृदयाचा प्रत्येक ठोका फक्त तुझ्यासाठी प्रेमाने धडधडत आहे.\n३. माझ्या पोटावरून फिरणारा हा मायेचा हात तुला संपूर्ण जगातील सर्वात सुरक्षित जागा देत आहे.\n४. तू या जगात येण्याआधीच मी आणि तुझे बाबा तुझ्यावर अथांग आणि निरपेक्ष प्रेम करत आहोत.\n५. माझ्या श्वासासोबत वाहणारी प्रत्येक भावना तुझ्या मनाला असीम शांती आणि तृप्ती देणारी ठरो.\n६. तुझ्या आजूबाजूला केवळ सकारात्मक, शुद्ध आणि प्रेमळ स्पंदनांचे एक अभेद्य कवच निर्माण झाले आहे.\n७. स्वतःवर प्रेम करण्याचे आणि जगाला भरभरून प्रेम देण्याचे उत्तम संस्कार तुझ्या अंतर्मनात रुजत आहेत.\n८. कोणत्याही भीतीशिवाय आणि संकोचाशिवाय तू माझ्या कुशीत अगदी निर्धास्तपणे आणि सुखाने वाढत राहा.\n९. तुझे अस्तित्व हे आमच्या संपूर्ण घराचे चैतन्य, आनंद आणि प्रकाशाचा अखंड झरा आहे.\n१०. बाळा, शांतपणे झोप आणि माझ्या प्रेमाची ऊब अनुभवत अतिशय आनंदाने आणि उत्साहाने घडत राहा."],
- ["दिवस २","आरोग्य, तेज आणि सुदृढ शरीर","१. माझ्या गोड बाळा, तुझ्या शरीराची प्रत्येक पेशी, ऊती आणि अवयव अतिशय परिपूर्णतेने विकसित होत आहेत.\n२. मी घेत असलेल्या प्रत्येक पोषक अन्नाचा आणि पाण्याचा अंश तुला प्रचंड शारीरिक ताकद आणि तेज देत आहे.\n३. तुझी रोगप्रतिकारशक्ती जन्मतःच अत्यंत बलवान, कणखर आणि सर्व रोगांपासून तुझे रक्षण करणारी घडत आहे.\n४. तुझा मेंदू, हृदय, डोळे आणि सर्व ज्ञानेंद्रिये अतिशय प्रमाणबद्ध, निरोगी आणि कार्यक्षम होत आहेत.\n५. तुझ्या चेहऱ्यावर एक अलौकिक ईश्वरी तेज, डोळ्यांमध्ये निर्मळ चमक आणि ओठांवर गोड हास्य फुलत आहे.\n६. निसर्गाची सर्व पंचमहाभूते तुझ्या शरीराला सुदृढता, चपळता आणि अखंड ऊर्जा प्रदान करत आहेत.\n७. तुझे फुफ्फुस, हाडे आणि स्नायू प्रत्येक क्षणाला अधिक मजबूत आणि शक्तिशाली बनत चालले आहेत.\n८. माझ्या शरीरातील सकारात्मक हार्मोन्स तुझ्या वाढीला एक नैसर्गिक आणि निरोगी दिशा देत आहेत.\n९. तू जेव्हा या जगात येशील, तेव्हा तू एक अत्यंत देखणे, सशक्त, सुदृढ आणि निरोगी बालक म्हणून ओळखले जाशील.\n१०. बाळा, पूर्ण शक्तीने आणि आरोग्याच्या परिपूर्ण आशीर्वादाने तू माझ्या उदरात सुरक्षितपणे बहरत राहा."]
-];
-const FALLBACK_FATHER=[
- ["दिवस १","पितृप्रेम, ओळख आणि सुरक्षिततेचे वचन","१. माझ्या लाडक्या बाळा, मी तुझा बाबा तुझ्याशी बोलतोय; माझा हा आश्वासक आवाज तुझ्या अंतर्मनात शांततेने उतरू दे.\n२. तुझ्या आईच्या उदरात तू सुरक्षित आहेस आणि बाहेरून मी तुझ्या संरक्षणासाठी एक अभेद्य ढाल बनून उभा आहे.\n३. तू या जगात येण्याआधीच माझे संपूर्ण आयुष्य तुझ्या प्रेमाने, आनंदाने आणि नव्या स्वप्नांनी भरून गेले आहे.\n४. माझ्या हाताचा स्पर्श जेव्हा तुझ्या आईच्या पोटावर होतो, तेव्हा मला तुझ्या अस्तित्वाची आणि नात्याची सुंदर अनुभूती येते.\n५. तू मुलगा असो वा मुलगी, तू माझ्यासाठी या विश्वातील सर्वात अनमोल आणि सुंदर भेट आहेस.\n६. जीवनाच्या प्रत्येक वळणावर, प्रत्येक सुख-दुःखात तुझा हा बाबा तुझ्या पाठीशी खंबीरपणे आणि विश्वासाने उभा राहील.\n७. तुला जगातल्या सर्व संकटांपासून दूर ठेवून सर्वोत्तम जीवन देण्याचा मी आज तुला अंतःकरणापासून शब्द देतो.\n८. माझ्या प्रत्येक श्वासात तुझ्या उज्ज्वल भविष्याची आणि तुझ्या सुदृढ आरोग्याची मंगलमय प्रार्थना आहे.\n९. कोणत्याही भीतीशिवाय अगदी शांतपणे आणि सुखाने तू आईच्या कुशीत वाढत राहा.\n१०. बाळा, शांत झोप; तुझा बाबा तुझ्या आगमनाची अतिशय आतुरतेने आणि अभिमानाने वाट पाहत आहे."],
- ["दिवस २","अलौकिक बुद्धिमत्ता आणि तर्कशुद्ध विचार","१. माझ्या कुशाग्र बाळा, तुझ्या मेंदूला आणि विचारशक्तीला या विश्वातील सर्वात तल्लख आणि अलौकिक बुद्धिमत्ता लाभत आहे.\n२. प्रत्येक गोष्टीमागील वैज्ञानिक कारण समजून घेण्याची आणि सत्य शोधण्याची तीव्र जिज्ञासा तुझ्या मनात निर्माण होवो.\n३. गुंतागुंतीच्या समस्यांवर शांत डोक्याने विचार करून अचूक, सोपे आणि योग्य मार्ग शोधण्याची कला तुला साध्य होईल.\n४. केवळ ऐकीव गोष्टींवर विश्वास न ठेवता, तर्कशुद्ध विचार आणि पुराव्यांच्या आधारे निष्कर्ष काढण्याची क्षमता तुझ्यात रुजेल.\n५. पुस्तकी ज्ञानासोबतच व्यावहारिक चातुर्य, समयसूचकता आणि व्यवहारज्ञान तुझ्या व्यक्तिमत्त्वाला परिपूर्ण बनवेल.\n६. विज्ञानाची ओढ, गणिताची अचूकता आणि तंत्रज्ञानाची उत्तम समज तुझ्या बुद्धीला सदैव प्रगत आणि धारदार ठेवेल.\n७. निर्णय घेताना भावना आणि बुद्धीचा परिपूर्ण समतोल साधून तू अत्यंत विवेकी व योग्य निर्णय घेशील.\n८. नवीन कल्पना शोधून काढणे आणि नवनिर्मिती करणे हा तुझ्या दैनंदिन विचारांचा मुख्य भाग बनेल.\n९. तुझी ही कुशाग्र बुद्धिमत्ता तुला जगातील कोणत्याही मोठ्या व्यासपीठावर सन्मान आणि यश मिळवून देईल.\n१०. बाळा, ज्ञानाचा अथांग महासागर हो आणि तुझ्या बुद्धिमत्तेने हे जग अधिक सुंदर आणि प्रगत कर."]
-];
+    // 4. Data structure changes JSON (Example with 3 Person Types)
+    const DIALOGUES_DB = [
+      {
+        id: "aai-01", person: "aai", personLabel: "आई", day: 1,
+        title: "प्रेम आणि सुरक्षिततेची ऊब", category: "आरोग्य व शांतता",
+        tags: ["प्रेम", "शांतता", "सुरक्षितता"],
+        messages: [
+          "माझ्या लाडक्या बाळा, आजपासून मी तुझ्याशी मनापासून एक सुंदर आणि अखंड संवाद सुरू करत आहे.",
+          "तू माझ्या उदरात सुरक्षित आहेस आणि माझ्या हृदयाचा प्रत्येक ठोका फक्त तुझ्यासाठी प्रेमाने धडधडत आहे.",
+          "माझ्या पोटावरून फिरणारा हा मायेचा हात तुला संपूर्ण जगातील सर्वात सुरक्षित जागा देत आहे."
+        ],
+        closing: "शांतपणे झोप आणि माझ्या प्रेमाची ऊब अनुभवत आनंदाने घडत राहा.",
+        featured: true
+      },
+      {
+        id: "baba-01", person: "baba", personLabel: "बाबा", day: 1,
+        title: "पितृप्रेम, ओळख आणि सुरक्षिततेचे वचन", category: "कुटुंब व नाती",
+        tags: ["प्रेम", "संरक्षण", "पितृप्रेम"],
+        messages: [
+          "माझ्या लाडक्या बाळा, मी तुझा बाबा तुझ्याशी बोलतोय; माझा हा आश्वासक आवाज तुझ्या अंतर्मनात शांततेने उतरू दे.",
+          "तू या जगात येण्याआधीच माझे संपूर्ण आयुष्य तुझ्या प्रेमाने, आनंदाने आणि नव्या स्वप्नांनी भरून गेले आहे.",
+          "तुला जगातल्या सर्व संकटांपासून दूर ठेवून सर्वोत्तम जीवन देण्याचा मी आज तुला अंतःकरणापासून शब्द देतो."
+        ],
+        closing: "तुझा बाबा तुझ्या आगमनाची अतिशय आतुरतेने वाट पाहत आहे."
+      },
+      {
+        id: "aaibaba-01", person: "aaibaba", personLabel: "आई-बाबा", day: 1,
+        title: "कुटुंबातील आनंदाचे वातावरण आणि स्वागताची आतुरता", category: "कुटुंब व नाती",
+        tags: ["कुटुंब", "आनंद", "सकारात्मकता"],
+        messages: [
+          "माझ्या लाडक्या बाळा, आज आम्ही दोघेही एकत्र बसून तुझ्याशी मनापासून गप्पा मारायला आलो आहोत.",
+          "तू आमच्या आयुष्यात येणार आहेस या एकाच विचाराने आमचे संपूर्ण घर आनंदाने आणि उत्साहाने भरून गेले आहे.",
+          "अगदी निर्धास्त आणि आनंदी राहा; आम्ही दोघेही तुझी अतिशय आतुरतेने वाट पाहत आहोत!"
+        ],
+        closing: "आमचे दोघांचे तुझ्यावर अनंत जन्मांचे प्रेम आहे!"
+      }
+    ];
 
-/* Data taxonomy: category is broad; tags are specific. */
-const TAXONOMY=[
- ["आरोग्य व शांतता",["आरोग्य","शांतता","सुरक्षितता","सकारात्मकता","तेज"]],
- ["प्रेम व माया",["प्रेम","माया","स्नेह","आनंद","आपुलकी"]],
- ["बुद्धिमत्ता व ज्ञान",["बुद्धिमत्ता","ज्ञान","तर्क","जिज्ञासा","एकाग्रता","शिक्षण","विज्ञान"]],
- ["धैर्य व आत्मविश्वास",["धैर्य","निर्भयता","शौर्य","आत्मविश्वास","न्याय","नेतृत्व"]],
- ["करुणा व संवेदनशीलता",["करुणा","संवेदनशीलता","न्याय","नम्रता","समजूतदारपणा"]],
- ["संस्कार व मूल्ये",["संस्कार","मूल्ये","नीती","चारित्र्य","नम्रता"]],
- ["कुटुंब व नाती",["कुटुंब","नाती","प्रेम","सहवास","कृतज्ञता"]],
- ["कृतज्ञता व प्रार्थना",["कृतज्ञता","प्रार्थना","श्रद्धा","आशीर्वाद"]],
- ["अध्यात्म व भक्ती",["अध्यात्म","भक्ती","कर्मयोग","श्रद्धा","समतोल"]],
- ["जीवनदृष्टी",["जीवनदृष्टी","समतोल","आनंद","नीती","मूल्ये"]],
- ["निसर्ग व पर्यावरण",["निसर्ग","पर्यावरण","पंचमहाभूते","जीवन"]],
- ["ध्येय व व्यक्तिमत्त्व",["ध्येय","व्यक्तिमत्त्व","यश","आत्मविश्वास","नेतृत्व"]],
- ["नीती व चारित्र्य",["नीती","चारित्र्य","न्याय","प्रामाणिकपणा"]],
- ["शिक्षण व जिज्ञासा",["शिक्षण","जिज्ञासा","ज्ञान","विज्ञान","तर्क"]]
-];
+    function App() {
+      const [view, setView] = useState('home'); // home, explore, reader
+      const [filters, setFilters] = useState({ person: 'सर्व', category: 'सर्व', tags: [] });
+      const [currentDialogue, setCurrentDialogue] = useState(null);
+      const [progress, setProgress] = useState({ currentDay: 1 });
 
-function normalize(s){
-  return String(s??"").normalize("NFC").replace(/\s+/g," ").trim().toLocaleLowerCase("mr-IN");
-}
-function inferMeta(title,content,person,index){
-  const hay=normalize(title+" "+content);
-  let best=TAXONOMY[0],score=-1;
-  TAXONOMY.forEach(([cat,tags])=>{
-    const sc=tags.reduce((n,t)=>n+(hay.includes(normalize(t))?1:0),0);
-    if(sc>score){score=sc;best=[cat,tags]}
-  });
-  const tags=best[1].filter(t=>hay.includes(normalize(t)));
-  if(!tags.length) tags.push(...best[1].slice(0,3));
-  return {category:best[0],tags:[...new Set(tags)],featured:index===0};
-}
-function normalizeRecord(raw,person,index){
-  if(raw&&typeof raw==="object"&&!Array.isArray(raw)){
-    const messages=Array.isArray(raw.messages)?raw.messages:(typeof raw.content==="string"?raw.content.split("\n").filter(Boolean):[]);
-    const title=raw.title||raw.name||"संवाद";
-    const meta=inferMeta(title,messages.join(" "),person,index);
-    return {id:raw.id||`${person}-${String(index+1).padStart(2,"0")}`,person,personLabel:person==="aai"?"आई":person==="baba"?"बाबा":"आई-बाबा",title,category:raw.category||meta.category,tags:Array.isArray(raw.tags)&&raw.tags.length?raw.tags:meta.tags,day:Number(raw.day)||index+1,messages,closing:raw.closing||"✨ आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ✨",featured:!!raw.featured};
-  }
-  const [day,title,content]=raw||[];
-  const messages=Array.isArray(content)?content:String(content||"").split("\n").filter(x=>x.trim());
-  const meta=inferMeta(title,messages.join(" "),person,index);
-  return {id:`${person}-${String(index+1).padStart(2,"0")}`,person,personLabel:person==="aai"?"आई":"बाबा",title,category:meta.category,tags:meta.tags,day:index+1,messages,closing:"✨ आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ✨",featured:index===0};
-}
-function mergeJoint(mothers,fathers){
-  const max=Math.max(mothers.length,fathers.length);
-  const out=[];
-  for(let i=0;i<max;i++){
-    const a=mothers[i],b=fathers[i];
-    if(!a&&!b)continue;
-    const day=a?.day||b?.day||i+1;
-    const title=a&&b?`${a.title} • ${b.title}`:(a?.title||b?.title||"आई-बाबांचा संवाद");
-    const messages=[...(a?.messages||[]),...(b?.messages||[])];
-    const meta=inferMeta(title,messages.join(" "),"joint",i);
-    out.push({id:`aai-baba-${String(day).padStart(2,"0")}`,person:"joint",personLabel:"आई-बाबा",title,category:meta.category,tags:[...new Set([...(a?.tags||[]),...(b?.tags||[]),...meta.tags])],day,messages,closing:"✨ आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ✨",featured:i===0});
-  }
-  return out;
-}
+      // LocalStorage Persistence (Requirement 18)
+      useEffect(() => {
+        const saved = localStorage.getItem('garbhasamwad_progress');
+        if (saved) setProgress(JSON.parse(saved));
+      }, []);
 
-function App(){
-  const [rawMother,setRawMother]=useState(FALLBACK_MOTHER);
-  const [rawFather,setRawFather]=useState(FALLBACK_FATHER);
-  const [loading,setLoading]=useState(true);
-  const [person,setPerson]=useState(()=>localStorage.getItem("gs-person")||"all");
-  const [category,setCategory]=useState(()=>localStorage.getItem("gs-category")||"all");
-  const [tags,setTags]=useState(()=>JSON.parse(localStorage.getItem("gs-tags")||"[]"));
-  const [query,setQuery]=useState("");
-  const [selectedId,setSelectedId]=useState(()=>localStorage.getItem("gs-selected")||"");
-  const [completed,setCompleted]=useState(()=>JSON.parse(localStorage.getItem("gs-completed")||"[]"));
-  const [progressDay,setProgressDay]=useState(()=>Number(localStorage.getItem("gs-day")||1));
-  const [showFilters,setShowFilters]=useState(false);
-  const [showDays,setShowDays]=useState(false);
-  const [toast,setToast]=useState("");
-  const readerRef=useRef(null);
+      const saveProgress = (day) => {
+        const p = { currentDay: day };
+        setProgress(p);
+        localStorage.setItem('garbhasamwad_progress', JSON.stringify(p));
+      };
 
-  useEffect(()=>{
-    let alive=true;
-    const load=(primary,fallback,setter)=>fetch(primary).then(r=>r.ok?r.json():fetch(fallback).then(x=>x.json())).then(d=>{
-      if(alive&&Array.isArray(d)&&d.length)setter(d);
-    }).catch(()=>{}).finally(()=>{if(alive)setLoading(false)});
-    Promise.allSettled([load("./data/mothers.json","./data/mother.json",setRawMother),load("./data/fathers.json","./data/father.json",setRawFather)])
-      .finally(()=>alive&&setLoading(false));
-    return()=>{alive=false};
-  },[]);
+      const filteredDialogues = useMemo(() => {
+        return DIALOGUES_DB.filter(d => {
+          const matchPerson = filters.person === 'सर्व' || d.personLabel === filters.person;
+          const matchCat = filters.category === 'सर्व' || d.category === filters.category;
+          return matchPerson && matchCat;
+        });
+      }, [filters]);
 
-  const mother=useMemo(()=>rawMother.map((x,i)=>normalizeRecord(x,"aai",i)),[rawMother]);
-  const father=useMemo(()=>rawFather.map((x,i)=>normalizeRecord(x,"baba",i)),[rawFather]);
-  const joint=useMemo(()=>mergeJoint(mother,father),[mother,father]);
-  const allData=useMemo(()=>[...mother,...father,...joint],[mother,father,joint]);
+      const openReader = (dialogue) => {
+        setCurrentDialogue(dialogue);
+        saveProgress(dialogue.day);
+        setView('reader');
+      };
 
-  const scoped=useMemo(()=>{
-    if(person==="aai")return mother;
-    if(person==="baba")return father;
-    if(person==="joint")return joint;
-    return allData;
-  },[person,mother,father,joint,allData]);
+      const navigateDialogue = (direction) => {
+        const currentIndex = filteredDialogues.findIndex(d => d.id === currentDialogue.id);
+        const nextIndex = currentIndex + direction;
+        if (nextIndex >= 0 && nextIndex < filteredDialogues.length) {
+          openReader(filteredDialogues[nextIndex]);
+        }
+      };
 
-  const categories=useMemo(()=>{
-    const map=new Map();
-    scoped.forEach(d=>map.set(d.category,(map.get(d.category)||0)+1));
-    return [...map.entries()].sort((a,b)=>a[0].localeCompare(b[0],"mr"));
-  },[scoped]);
-  const tagCounts=useMemo(()=>{
-    const map=new Map();
-    scoped.forEach(d=>d.tags.forEach(t=>map.set(t,(map.get(t)||0)+1)));
-    return [...map.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],"mr"));
-  },[scoped]);
-
-  const results=useMemo(()=>{
-    const q=normalize(query);
-    return scoped.filter(d=>{
-      const catOk=category==="all"||d.category===category;
-      const tagsOk=tags.every(t=>d.tags.includes(t));
-      const hay=normalize([d.title,d.category,d.tags.join(" "),d.personLabel,d.day,d.messages.join(" ")].join(" "));
-      return catOk&&tagsOk&&(!q||hay.includes(q));
-    });
-  },[scoped,category,tags,query]);
-
-  const selected=useMemo(()=>{
-    if(selectedId){
-      const exact=allData.find(d=>d.id===selectedId);
-      if(exact)return exact;
-    }
-    return results[0]||scoped.find(d=>d.day===progressDay)||scoped[0]||null;
-  },[selectedId,allData,results,scoped,progressDay]);
-
-  useEffect(()=>{
-    localStorage.setItem("gs-person",person);
-    localStorage.setItem("gs-category",category);
-    localStorage.setItem("gs-tags",JSON.stringify(tags));
-    if(selected)localStorage.setItem("gs-selected",selected.id);
-  },[person,category,tags,selected]);
-
-  useEffect(()=>{
-    if(selected){
-      localStorage.setItem("gs-day",String(selected.day));
-      setProgressDay(selected.day);
-      const el=readerRef.current;
-      if(el && !selectedId) el.scrollTop=0;
-      if(selectedId) setTimeout(()=>{if(readerRef.current)readerRef.current.scrollTop=0},0);
-    }
-  },[selected?.id]);
-
-  const showToast=msg=>{setToast(msg);setTimeout(()=>setToast(""),2300)};
-  const clearAll=()=>{setPerson("all");setCategory("all");setTags([]);setQuery("");setSelectedId("")};
-  const toggleTag=t=>setTags(v=>v.includes(t)?v.filter(x=>x!==t):[...v,t]);
-  const openDialogue=d=>{setSelectedId(d.id);setShowFilters(false);window.scrollTo({top:0,behavior:"smooth"})};
-
-  const visibleIndex=selected?results.findIndex(d=>d.id===selected.id):-1;
-  const prev=visibleIndex>0?results[visibleIndex-1]:null;
-  const next=visibleIndex>=0&&visibleIndex<results.length-1?results[visibleIndex+1]:null;
-  const journeyTotal=Math.max(mother.length,father.length,joint.length);
-  const completedCount=completed.length;
-  const progressPct=journeyTotal?Math.min(100,(completedCount/journeyTotal)*100):0;
-
-  const markComplete=()=>{
-    if(!selected)return;
-    if(completed.includes(selected.id)){showToast("हा संवाद आधीच पूर्ण झाला आहे.");return}
-    const nextCompleted=[...completed,selected.id];
-    setCompleted(nextCompleted);localStorage.setItem("gs-completed",JSON.stringify(nextCompleted));showToast("✓ आजचा संवाद पूर्ण");
-  };
-
-  const share=async()=>{
-    if(!selected)return;
-    const url=location.href.split("#")[0]+`#dialogue=${encodeURIComponent(selected.id)}`;
-    const text=`🌸 गर्भसंवाद\n\n${selected.personLabel} — दिवस ${selected.day}\n${selected.title}\n\n${url}`;
-    try{
-      if(navigator.share){await navigator.share({title:"उमाभरत गर्भसंवाद",text,url});showToast("यशस्वीरित्या शेअर केले!");}
-      else{window.open("https://api.whatsapp.com/send?text="+encodeURIComponent(text),"_blank","noopener");showToast("WhatsApp वर पाठवत आहे...");}
-    }catch(e){if(e?.name!=="AbortError")showToast("शेअर करताना त्रुटी आली.");}
-  };
-
-  useEffect(()=>{
-    const onKey=e=>{
-      const tag=(e.target?.tagName||"").toLowerCase();
-      if(["input","textarea","select"].includes(tag)||e.target?.isContentEditable)return;
-      if(e.key==="ArrowLeft"&&prev)openDialogue(prev);
-      if(e.key==="ArrowRight"&&next)openDialogue(next);
-    };
-    window.addEventListener("keydown",onKey);return()=>window.removeEventListener("keydown",onKey);
-  },[prev,next]);
-
-  if(loading&&!selected)return React.createElement("div",{className:"loading"},"गर्भसंवाद…");
-
-  const personOptions=[["all","सर्व"],["aai","आई"],["baba","बाबा"],["joint","आई-बाबा"]];
-  const highlight=s=>query?s.replace(new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"giu"),m=>`<mark>${m}</mark>`):s;
-
-  return React.createElement("div",{className:"app"},
-    React.createElement("div",{className:"shell"},
-      React.createElement("header",{className:"topbar"},
-        React.createElement("div",{className:"brand"},
-          React.createElement("div",{className:"logo","aria-hidden":"true"},"GS"),
-          React.createElement("div",null,React.createElement("h1",null,"उमाभरत गर्भसंवाद"),React.createElement("p",null,"प्रेम • संस्कार • प्रार्थना"))
-        ),
-        React.createElement("div",{className:"person-switch","role":"group","aria-label":"व्यक्तीनुसार संवाद"},
-          personOptions.map(([key,label])=>React.createElement("button",{key,className:`person-btn ${person===key?"active":""}`,onClick:()=>{setPerson(key);setCategory("all");setTags([]);setSelectedId("")},aria-pressed:person===key},label))
-        )
-      ),
-
-      React.createElement("section",{className:"hero"},
-        React.createElement("div",{className:"hero-copy"},
-          React.createElement("div",{className:"eyebrow"},"शांतपणे वाचा • मनापासून जोडा"),
-          React.createElement("h2",null,selected?selected.title:"संवाद शोधा"),
-          React.createElement("p",null,selected?`${selected.personLabel} • दिवस ${selected.day} • ${selected.category}`:"३० दिवसांचा प्रेमळ प्रवास")
-        ),
-        React.createElement("div",{className:"hero-actions"},
-          React.createElement("button",{className:"icon-btn",onClick:()=>setShowDays(true),aria-label:"दिवस निवडा"},React.createElement("i",{"data-lucide":"calendar-days"})," दिवस"),
-          selected&&React.createElement("button",{className:"icon-btn",onClick:share,aria-label:"संवाद शेअर करा"},React.createElement("i",{"data-lucide":"share-2"})," शेअर")
-        )
-      ),
-
-      React.createElement("div",{className:"searchbar"},
-        React.createElement("i",{className:"search-icon","data-lucide":"search"}),
-        React.createElement("input",{value:query,onChange:e=>{setQuery(e.target.value);setSelectedId("")},placeholder:"संवाद शोधा...",aria-label:"संवाद शोधा"}),
-        query&&React.createElement("button",{className:"clear-search",onClick:()=>setQuery(""),aria-label:"शोध साफ करा"},React.createElement("i",{"data-lucide":"x"}))
-      ),
-
-      React.createElement("div",{className:"mobile-filter"},
-        React.createElement("button",{className:"filter-trigger",onClick:()=>setShowFilters(true)},React.createElement("i",{"data-lucide":"sliders-horizontal"})," फिल्टर", (category!=="all"||tags.length)?` (${(category!=="all"?1:0)+tags.length})`:"")
-      ),
-
-      React.createElement("div",{className:"layout"},
-        React.createElement("aside",{className:"sidebar","aria-label":"फिल्टर"},
-          React.createElement("div",{className:"filter-section"},
-            React.createElement("div",{className:"filter-title"},"व्यक्ती"),
-            React.createElement("div",{className:"filter-list"},
-              personOptions.map(([key,label])=>React.createElement("button",{key,className:`filter-option ${person===key?"active":""}`,onClick:()=>{setPerson(key);setCategory("all");setTags([]);setSelectedId("")}, "aria-pressed":person===key},React.createElement("span",null,label),React.createElement("span",{className:"count"},key==="all"?allData.length:(key==="aai"?mother.length:key==="baba"?father.length:joint.length)))
-            )
+      return React.createElement('div', { className: 'app' },
+        React.createElement('div', { className: 'shell' },
+          
+          React.createElement('header', { className: 'header' },
+            React.createElement('h1', null, '🌸 गर्भसंवाद'),
+            React.createElement('p', null, 'प्रेम • संस्कार • प्रार्थना')
           ),
-          React.createElement("div",{className:"filter-section"},
-            React.createElement("div",{className:"filter-title"},"विषय"),
-            React.createElement("div",{className:"filter-list"},
-              React.createElement("button",{className:`filter-option ${category==="all"?"active":""}`,onClick:()=>setCategory("all")},"सर्व विषय",React.createElement("span",{className:"count"},scoped.length)),
-              categories.map(([cat,n])=>React.createElement("button",{key:cat,className:`filter-option ${category===cat?"active":""}`,onClick:()=>{setCategory(cat);setSelectedId("")}},React.createElement("span",null,cat),React.createElement("span",{className:"count"},n)))
-            )
-          ),
-          React.createElement("div",{className:"filter-section"},
-            React.createElement("div",{className:"filter-title"},"Tags",React.createElement("small",null,"multi-select")),
-            React.createElement("div",{className:"tag-cloud"},
-              tagCounts.slice(0,18).map(([t,n])=>React.createElement("button",{key:t,className:`tag ${tags.includes(t)?"active":""}`,onClick:()=>{toggleTag(t);setSelectedId("")}, "aria-pressed":tags.includes(t)},`#${t} ${n}`))
-            )
-          ),
-          React.createElement("button",{className:"clear-all",onClick:clearAll},"सर्व फिल्टर साफ करा")
-        ),
 
-        React.createElement("main",{className:"main"},
-          React.createElement("div",{className:"context-row"},
-            React.createElement("div",{className:"context-left"},
-              React.createElement("span",{className:"result-count"},query?`${results.length} परिणाम`:`${results.length} संवाद`),
-              category!=="all"&&React.createElement("span",{className:"active-chip"},category,React.createElement("button",{onClick:()=>setCategory("all"),"aria-label":"विषय काढा"},"×")),
-              tags.map(t=>React.createElement("span",{key:t,className:"active-chip"},`#${t}`,React.createElement("button",{onClick:()=>toggleTag(t),"aria-label":`${t} tag काढा`},"×")))
+          view === 'home' && React.createElement(React.Fragment, null,
+            React.createElement('div', { className: 'filter-bar' },
+               React.createElement('button', { className: 'filter-btn', onClick: () => setView('explore') }, '☷ संवाद शोधा / फिल्टर'),
+               React.createElement('div', null, 'दिवस ' + progress.currentDay + ' / ३०')
             ),
-            React.createElement("button",{className:"icon-btn",onClick:()=>setShowDays(true),aria-label:"दिवस निवडा"},React.createElement("i",{"data-lucide":"grid-2x2"}),selected?`दिवस ${selected.day}`:"दिवस")
-          ),
-
-          React.createElement("section",{className:"reader","aria-label":"संवाद वाचन"},
-            selected?React.createElement(React.Fragment,null,
-              React.createElement("div",{className:"reader-head"},
-                React.createElement("div",{className:"reader-meta"},
-                  React.createElement("span",{className:"reader-person"},selected.personLabel==="आई-बाबा"?"आई-बाबांचा संयुक्त संवाद":`${selected.personLabel}कडून बाळासाठी प्रेमळ संवाद`),
-                  React.createElement("button",{className:"reader-day",onClick:()=>setShowDays(true),style:{background:"transparent",border:0}},`दिवस ${selected.day} / ${journeyTotal||30}`)
-                ),
-                React.createElement("div",{className:"crumb"},`संवाद / ${selected.personLabel} / ${selected.category} / दिवस ${selected.day}`),
-                React.createElement("h2",null,selected.title),
-                React.createElement("div",{className:"reader-tags"},selected.tags.map(t=>React.createElement("button",{key:t,className:"tag",onClick:()=>toggleTag(t)},`#${t}`)))
-              ),
-              React.createElement("div",{className:"reader-body",ref:readerRef},
-                React.createElement("div",{className:"dialogue"},
-                  selected.messages.map((m,i)=>React.createElement("div",{className:"dialogue-item",key:i},
-                    React.createElement("div",{className:"dialogue-num"},String(i+1).padStart(2,"0")),
-                    React.createElement("p",{className:"dialogue-text",dangerouslySetInnerHTML:{__html:highlight(m)}})
-                  ))
-                ),
-                React.createElement("div",{className:"closing"},"✦",React.createElement("br"),selected.closing,React.createElement("br"),"✦"),
-                React.createElement("div",{className:"journey"},
-                  React.createElement("div",{className:"journey-top"},React.createElement("span",null,`तुमचा प्रवास • ${completedCount} / ${journeyTotal||30} दिवस`),React.createElement("span",null,`${Math.round(progressPct)}%`)),
-                  React.createElement("div",{className:"journey-bar"},React.createElement("div",{className:"journey-fill",style:{width:`${progressPct}%`}})),
-                  React.createElement("p",{className:"journey-copy"},completedCount?"तुम्ही शांतपणे पुढे जात आहात.":"३० दिवसांचा प्रवास सुरू करा — कोणताही दबाव नाही.")
+            React.createElement('h2', { className: 'home-section-title' }, 'आजचा संवाद'),
+            React.createElement('div', { className: 'card-grid' },
+              DIALOGUES_DB.slice(0,3).map(d => 
+                React.createElement('div', { key: d.id, className: 'listing-card', onClick: () => openReader(d) },
+                  React.createElement('div', { className: 'meta-row' },
+                    React.createElement('span', null, d.personLabel),
+                    React.createElement('span', null, 'दिवस ' + d.day)
+                  ),
+                  React.createElement('h3', { className: 'card-title' }, d.title),
+                  React.createElement('div', { className: 'tag-row' },
+                    d.tags.map(t => React.createElement('span', { key: t, className: 'tag-pill' }, '#' + t))
+                  )
                 )
-              ),
-              React.createElement("div",{className:"reader-foot"},
-                React.createElement("button",{className:"nav-btn",onClick:()=>prev&&openDialogue(prev),disabled:!prev,ariaLabel:"मागील संवाद"},React.createElement("i",{"data-lucide":"chevron-left"})," मागे"),
-                React.createElement("div",{className:"reader-actions"},
-                  React.createElement("button",{className:`complete-btn ${completed.includes(selected.id)?"done":""}`,onClick:markComplete},React.createElement("i",{"data-lucide":completed.includes(selected.id)?"check":"book-open"}),completed.includes(selected.id)?"पूर्ण":"पूर्ण करा"),
-                  React.createElement("button",{className:"share-btn",onClick:share},React.createElement("i",{"data-lucide":"share-2"})," शेअर")
-                ),
-                React.createElement("button",{className:"nav-btn primary",onClick:()=>next&&openDialogue(next),disabled:!next,ariaLabel:"पुढील संवाद"},"पुढे ",React.createElement("i",{"data-lucide":"chevron-right"}))
               )
-            ):React.createElement("div",{className:"empty"},React.createElement("h3",null,"काही संवाद सापडले नाहीत."),React.createElement("p",null,"दुसरा शब्द किंवा विषय शोधून पाहा."),React.createElement("button",{className:"clear-all",onClick:clearAll},"फिल्टर साफ करा"))
+            )
           ),
 
-          React.createElement("section",{className:"list",style:{marginTop:14}},
-            results.length>1&&React.createElement("div",{className:"result-count",style:{padding:"0 3px"}},"इतर जुळणारे संवाद"),
-            results.slice(0,12).filter(d=>d.id!==selected?.id).map(d=>React.createElement("button",{key:d.id,className:"result-card",onClick:()=>openDialogue(d)},
-              React.createElement("div",{className:"card-meta"},React.createElement("span",{className:"person-label"},d.personLabel),React.createElement("span",{className:"category-label"},`दिवस ${d.day} • ${d.category}`)),
-              React.createElement("h3",{dangerouslySetInnerHTML:{__html:highlight(d.title)}}),
-              React.createElement("p",{className:"preview",dangerouslySetInnerHTML:{__html:highlight(d.messages[0]||"")}}),
-              React.createElement("div",{className:"result-tags"},d.tags.slice(0,5).map(t=>React.createElement("span",{key:t},`#${t}`))),
-              React.createElement("span",{className:"read-link"},"वाचा →")
-            ))
+          view === 'explore' && React.createElement(React.Fragment, null,
+            React.createElement('div', { className: 'active-chips' },
+              React.createElement('span', { className: 'chip', onClick: () => setView('home') }, '← मागे'),
+              filters.person !== 'सर्व' && React.createElement('span', { className: 'chip', onClick: () => setFilters({...filters, person: 'सर्व'}) }, filters.person + ' ×'),
+              filters.category !== 'सर्व' && React.createElement('span', { className: 'chip', onClick: () => setFilters({...filters, category: 'सर्व'}) }, filters.category + ' ×')
+            ),
+            React.createElement('div', { className: 'filter-bar', style: {marginBottom: '16px'} },
+               ['सर्व', 'आई', 'बाबा', 'आई-बाबा'].map(p => 
+                 React.createElement('button', { 
+                   key: p, 
+                   className: 'filter-btn', 
+                   style: filters.person === p ? {borderColor: 'var(--accent-rose)', color: 'var(--accent-rose)'} : {},
+                   onClick: () => setFilters({...filters, person: p}) 
+                 }, p)
+               )
+            ),
+            React.createElement('div', { style: {fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '8px'} }, filteredDialogues.length + ' संवाद'),
+            React.createElement('div', { className: 'card-grid' },
+              filteredDialogues.map(d => 
+                React.createElement('div', { key: d.id, className: 'listing-card', onClick: () => openReader(d) },
+                  React.createElement('div', { className: 'meta-row' },
+                    React.createElement('span', null, d.personLabel),
+                    React.createElement('span', null, 'दिवस ' + d.day)
+                  ),
+                  React.createElement('h3', { className: 'card-title' }, d.title)
+                )
+              )
+            )
+          ),
+
+          view === 'reader' && currentDialogue && React.createElement('div', { className: 'reader-container' },
+            React.createElement('div', { className: 'reader-header' },
+               React.createElement('div', { className: 'meta-row', style: {marginBottom: '8px'} },
+                  React.createElement('span', { style: {color: 'var(--accent-rose)'} }, currentDialogue.personLabel + ' • दिवस ' + currentDialogue.day),
+                  React.createElement('span', null, currentDialogue.category)
+               ),
+               React.createElement('h2', { className: 'card-title', style: {fontSize: '1.25rem'} }, currentDialogue.title)
+            ),
+            React.createElement('div', { className: 'reader-body' },
+               currentDialogue.messages.map((msg, idx) => 
+                 React.createElement('div', { key: idx, className: 'dialogue-para' },
+                   React.createElement('span', { className: 'para-num' }, String(idx + 1).padStart(2, '0')),
+                   React.createElement('div', null, msg)
+                 )
+               ),
+               React.createElement('div', { className: 'closing-blessing' }, '✦ ' + currentDialogue.closing + ' ✦')
+            ),
+            React.createElement('nav', { className: 'bottom-nav' },
+               React.createElement('button', { className: 'nav-btn', onClick: () => {
+                 const idx = filteredDialogues.findIndex(d => d.id === currentDialogue.id);
+                 if (idx > 0) navigateDialogue(-1); else setView('home');
+               }}, '← मागे'),
+               React.createElement('button', { className: 'nav-btn', disabled: filteredDialogues.findIndex(d => d.id === currentDialogue.id) === filteredDialogues.length - 1, onClick: () => navigateDialogue(1) }, 'पुढे →')
+            )
           )
         )
-      )
-    ),
-    showFilters&&React.createElement(React.Fragment,null,
-      React.createElement("div",{className:"sheet-backdrop",onClick:()=>setShowFilters(false)}),
-      React.createElement("section",{className:"filter-sheet","aria-label":"फिल्टर bottom sheet"},
-        React.createElement("div",{className:"sheet-head"},React.createElement("h3",null,"फिल्टर"),React.createElement("button",{className:"icon-btn",onClick:()=>setShowFilters(false),ariaLabel:"फिल्टर बंद करा"},React.createElement("i",{"data-lucide":"x"}))),
-        React.createElement("div",{className:"sheet-grid"},
-          React.createElement("div",null,React.createElement("div",{className:"filter-title"},"व्यक्ती"),React.createElement("div",{className:"person-switch"},personOptions.map(([k,l])=>React.createElement("button",{key:k,className:`person-btn ${person===k?"active":""}`,onClick:()=>{setPerson(k);setSelectedId("")}},l)))),
-          React.createElement("div",null,React.createElement("div",{className:"filter-title"},"विषय"),React.createElement("div",{className:"tag-cloud"},React.createElement("button",{className:`tag ${category==="all"?"active":""}`,onClick:()=>setCategory("all")},"सर्व"),categories.map(([c])=>React.createElement("button",{key:c,className:`tag ${category===c?"active":""}`,onClick:()=>setCategory(c)},c)))),
-          React.createElement("div",null,React.createElement("div",{className:"filter-title"},"Tags"),React.createElement("div",{className:"tag-cloud"},tagCounts.map(([t])=>React.createElement("button",{key:t,className:`tag ${tags.includes(t)?"active":""}`,onClick:()=>toggleTag(t)},`#${t}`))))
-        ),
-        React.createElement("div",{className:"sheet-actions"},React.createElement("button",{className:"sheet-clear",onClick:clearAll},"सर्व फिल्टर साफ करा"),React.createElement("button",{className:"apply",onClick:()=>setShowFilters(false)},"फिल्टर लागू करा"))
-      )
-    ),
-    showDays&&React.createElement("div",{className:"day-picker","role":"dialog","aria-modal":"true","aria-label":"दिवस निवडा"},
-      React.createElement("div",{className:"day-dialog"},
-        React.createElement("div",{className:"day-head"},React.createElement("h3",null,"दिवस निवडा"),React.createElement("button",{className:"icon-btn",onClick:()=>setShowDays(false),ariaLabel:"दिवस निवड बंद करा"},React.createElement("i",{"data-lucide":"x"}))),
-        React.createElement("div",{className:"day-grid"},
-          Array.from({length:journeyTotal||30},(_,i)=>i+1).map(day=>{
-            const d=scoped.find(x=>x.day===day)||allData.find(x=>x.day===day);
-            return React.createElement("button",{key:day,className:`day-cell ${selected?.day===day?"active":""} ${d&&completed.includes(d.id)?"completed":""}`,onClick:()=>{if(d){openDialogue(d);setShowDays(false)}},disabled:!d,ariaLabel:`दिवस ${day}`},day)
-          })
-        )
-      )
-    ),
-    toast&&React.createElement("div",{className:"toast","role":"status"},toast)
-  );
-}
+      );
+    }
 
-ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
-function refreshIcons(){if(window.lucide)window.lucide.createIcons()}
-setTimeout(refreshIcons,50);
-new MutationObserver(refreshIcons).observe(document.getElementById("root"),{subtree:true,childList:true});
-</script>
+    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+  </script>
 </body>
 </html>
