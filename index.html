@@ -1,786 +1,433 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="mr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0d0b12">
-  <meta name="description" content="उमाभरत गर्भसंवाद — प्रेम • संस्कार • प्रार्थना">
-  <title>उमाभरत गर्भसंवाद</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#241b24">
+<meta name="description" content="गर्भसंवाद — प्रेम • संस्कार • प्रार्थना">
+<title>गर्भसंवाद — प्रेम • संस्कार • प्रार्थना</title>
 
-  <!-- Google Marathi Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600;700&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- React 18 & Lucide Icons -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+<style>
+:root{
+  --bg:#17131a;--bg2:#211923;--surface:#241d26;--surface2:#2b222d;
+  --ink:#f8efe9;--muted:#bcaeaa;--line:rgba(255,255,255,.10);
+  --rose:#d8899c;--rose2:#a95670;--gold:#d9b26f;--soft:rgba(216,137,156,.12);
+  --focus:#f2c6d1;--shadow:0 18px 50px rgba(0,0,0,.24);--r:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:
+ radial-gradient(900px 500px at 50% -10%,rgba(151,77,107,.18),transparent 65%),
+ linear-gradient(180deg,var(--bg) 0%,#120f15 100%);
+ color:var(--ink);font-family:"Noto Sans Devanagari",system-ui,sans-serif;line-height:1.7}
+button,input{font:inherit}
+button{color:inherit}
+button:focus-visible,input:focus-visible{outline:3px solid rgba(242,198,209,.55);outline-offset:2px}
+.app{width:min(100%,820px);margin:auto;padding:0 15px 120px}
+header{position:sticky;top:0;z-index:30;margin:0 -15px;padding:10px 15px;
+ background:rgba(23,19,26,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:45px;height:45px;display:grid;place-items:center;border-radius:15px;
+ background:linear-gradient(145deg,rgba(216,137,156,.2),rgba(217,178,111,.12));
+ border:1px solid rgba(255,255,255,.10);color:var(--gold)}
+.brand h1{margin:0;font-family:"Noto Serif Devanagari",serif;font-size:19px;line-height:1.15}
+.brand p{margin:2px 0 0;color:var(--muted);font-size:11px}
+.hero{padding:22px 2px 14px}
+.eyebrow{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.02em}
+.hero h2{margin:4px 0 5px;font-family:"Noto Serif Devanagari",serif;font-size:27px;line-height:1.28}
+.hero p{margin:0;color:var(--muted);font-size:13px}
+.search{position:relative;margin-top:17px}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:19px;color:var(--muted)}
+.search input{width:100%;height:50px;padding:0 44px;border-radius:17px;border:1px solid var(--line);
+ background:rgba(255,255,255,.055);color:var(--ink);outline:none}
+.search input::placeholder{color:#8f8382}
+.clear{position:absolute;right:7px;top:7px;width:36px;height:36px;border:0;border-radius:12px;
+ background:transparent;display:none;place-items:center;cursor:pointer;color:var(--muted)}
+.filters{position:sticky;top:66px;z-index:20;margin:4px -15px 0;padding:10px 15px 12px;
+ background:rgba(23,19,26,.90);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.filter-label{font-size:11px;color:var(--muted);margin:0 0 6px}
+.scroller{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:1px 1px 3px}
+.scroller::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;min-height:38px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);
+ background:rgba(255,255,255,.045);cursor:pointer;white-space:nowrap;font-size:12px}
+.chip:hover{background:rgba(255,255,255,.08)}
+.chip.active{background:var(--rose);border-color:var(--rose);color:#24151b;font-weight:800}
+.chip .num{opacity:.65;margin-left:3px}
+.tagbar{margin-top:8px}
+.tagchip{min-height:33px;padding:5px 10px;font-size:11px}
+.tagchip.active{background:rgba(217,178,111,.18);border-color:rgba(217,178,111,.55);color:#f2d59e}
+.results-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:21px 0 10px}
+.results-head strong{font-family:"Noto Serif Devanagari",serif;font-size:18px}
+.results-head span{font-size:11px;color:var(--muted)}
+.cards{display:grid;gap:11px}
+.card{position:relative;border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.035));
+ border-radius:20px;padding:15px;box-shadow:0 8px 28px rgba(0,0,0,.12);cursor:pointer;
+ transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.card:hover{transform:translateY(-1px);border-color:rgba(216,137,156,.35)}
+.card:active{transform:scale(.995)}
+.cardtop{display:flex;gap:12px;align-items:flex-start}
+.daybox{width:57px;min-width:57px;height:57px;border-radius:16px;display:grid;place-items:center;text-align:center;
+ background:var(--soft);border:1px solid rgba(216,137,156,.16);color:var(--focus);font-size:11px;font-weight:800;line-height:1.35}
+.daybox b{font-size:17px;color:var(--gold)}
+.cardbody{min-width:0;flex:1}
+.card h3{margin:0;font-family:"Noto Serif Devanagari",serif;font-size:17px;line-height:1.4}
+.meta{margin-top:4px;color:var(--muted);font-size:11px}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
+.tag{padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.055);color:#cfc0bb;font-size:10px}
+.empty{text-align:center;padding:45px 18px;border:1px dashed var(--line);border-radius:20px;color:var(--muted)}
+.status{text-align:center;color:#817574;font-size:10px;margin:20px 0}
+.to-top{position:fixed;right:15px;bottom:18px;width:43px;height:43px;border-radius:50%;display:none;place-items:center;
+ border:1px solid var(--line);background:rgba(36,29,38,.92);backdrop-filter:blur(12px);box-shadow:var(--shadow);z-index:25;cursor:pointer}
+.to-top.show{display:grid}
 
-  <style>
-    :root {
-      --bg: #0d0b12;
-      --card-bg: rgba(26, 22, 34, 0.96);
-      --card-border: rgba(240, 185, 205, 0.12);
-      --text: #fffbf7;
-      --content: #e8e0dc;
-      --muted: #a69b9e;
-      --accent: #f0a8c8;
-      --accent-gold: #e2ba6f;
-      --primary: #a1547b;
-      --primary-dark: #6e3352;
-      --line: rgba(255, 255, 255, 0.08);
-      --shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
-      --radius: 24px;
-    }
+/* Reader */
+.reader{position:fixed;inset:0;z-index:100;display:none;background:rgba(0,0,0,.68);backdrop-filter:blur(4px)}
+.reader.open{display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:min(100%,820px);height:min(92dvh,850px);background:#211a22;border:1px solid var(--line);
+ border-radius:25px 25px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -20px 70px rgba(0,0,0,.5)}
+.sheet-head{display:flex;gap:10px;align-items:center;padding:11px 13px;border-bottom:1px solid var(--line);
+ background:rgba(33,26,34,.96);flex-shrink:0}
+.rday{width:49px;min-width:49px;height:49px;border-radius:14px;display:grid;place-items:center;text-align:center;
+ background:var(--soft);color:var(--focus);font-size:10px;font-weight:800;line-height:1.25}
+.rday b{font-size:15px;color:var(--gold)}
+.rtitle{min-width:0;flex:1}.rtitle h2{margin:0;font-family:"Noto Serif Devanagari",serif;font-size:18px;line-height:1.4}
+.rtitle small{display:block;color:var(--muted);font-size:10px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.close{width:42px;height:42px;border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:13px;display:grid;place-items:center;cursor:pointer}
+.dialogue{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:18px 15px 24px}
+.dialogue-inner{width:min(100%,700px);margin:auto}
+.line{padding:0 0 18px;margin:0 0 17px;border-bottom:1px solid rgba(255,255,255,.07)}
+.line:last-child{border-bottom:0}
+.speaker{display:flex;align-items:center;gap:6px;color:var(--rose);font-size:11px;font-weight:800;margin-bottom:5px}
+.text{font-family:"Noto Sans Devanagari",sans-serif;font-size:16px;line-height:1.95;color:#f7eeea;white-space:pre-wrap}
+.lesson{margin:20px 0;padding:16px;border:1px solid rgba(217,178,111,.22);background:rgba(217,178,111,.07);border-radius:17px}
+.lesson b{color:var(--gold);font-size:12px}.lesson div{margin-top:5px;font-size:14px;line-height:1.85}
+.blessing{margin:22px 0 2px;padding:20px;text-align:center;border-radius:18px;background:rgba(216,137,156,.07);
+ border:1px solid rgba(216,137,156,.15);font-family:"Tiro Devanagari Marathi","Noto Serif Devanagari",serif;color:#f2dce1;font-size:16px}
+.sheet-foot{display:flex;gap:7px;padding:9px 11px calc(9px + env(safe-area-inset-bottom));border-top:1px solid var(--line);
+ background:rgba(33,26,34,.98);flex-shrink:0}
+.foot-btn{height:46px;flex:1;border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:14px;cursor:pointer;font-size:12px}
+.foot-btn.primary{background:var(--rose);border-color:var(--rose);color:#24151b;font-weight:800}
+.foot-btn:disabled{opacity:.35;cursor:not-allowed}
+.progress{height:3px;background:rgba(255,255,255,.06);flex-shrink:0}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--rose2),var(--gold));width:0}
+.day-modal{position:fixed;inset:0;z-index:120;display:none;place-items:center;padding:20px;background:rgba(0,0,0,.65)}
+.day-modal.open{display:grid}
+.day-box-modal{width:min(100%,430px);background:#251e27;border:1px solid var(--line);border-radius:22px;padding:17px;box-shadow:var(--shadow)}
+.day-box-modal h3{margin:0 0 4px;font-family:"Noto Serif Devanagari",serif}
+.day-box-modal p{margin:0 0 13px;color:var(--muted);font-size:11px}
+.daygrid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.daybtn{height:43px;border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:12px;cursor:pointer;font-size:12px}
+.daybtn:hover,.daybtn.active{background:var(--rose);border-color:var(--rose);color:#24151b;font-weight:800}
+.modal-close{width:100%;height:43px;margin-top:12px;border:1px solid var(--line);background:transparent;border-radius:12px;cursor:pointer}
 
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Noto Sans Devanagari", "Nirmala UI", sans-serif;
-      overflow-x: hidden;
-    }
-
-    body {
-      background:
-        radial-gradient(circle at 50% -15%, rgba(200, 110, 155, 0.22), transparent 45%),
-        radial-gradient(circle at 90% 85%, rgba(130, 80, 120, 0.15), transparent 40%),
-        var(--bg);
-    }
-
-    .app {
-      min-height: 100dvh;
-      display: flex;
-      justify-content: center;
-      padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
-    }
-
-    .shell {
-      width: min(720px, 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-      min-height: calc(100dvh - max(24px, env(safe-area-inset-top) + env(safe-area-inset-bottom)));
-    }
-
-    /* TOPBAR */
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 2px 4px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo-badge {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #d482a5, #793757);
-      border: 1.5px solid rgba(255, 230, 240, 0.28);
-      box-shadow: 0 4px 15px rgba(212, 130, 165, 0.3);
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      font-size: 16px;
-      letter-spacing: 0.5px;
-      color: #fff;
-    }
-
-    .brand-text h1 {
-      margin: 0;
-      font-size: 0.96rem;
-      font-weight: 800;
-      color: #fff9f6;
-      line-height: 1.2;
-    }
-
-    .brand-text p {
-      margin: 2px 0 0;
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.02em;
-    }
-
-    /* SLIDING SEGMENTED SWITCH */
-    .switch-container {
-      position: relative;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 3px;
-      display: flex;
-      align-items: center;
-      width: 175px;
-      height: 36px;
-      user-select: none;
-    }
-
-    .switch-indicator {
-      position: absolute;
-      top: 3px;
-      bottom: 3px;
-      width: calc(50% - 3px);
-      background: linear-gradient(135deg, #a75c82, #7e3b5e);
-      border-radius: 999px;
-      box-shadow: 0 2px 10px rgba(167, 92, 130, 0.4);
-      transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .switch-indicator.father {
-      transform: translateX(100%);
-      background: linear-gradient(135deg, #745287, #4b325c);
-      box-shadow: 0 2px 10px rgba(116, 82, 135, 0.4);
-    }
-
-    .switch-btn {
-      position: relative;
-      z-index: 2;
-      flex: 1;
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      font-size: 0.74rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      padding: 0;
-      line-height: 30px;
-      transition: color 200ms ease;
-    }
-
-    .switch-btn.active {
-      color: #fff;
-    }
-
-    /* PROGRESS TRACK */
-    .progress-bar-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 0 4px;
-    }
-
-    .progress-track {
-      flex: 1;
-      height: 4px;
-      border-radius: 99px;
-      background: rgba(255, 255, 255, 0.08);
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      transition: width 300ms ease;
-    }
-
-    .counter-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--accent);
-      min-width: 80px;
-      text-align: right;
-    }
-
-    /* CARD CONTAINER */
-    .card {
-      width: 100%;
-      height: min(680px, 68dvh);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      border-radius: var(--radius);
-      border: 1px solid var(--card-border);
-      background: var(--card-bg);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    /* STICKY / FIXED CARD HEADER */
-    .card-sticky-head {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      padding: 14px 18px 10px;
-      background: rgba(26, 22, 34, 0.94);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-    }
-
-    .card-badge-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 5px;
-    }
-
-    .speaker-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: rgba(240, 168, 200, 0.12);
-      color: var(--accent);
-      border: 1px solid rgba(240, 168, 200, 0.2);
-    }
-
-    .speaker-tag.father {
-      background: rgba(186, 140, 224, 0.14);
-      color: #ceabee;
-      border-color: rgba(186, 140, 224, 0.25);
-    }
-
-    .day-pill {
-      font-size: 0.74rem;
-      font-weight: 800;
-      color: var(--accent-gold);
-      letter-spacing: 0.03em;
-    }
-
-    .card-title {
-      margin: 0;
-      font-size: clamp(1.1rem, 4.2vw, 1.35rem);
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1.3;
-      letter-spacing: -0.01em;
-    }
-
-    /* SCROLLABLE DIALOGUE BODY */
-    .card-scroll-body {
-      flex: 1;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 12px 18px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
-    }
-
-    .card-scroll-body::-webkit-scrollbar {
-      width: 4px;
-    }
-    .card-scroll-body::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 4px;
-    }
-
-    .dialogue-item {
-      background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 12px;
-      padding: 8px 12px;
-      font-size: clamp(0.88rem, 3.7vw, 0.98rem);
-      line-height: 1.7;
-      color: var(--content);
-      font-weight: 500;
-    }
-
-    .dialogue-item.highlight {
-      border-left: 3px solid var(--accent);
-      background: rgba(240, 168, 200, 0.04);
-    }
-
-    .card-footer-mantra {
-      margin-top: 10px;
-      padding-top: 12px;
-      border-top: 1px solid var(--line);
-      text-align: center;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 0.02em;
-    }
-
-    /* BOTTOM NAV BAR */
-    .bottom-nav {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr 1fr;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-    }
-
-    .nav-btn {
-      min-height: 46px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 150ms ease;
-    }
-
-    .nav-btn:active {
-      transform: scale(0.96);
-    }
-
-    .nav-btn:hover {
-      background: rgba(255, 255, 255, 0.09);
-    }
-
-    .nav-btn.primary {
-      background: linear-gradient(135deg, #a75c82, #7e3b5e);
-      border-color: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 4px 16px rgba(167, 92, 130, 0.25);
-    }
-
-    .nav-btn:disabled {
-      opacity: 0.25;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    /* WHATSAPP SHARE BUTTON */
-    .share-btn {
-      min-height: 46px;
-      border: 1px solid rgba(37, 211, 102, 0.3);
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(37, 211, 102, 0.18), rgba(18, 140, 126, 0.28));
-      color: #6ef0a4;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.12);
-      transition: all 150ms ease;
-    }
-
-    .share-btn:active {
-      transform: scale(0.96);
-    }
-
-    .share-btn:hover {
-      background: linear-gradient(135deg, rgba(37, 211, 102, 0.26), rgba(18, 140, 126, 0.38));
-      border-color: rgba(37, 211, 102, 0.5);
-    }
-
-    .share-btn svg {
-      width: 17px;
-      height: 17px;
-      stroke-width: 2.2;
-    }
-
-    .swipe-hint {
-      text-align: center;
-      font-size: 0.65rem;
-      color: #797177;
-      margin-top: -3px;
-    }
-
-    /* TOAST MESSAGE */
-    .toast {
-      position: fixed;
-      bottom: 75px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1c1824;
-      color: #fff;
-      border: 1px solid var(--accent);
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      z-index: 100;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-      animation: fadeInOut 2.5s ease forwards;
-    }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; transform: translate(-50%, 10px); }
-      15% { opacity: 1; transform: translate(-50%, 0); }
-      85% { opacity: 1; transform: translate(-50%, 0); }
-      100% { opacity: 0; transform: translate(-50%, -10px); }
-    }
-  </style>
+@media(min-width:650px){
+ .app{padding-left:20px;padding-right:20px}
+ header{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}
+ .filters{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}
+ .cards{grid-template-columns:1fr 1fr}
+ .sheet{border-radius:25px;margin-bottom:20px;height:min(88dvh,850px)}
+ .reader.open{align-items:center}
+}
+@media(max-width:380px){
+ .hero h2{font-size:24px}.text{font-size:15px}.foot-btn{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+ *{scroll-behavior:auto!important;transition:none!important}
+}
+</style>
 </head>
+
 <body>
-  <div id="root"></div>
+<div class="app">
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><i data-lucide="flower-2"></i></div>
+    <div><h1>गर्भसंवाद</h1><p>प्रेम • संस्कार • प्रार्थना</p></div>
+  </div>
+</header>
 
-  <script>
-    const { useState, useEffect, useRef } = React;
+<section class="hero">
+  <div class="eyebrow">३० दिवसांचा प्रेमळ प्रवास</div>
+  <h2>बाळाशी मनापासून संवाद साधूया</h2>
+  <p>आई, बाबा किंवा आई-बाबा यांचे संवाद — विषय, category आणि tags नुसार सहज शोधा.</p>
+  <div class="search">
+    <i data-lucide="search" aria-hidden="true"></i>
+    <input id="search" type="search" autocomplete="off" placeholder="संवाद, विषय, tag किंवा शब्द शोधा…" aria-label="संवाद शोधा">
+    <button class="clear" id="clearSearch" aria-label="शोध साफ करा"><i data-lucide="x"></i></button>
+  </div>
+</section>
 
-    // Embedded Fallback Data for Mother & Father (1-30 days each)
-    const FALLBACK_MOTHER = [
-      ["दिवस १", "प्रेम आणि सुरक्षिततेची ऊब", "१. माझ्या लाडक्या बाळा, आजपासून मी तुझ्याशी मनापासून एक सुंदर आणि अखंड संवाद सुरू करत आहे.\n२. तू माझ्या उदरात सुरक्षित आहेस आणि माझ्या हृदयाचा प्रत्येक ठोका फक्त तुझ्यासाठी प्रेमाने धडधडत आहे.\n३. माझ्या पोटावरून फिरणारा हा मायेचा हात तुला संपूर्ण जगातील सर्वात सुरक्षित जागा देत आहे.\n४. तू या जगात येण्याआधीच मी आणि तुझे बाबा तुझ्यावर अथांग आणि निरपेक्ष प्रेम करत आहोत.\n५. माझ्या श्वासासोबत वाहणारी प्रत्येक भावना तुझ्या मनाला असीम शांती आणि तृप्ती देणारी ठरो.\n६. तुझ्या आजूबाजूला केवळ सकारात्मक, शुद्ध आणि प्रेमळ स्पंदनांचे एक अभेद्य कवच निर्माण झाले आहे.\n७. स्वतःवर प्रेम करण्याचे आणि जगाला भरभरून प्रेम देण्याचे उत्तम संस्कार तुझ्या अंतर्मनात रुजत आहेत.\n८. कोणत्याही भीतीशिवाय आणि संकोचाशिवाय तू माझ्या कुशीत अगदी निर्धास्तपणे आणि सुखाने वाढत राहा.\n९. तुझे अस्तित्व हे आमच्या संपूर्ण घराचे चैतन्य, आनंद आणि प्रकाशाचा अखंड झरा आहे.\n१०. बाळा, शांतपणे झोप आणि माझ्या प्रेमाची ऊब अनुभवत अतिशय आनंदाने आणि उत्साहाने घडत राहा."],
-      ["दिवस २", "आरोग्य, तेज आणि सुदृढ शरीर", "१. माझ्या गोड बाळा, तुझ्या शरीराची प्रत्येक पेशी, ऊती आणि अवयव अतिशय परिपूर्णतेने विकसित होत आहेत.\n२. मी घेत असलेल्या प्रत्येक पोषक अन्नाचा आणि पाण्याचा अंश तुला प्रचंड शारीरिक ताकद आणि तेज देत आहे.\n३. तुझी रोगप्रतिकारशक्ती जन्मतःच अत्यंत बलवान, कणखर आणि सर्व रोगांपासून तुझे रक्षण करणारी घडत आहे.\n४. तुझा मेंदू, हृदय, डोळे आणि सर्व ज्ञानेंद्रिये अतिशय प्रमाणबद्ध, निरोगी आणि कार्यक्षम होत आहेत.\n५. तुझ्या चेहऱ्यावर एक अलौकिक ईश्वरी तेज, डोळ्यांमध्ये निर्मळ चमक आणि ओठांवर गोड हास्य फुलत आहे.\n६. निसर्गाची सर्व पंचमहाभूते तुझ्या शरीराला सुदृढता, चपळता आणि अखंड ऊर्जा प्रदान करत आहेत.\n७. तुझे फुफ्फुस, हाडे आणि स्नायू प्रत्येक क्षणाला अधिक मजबूत आणि शक्तिशाली बनत चालले आहेत.\n८. माझ्या शरीरातील सकारात्मक हार्मोन्स तुझ्या वाढीला एक नैसर्गिक आणि निरोगी दिशा देत आहेत.\n९. तू जेव्हा या जगात येशील, तेव्हा तू एक अत्यंत देखणे, सशक्त, सुदृढ आणि निरोगी बालक म्हणून ओळखले जाशील.\n१०. बाळा, पूर्ण शक्तीने आणि आरोग्याच्या परिपूर्ण आशीर्वादाने तू माझ्या उदरात सुरक्षितपणे बहरत राहा."]
-    ];
+<nav class="filters" aria-label="संवाद फिल्टर">
+  <div class="filter-label">कोणाचा संवाद?</div>
+  <div class="scroller" id="speakerFilters"></div>
+  <div class="filter-label" style="margin-top:9px">विषय / Category</div>
+  <div class="scroller" id="categoryFilters"></div>
+  <div class="tagbar">
+    <div class="filter-label">Tags</div>
+    <div class="scroller" id="tagFilters"></div>
+  </div>
+</nav>
 
-    const FALLBACK_FATHER = [
-      ["दिवस १", "पितृप्रेम, ओळख आणि सुरक्षिततेचे वचन", "१. माझ्या लाडक्या बाळा, मी तुझा बाबा तुझ्याशी बोलतोय; माझा हा आश्वासक आवाज तुझ्या अंतर्मनात शांततेने उतरू दे.\n२. तुझ्या आईच्या उदरात तू सुरक्षित आहेस आणि बाहेरून मी तुझ्या संरक्षणासाठी एक अभेद्य ढाल बनून उभा आहे.\n३. तू या जगात येण्याआधीच माझे संपूर्ण आयुष्य तुझ्या प्रेमाने, आनंदाने आणि नव्या स्वप्नांनी भरून गेले आहे.\n४. माझ्या हाताचा स्पर्श जेव्हा तुझ्या आईच्या पोटावर होतो, तेव्हा मला तुझ्या अस्तित्वाची आणि नात्याची सुंदर अनुभूती येते.\n५. तू मुलगा असो वा मुलगी, तू माझ्यासाठी या विश्वातील सर्वात अनमोल आणि सुंदर भेट आहेस.\n६. जीवनाच्या प्रत्येक वळणावर, प्रत्येक सुख-दुःखात तुझा हा बाबा तुझ्या पाठीशी खंबीरपणे आणि विश्वासाने उभा राहील.\n७. तुला जगातल्या सर्व संकटांपासून दूर ठेवून सर्वोत्तम जीवन देण्याचा मी आज तुला अंतःकरणापासून शब्द देतो.\n८. माझ्या प्रत्येक श्वासात तुझ्या उज्ज्वल भविष्याची आणि तुझ्या सुदृढ आरोग्याची मंगलमय प्रार्थना आहे.\n९. कोणत्याही भीतीशिवाय अगदी शांतपणे आणि सुखाने तू आईच्या कुशीत वाढत राहा.\n१०. बाळा, शांत झोप; तुझा बाबा तुझ्या आगमनाची अतिशय आतुरतेने आणि अभिमानाने वाट पाहत आहे."],
-      ["दिवस २", "अलौकिक बुद्धिमत्ता आणि तर्कशुद्ध विचार", "१. माझ्या कुशाग्र बाळा, तुझ्या मेंदूला आणि विचारशक्तीला या विश्वातील सर्वात तल्लख आणि अलौकिक बुद्धिमत्ता लाभत आहे.\n२. प्रत्येक गोष्टीमागील वैज्ञानिक कारण समजून घेण्याची आणि सत्य शोधण्याची तीव्र जिज्ञासा तुझ्या मनात निर्माण होवो.\n३. गुंतागुंतीच्या समस्यांवर शांत डोक्याने विचार करून अचूक, सोपे आणि योग्य मार्ग शोधण्याची कला तुला साध्य होईल.\n४. केवळ ऐकीव गोष्टींवर विश्वास न ठेवता, तर्कशुद्ध विचार आणि पुराव्यांच्या आधारे निष्कर्ष काढण्याची क्षमता तुझ्यात रुजेल.\n५. पुस्तकी ज्ञानासोबतच व्यावहारिक चातुर्य, समयसूचकता आणि व्यवहारज्ञान तुझ्या व्यक्तिमत्त्वाला परिपूर्ण बनवेल.\n६. विज्ञानाची ओढ, गणिताची अचूकता आणि तंत्रज्ञानाची उत्तम समज तुझ्या बुद्धीला सदैव प्रगत आणि धारदार ठेवेल.\n७. निर्णय घेताना भावना आणि बुद्धीचा परिपूर्ण समतोल साधून तू अत्यंत विवेकी व योग्य निर्णय घेशील.\n८. नवीन कल्पना शोधून काढणे आणि नवनिर्मिती करणे हा तुझ्या दैनंदिन विचारांचा मुख्य भाग बनेल.\n९. तुझी ही कुशाग्र बुद्धिमत्ता तुला जगातील कोणत्याही मोठ्या व्यासपीठावर सन्मान आणि यश मिळवून देईल.\n१०. बाळा, ज्ञानाचा अथांग महासागर हो आणि तुझ्या बुद्धिमत्तेने हे जग अधिक सुंदर आणि प्रगत कर."]
-    ];
+<section class="results-head">
+  <strong id="heading">सर्व संवाद</strong>
+  <span id="count"></span>
+</section>
+<main class="cards" id="cards"></main>
+<div class="status">तुमची निवड आणि शेवटचा वाचलेला दिवस या device वर सुरक्षितपणे जतन केला जातो.</div>
+</div>
 
-    function App() {
-      const [speaker, setSpeaker] = useState('mother'); // 'mother' or 'father'
-      const [motherData, setMotherData] = useState(FALLBACK_MOTHER);
-      const [fatherData, setFatherData] = useState(FALLBACK_FATHER);
-      const [currentIndex, setCurrentIndex] = useState(0);
-      const [toastMsg, setToastMsg] = useState('');
-      const [isSharing, setIsSharing] = useState(false);
+<button class="to-top" id="toTop" aria-label="वर जा"><i data-lucide="arrow-up"></i></button>
 
-      const touchStartX = useRef(0);
-      const touchEndX = useRef(0);
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-labelledby="rTitle">
+  <section class="sheet">
+    <div class="sheet-head">
+      <button class="close" id="close" aria-label="वाचन बंद करा"><i data-lucide="x"></i></button>
+      <div class="rday" id="rDay"></div>
+      <div class="rtitle"><h2 id="rTitle"></h2><small id="rMeta"></small></div>
+      <button class="close" id="dayPickerOpen" aria-label="दिवस निवडा"><i data-lucide="calendar-days"></i></button>
+    </div>
+    <div class="progress"><i id="readerProgress"></i></div>
+    <div class="dialogue" id="dialogue"><div class="dialogue-inner"></div></div>
+    <div class="sheet-foot">
+      <button class="foot-btn" id="prev"><i data-lucide="chevron-left"></i> मागील</button>
+      <button class="foot-btn primary" id="next">पुढील <i data-lucide="chevron-right"></i></button>
+      <button class="foot-btn" id="share"><i data-lucide="share-2"></i> शेअर</button>
+    </div>
+  </section>
+</div>
 
-      // Load external JSON files (mothers.json / fathers.json)
-      useEffect(() => {
-        // Fetch Mother's Data
-        fetch('./data/mothers.json')
-          .then(res => res.ok ? res.json() : fetch('./data/mother.json').then(r => r.json()))
-          .then(d => { if (Array.isArray(d) && d.length > 0) setMotherData(d); })
-          .catch(() => console.log('Mother data using fallback/cached'));
+<div class="day-modal" id="dayModal" role="dialog" aria-modal="true" aria-labelledby="dayModalTitle">
+  <div class="day-box-modal">
+    <h3 id="dayModalTitle">दिवस निवडा</h3>
+    <p>तुम्हाला हवा तो दिवस थेट उघडा.</p>
+    <div class="daygrid" id="dayGrid"></div>
+    <button class="modal-close" id="dayModalClose">बंद करा</button>
+  </div>
+</div>
 
-        // Fetch Father's Data
-        fetch('./data/fathers.json')
-          .then(res => res.ok ? res.json() : fetch('./data/father.json').then(r => r.json()))
-          .then(d => { if (Array.isArray(d) && d.length > 0) setFatherData(d); })
-          .catch(() => console.log('Father data using fallback/cached'));
-      }, []);
+<script>
+const DATA_FILES = {
+  mother: 'data/mother.json',
+  father: 'data/father.json',
+  parents: 'data/parents dialogue.json',
+  momstories: 'data/momstories.json',
+  dadstories: 'data/Dadstories.json',
+  thoughts: 'data/thoughts.json',
+  personality: 'data/Great personality.json',
+  categories: 'data/categories.json'
+};
 
-      const activeList = speaker === 'mother' ? motherData : fatherData;
-      const totalDays = activeList.length;
+const fallback = [
+  {id:'m1',day:1,title:'कुटुंबातील आनंद आणि बाळाचे स्वागत',speaker:'mother',category:'कुटुंब',tags:['प्रेम','सुरक्षितता'],lines:[
+    ['आई','माझ्या लाडक्या बाळा, आई तुझ्याशी प्रेमाने बोलायला आली आहे.'],
+    ['आई','तू आमच्या आयुष्यात येणार आहेस या विचाराने माझे मन आनंदाने भरून गेले आहे.'],
+    ['आई','आपल्या घरात प्रेम, शांतता आणि आनंदाचे वातावरण सदैव राहो.'],
+    ['आई','तू सुरक्षित आहेस आणि तुला माझे प्रेम नेहमी जाणवत राहो.'],
+    ['आई','तुझ्या प्रत्येक दिवसात चांगुलपणा, करुणा आणि आनंद वाढत जावो.'],
+    ['आई','तू मोठा झाल्यावर इतरांशी प्रेमाने आणि आदराने वाग.'],
+    ['आई','तुझ्या मनात शिकण्याची आणि चांगले करण्याची इच्छा सदैव राहो.'],
+    ['आई','आपण दोघे मिळून खूप सुंदर आठवणी निर्माण करूया.'],
+    ['आई','तुझ्यासाठी माझी मनापासून प्रार्थना आणि शुभेच्छा आहेत.'],
+    ['आई','माझ्या बाळा, तू आनंदी आणि शांत राहा; आईचे तुझ्यावर खूप प्रेम आहे.']
+  ]},
+  {id:'p1',day:1,title:'आई-बाबांचा संयुक्त प्रेमसंवाद',speaker:'parents',category:'कुटुंब',tags:['प्रेम','आशीर्वाद'],lines:[
+    ['आई-बाबा','माझ्या लाडक्या बाळा, आज आम्ही दोघेही तुझ्याशी मनापासून गप्पा मारायला आलो आहोत.'],
+    ['आई','आईचा हा कोमल हात आणि बाबांचा हा आधार तुला प्रेमाची ऊब देत आहे.'],
+    ['बाबा','तू आमच्या आयुष्यात येणार आहेस या विचाराने आमचे घर आनंदाने भरले आहे.'],
+    ['आई','आपल्या घरात हसरे, प्रसन्न आणि सकारात्मक वातावरण ठेवण्याचा आम्ही प्रयत्न करतो.'],
+    ['बाबा','तू आमच्या प्रेमाचे सुंदर प्रतीक आहेस.'],
+    ['आई','तुझ्या मनात शांतता आणि चांगुलपणाची बीजे रुजत राहोत.'],
+    ['बाबा','तुला प्रत्येक दिवस नवीन काही शिकण्याची प्रेरणा मिळो.'],
+    ['आई','आपण प्रेम, संस्कार आणि कृतज्ञता यांना आपल्या जीवनाचा भाग बनवूया.'],
+    ['बाबा','तुझ्या प्रत्येक पावलावर आमच्या शुभेच्छा आणि आशीर्वाद आहेत.'],
+    ['आई-बाबा','बाळा, आनंदी राहा; आम्ही तुझी प्रेमाने वाट पाहत आहोत.']
+  ]},
+  {id:'f1',day:1,title:'बाबांचा धीर आणि विश्वास',speaker:'father',category:'आत्मविश्वास',tags:['विश्वास','धैर्य'],lines:[
+    ['बाबा','माझ्या बाळा, बाबा तुझ्याशी प्रेमाने बोलत आहे.'],
+    ['बाबा','तू आमच्यासाठी खूप खास आहेस आणि तुझ्या येण्याची आम्ही आतुरतेने वाट पाहतो.'],
+    ['बाबा','आयुष्यात प्रश्न आले तर शांतपणे विचार करून मार्ग शोध.'],
+    ['बाबा','चूक झाली तरी त्यातून शिक आणि पुन्हा प्रयत्न कर.'],
+    ['बाबा','इतरांचा आदर कर आणि स्वतःवरही विश्वास ठेव.'],
+    ['बाबा','ज्ञान, प्रामाणिकपणा आणि करुणा हे तुझे खरे मित्र असतील.'],
+    ['बाबा','तुझ्या स्वप्नांना मेहनतीची साथ दे.'],
+    ['बाबा','तू जसा आहेस तसाच मौल्यवान आहेस.'],
+    ['बाबा','तुझ्या प्रत्येक चांगल्या प्रयत्नाचे आम्ही कौतुक करू.'],
+    ['बाबा','माझ्या बाळा, धीराने आणि आनंदाने पुढे जा.']
+  ]}
+];
 
-      // Ensure index is within range
-      const safeIndex = Math.min(currentIndex, totalDays - 1);
-      const currentItem = activeList[safeIndex] || ["दिवस १", "संवाद", "माहिती उपलब्ध नाही."];
-      const [dayLabel, titleText, rawContent] = currentItem;
+let items=[], activeSpeaker='all', activeCategory='all', activeTag='all', query='';
+let readerId=null, lastFocus=null;
 
-      // Parse lines
-      const lines = typeof rawContent === 'string'
-        ? rawContent.split('\n').filter(l => l.trim().length > 0)
-        : (Array.isArray(rawContent) ? rawContent : [rawContent]);
-
-      const progressPercent = ((safeIndex + 1) / totalDays) * 100;
-
-      const handleSpeakerChange = (newSpeaker) => {
-        setSpeaker(newSpeaker);
-        setCurrentIndex(0); // Reset to Day 1 on filter switch
-      };
-
-      const goToPrev = () => {
-        if (safeIndex > 0) setCurrentIndex(safeIndex - 1);
-      };
-
-      const goToNext = () => {
-        if (safeIndex < totalDays - 1) setCurrentIndex(safeIndex + 1);
-      };
-
-      // Keyboard arrow navigation
-      useEffect(() => {
-        const handleKeyDown = (e) => {
-          if (e.key === 'ArrowLeft') goToPrev();
-          if (e.key === 'ArrowRight') goToNext();
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-      }, [safeIndex, totalDays]);
-
-      // Touch swipe
-      const handleTouchStart = (e) => { touchStartX.current = e.targetTouches[0].clientX; };
-      const handleTouchMove = (e) => { touchEndX.current = e.targetTouches[0].clientX; };
-      const handleTouchEnd = () => {
-        const diff = touchStartX.current - touchEndX.current;
-        if (diff > 50) goToNext();
-        else if (diff < -50) goToPrev();
-      };
-
-      const showToast = (msg) => {
-        setToastMsg(msg);
-        setTimeout(() => setToastMsg(''), 2600);
-      };
-
-      // Generate Card Image & Share via WhatsApp / Native Share
-      const handleShare = async () => {
-        if (isSharing) return;
-        setIsSharing(true);
-        showToast('इमेज तयार होत आहे...');
-
-        try {
-          // Setup High-Res Canvas
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          const width = 1080;
-          const padding = 70;
-          const contentWidth = width - padding * 2;
-
-          // Measure lines to calculate canvas height dynamically
-          ctx.font = '500 32px "Noto Sans Devanagari", sans-serif';
-          let calculatedHeight = 520; // Top header + brand + spacing
-          
-          const wrappedLines = [];
-          lines.forEach((line) => {
-            const words = line.split(' ');
-            let currentLine = '';
-            words.forEach((word) => {
-              const testLine = currentLine ? `${currentLine} ${word}` : word;
-              const testWidth = ctx.measureText(testLine).width;
-              if (testWidth > contentWidth) {
-                wrappedLines.push(currentLine);
-                currentLine = word;
-              } else {
-                currentLine = testLine;
-              }
-            });
-            if (currentLine) wrappedLines.push(currentLine);
-            wrappedLines.push(''); // Gap between lines
-          });
-
-          calculatedHeight += wrappedLines.length * 44 + 200; // Footer space
-          canvas.width = width;
-          canvas.height = Math.max(1400, calculatedHeight);
-
-          // Draw Luxury Gradient Background
-          const bgGrad = ctx.createLinearGradient(0, 0, width, canvas.height);
-          bgGrad.addColorStop(0, '#15101c');
-          bgGrad.addColorStop(0.5, '#1e1628');
-          bgGrad.addColorStop(1, '#0e0b14');
-          ctx.fillStyle = bgGrad;
-          ctx.fillRect(0, 0, width, canvas.height);
-
-          // Border & Glow
-          ctx.strokeStyle = 'rgba(240, 168, 200, 0.25)';
-          ctx.lineWidth = 4;
-          ctx.strokeRect(25, 25, width - 50, canvas.height - 50);
-
-          // Brand Header
-          ctx.fillStyle = '#f0a8c8';
-          ctx.font = '800 36px "Noto Sans Devanagari", sans-serif';
-          ctx.fillText('उमाभरत गर्भसंवाद', padding, 110);
-
-          ctx.fillStyle = '#a69b9e';
-          ctx.font = '600 24px "Noto Sans Devanagari", sans-serif';
-          ctx.fillText('प्रेम • संस्कार • प्रार्थना', padding, 150);
-
-          // Speaker & Day Badge
-          const speakerName = speaker === 'mother' ? 'आईचे संवाद' : 'बाबांचे संवाद';
-          ctx.fillStyle = '#e2ba6f';
-          ctx.font = '800 28px "Noto Sans Devanagari", sans-serif';
-          ctx.fillText(`${dayLabel}  •  ${speakerName}`, padding, 220);
-
-          // Title
-          ctx.fillStyle = '#ffffff';
-          ctx.font = '900 48px "Noto Sans Devanagari", sans-serif';
-          ctx.fillText(titleText, padding, 290);
-
-          // Accent Divider
-          const divGrad = ctx.createLinearGradient(padding, 320, padding + 300, 320);
-          divGrad.addColorStop(0, '#f0a8c8');
-          divGrad.addColorStop(1, 'transparent');
-          ctx.fillStyle = divGrad;
-          ctx.fillRect(padding, 320, 300, 4);
-
-          // Draw Dialogue Lines
-          ctx.fillStyle = '#f1e9e5';
-          ctx.font = '500 32px "Noto Sans Devanagari", sans-serif';
-          let y = 380;
-
-          wrappedLines.forEach((wLine) => {
-            if (wLine === '') {
-              y += 16;
-            } else {
-              ctx.fillText(wLine, padding, y);
-              y += 44;
-            }
-          });
-
-          // Footer Mantra / Blessing
-          ctx.textAlign = 'center';
-          ctx.fillStyle = '#f0a8c8';
-          ctx.font = '700 28px "Noto Sans Devanagari", sans-serif';
-          ctx.fillText('✨ आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ✨', width / 2, canvas.height - 80);
-
-          // Convert canvas to image Blob & File
-          canvas.toBlob(async (blob) => {
-            if (!blob) {
-              setIsSharing(false);
-              return;
-            }
-
-            const fileName = `Garbhasamwad_${dayLabel.replace(/\s+/g, '')}.png`;
-            const file = new File([blob], fileName, { type: 'image/png' });
-            const shareText = `*उमाभरत गर्भसंवाद*\n${dayLabel}: *${titleText}* (${speakerName})\n\n${lines.join('\n')}\n\n✨ आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ✨`;
-
-            // Use Web Share API if supported for direct WhatsApp/App Sharing
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-              try {
-                await navigator.share({
-                  files: [file],
-                  title: 'उमाभरत गर्भसंवाद',
-                  text: shareText
-                });
-                showToast('यशस्वीरित्या शेअर केले!');
-              } catch (err) {
-                if (err.name !== 'AbortError') {
-                  fallbackWhatsApp(shareText);
-                }
-              }
-            } else {
-              // Fallback: WhatsApp direct text + Image download
-              const downloadLink = document.createElement('a');
-              downloadLink.href = URL.createObjectURL(blob);
-              downloadLink.download = fileName;
-              downloadLink.click();
-              fallbackWhatsApp(shareText);
-            }
-            setIsSharing(false);
-          }, 'image/png');
-        } catch (e) {
-          console.error(e);
-          setIsSharing(false);
-          showToast('शेअर करताना त्रुटी आली.');
-        }
-      };
-
-      const fallbackWhatsApp = (text) => {
-        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
-        window.open(url, '_blank');
-        showToast('WhatsApp वर पाठवत आहे...');
-      };
-
-      return React.createElement('div', { className: 'app' },
-        React.createElement('div', { className: 'shell' },
-
-          // TOPBAR
-          React.createElement('header', { className: 'topbar' },
-            React.createElement('div', { className: 'brand' },
-              React.createElement('div', { className: 'logo-badge' }, 'UB'),
-              React.createElement('div', { className: 'brand-text' },
-                React.createElement('h1', null, 'उमाभरत गर्भसंवाद'),
-                React.createElement('p', null, 'प्रेम • संस्कार • प्रार्थना')
-              )
-            ),
-
-            // SLIDING FILTER TOGGLE BUTTON
-            React.createElement('div', { className: 'switch-container' },
-              React.createElement('div', {
-                className: `switch-indicator ${speaker === 'father' ? 'father' : ''}`
-              }),
-              React.createElement('button', {
-                className: `switch-btn ${speaker === 'mother' ? 'active' : ''}`,
-                onClick: () => handleSpeakerChange('mother')
-              }, 'आईचे संवाद'),
-              React.createElement('button', {
-                className: `switch-btn ${speaker === 'father' ? 'active' : ''}`,
-                onClick: () => handleSpeakerChange('father')
-              }, 'बाबांचे संवाद')
-            )
-          ),
-
-          // PROGRESS TRACK
-          React.createElement('div', { className: 'progress-bar-wrap' },
-            React.createElement('div', { className: 'progress-track' },
-              React.createElement('div', {
-                className: 'progress-fill',
-                style: { width: `${progressPercent}%` }
-              })
-            ),
-            React.createElement('div', { className: 'counter-label' },
-              `दिवस ${safeIndex + 1} / ${totalDays}`
-            )
-          ),
-
-          // MAIN CARD WITH STICKY HEADER
-          React.createElement('main', {
-            className: 'card',
-            onTouchStart: handleTouchStart,
-            onTouchMove: handleTouchMove,
-            onTouchEnd: handleTouchEnd
-          },
-            // FIXED / STICKY HEADER
-            React.createElement('div', { className: 'card-sticky-head' },
-              React.createElement('div', { className: 'card-badge-row' },
-                React.createElement('span', {
-                  className: `speaker-tag ${speaker === 'father' ? 'father' : ''}`
-                }, speaker === 'mother' ? '🌸 आईचा संवाद' : '🌟 बाबांचा संवाद'),
-                React.createElement('span', { className: 'day-pill' }, dayLabel)
-              ),
-              React.createElement('h2', { className: 'card-title' }, titleText)
-            ),
-
-            // SCROLLABLE BODY
-            React.createElement('div', { className: 'card-scroll-body' },
-              lines.map((ln, idx) =>
-                React.createElement('div', {
-                  key: idx,
-                  className: `dialogue-item ${idx === 0 || idx === lines.length - 1 ? 'highlight' : ''}`
-                }, ln)
-              ),
-              React.createElement('div', { className: 'card-footer-mantra' },
-                '✨ आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ✨'
-              )
-            )
-          ),
-
-          // BOTTOM NAV WITH WHATSAPP BUTTON
-          React.createElement('nav', { className: 'bottom-nav' },
-            React.createElement('button', {
-              className: 'nav-btn',
-              onClick: goToPrev,
-              disabled: safeIndex === 0
-            }, '← मागील'),
-
-            React.createElement('button', {
-              className: 'share-btn',
-              onClick: handleShare
-            },
-              React.createElement('i', { 'data-lucide': 'share-2' }),
-              'WhatsApp इमेज'
-            ),
-
-            React.createElement('button', {
-              className: 'nav-btn primary',
-              onClick: goToNext,
-              disabled: safeIndex === totalDays - 1
-            }, 'पुढील →')
-          ),
-
-          // SWIPE HINT
-          React.createElement('div', { className: 'swipe-hint' },
-            'बोटाने सरकवून किंवा एरो की वापरून पुढील दिवस पाहा'
-          )
-        ),
-
-        // TOAST NOTIFICATION
-        toastMsg ? React.createElement('div', { className: 'toast' }, toastMsg) : null
-      );
-    }
-
-    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
-    if (window.lucide) window.lucide.createIcons();
-  </script>
+const $=id=>document.getElementById(id);
+const speakerLabel=s=>s==='mother'?'आईचे संवाद':s==='father'?'बाबांचे संवाद':s==='parents'?'आई-बाबांचा संवाद':'सर्व संवाद';
+const speakerShort=s=>s==='mother'?'आई':s==='father'?'बाबा':s==='parents'?'आई-बाबा':'सर्व';
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+function slugSpeaker(x){
+  const m={mother:'mother',आई:'mother',mom:'mother',father:'father',बाबा:'father',dad:'father',parents:'parents','आई-बाबा':'parents','आई-बाबा':'parents','आई-बाबा/दोघे':'parents'};
+  return m[x]||x||'mother';
+}
+function normalize(x,id,source){
+  let speaker=slugSpeaker(x.speaker||x.type||x.person||x.author);
+  if(['mother','father','parents'].includes(source)) speaker=source;
+  let lines=x.lines||x.dialogue||x.content||x.messages||[];
+  if(typeof lines==='string') lines=lines.split(/\n+/).filter(Boolean).map(t=>[speaker==='mother'?'आई':speaker==='father'?'बाबा':'आई-बाबा',t]);
+  if(Array.isArray(lines)&&lines.length&&typeof lines[0]==='string') lines=lines.map(t=>[speaker==='mother'?'आई':speaker==='father'?'बाबा':'आई-बाबा',t]);
+  const lesson=x.lesson||x.teaching||x.learning||x.moral||'';
+  return {
+    id:String(x.id||id), day:Number(x.day??x.dayNumber??0)||0,
+    title:x.title||x.name||x.topic||'दैनिक गर्भसंवाद', speaker,
+    category:x.category||x.categoryName||x.subject||x.topicCategory||'इतर',
+    tags:Array.isArray(x.tags)?x.tags:(Array.isArray(x.tag)?x.tag:typeof x.tags==='string'?x.tags.split(',').map(s=>s.trim()).filter(Boolean):[]),
+    lines:Array.isArray(lines)?lines:[], lesson
+  };
+}
+async function loadFile(path){
+  try{const r=await fetch(path,{cache:'no-cache'});if(!r.ok)throw 0;const d=await r.json();return Array.isArray(d)?d:(d.items||d.data||[]);}
+  catch(e){return []}
+}
+async function loadAll(){
+  const entries=Object.entries(DATA_FILES);
+  const loaded=await Promise.all(entries.map(([k,p])=>loadFile(p)));
+  const all=[];
+  loaded.forEach((arr,i)=>{
+    const source=entries[i][0];
+    if(source==='categories') return;
+    arr.forEach((x,j)=>all.push(normalize(x,source+'-'+(j+1),source)));
+  });
+  items=all.length?dedupe(all):fallback;
+  renderFilters();render();
+  const savedSpeaker=localStorage.getItem('gs-speaker');
+  if(savedSpeaker){activeSpeaker=savedSpeaker;renderFilters();render();}
+}
+function dedupe(arr){const seen=new Set();return arr.filter(x=>{const k=x.id+'|'+x.title+'|'+x.speaker+'|'+x.day;if(seen.has(k))return false;seen.add(k);return true;});}
+function matches(x){
+  const hay=(x.title+' '+x.category+' '+x.tags.join(' ')+' '+x.lines.map(a=>a.join(' ')).join(' ')+' '+x.lesson).toLocaleLowerCase('mr');
+  return (activeSpeaker==='all'||x.speaker===activeSpeaker)&&
+         (activeCategory==='all'||x.category===activeCategory)&&
+         (activeTag==='all'||x.tags.includes(activeTag))&&
+         (!query||hay.includes(query.toLocaleLowerCase('mr')));
+}
+function counts(field,filterFn=()=>true){
+  const m=new Map();
+  items.filter(filterFn).forEach(x=>{const v=x[field];if(v)m.set(v,(m.get(v)||0)+1);});
+  return [...m.entries()].sort((a,b)=>String(a[0]).localeCompare(String(b[0]),'mr'));
+}
+function chip(v,label,active,attr,count){
+  return `<button class="chip ${active===v?'active':''}" ${attr}="${esc(v)}">${esc(label)}${count!=null?`<span class="num">(${count})</span>`:''}</button>`;
+}
+function renderFilters(){
+  const speakers=[['all','सर्व संवाद'],['mother','आईने बोलायचे संवाद'],['father','बाबांनी बोलायचे संवाद'],['parents','आई-बाबांनी एकत्र बोलायचे संवाद']];
+  $('speakerFilters').innerHTML=speakers.map(([v,l])=>chip(v,l,activeSpeaker,'data-speaker',items.filter(x=>v==='all'||x.speaker===v).length)).join('');
+  $('speakerFilters').querySelectorAll('[data-speaker]').forEach(b=>b.onclick=()=>{
+    activeSpeaker=b.dataset.speaker;activeCategory='all';activeTag='all';
+    localStorage.setItem('gs-speaker',activeSpeaker);renderFilters();render();
+  });
+  const cats=counts('category',x=>activeSpeaker==='all'||x.speaker===activeSpeaker);
+  $('categoryFilters').innerHTML=chip('all','सर्व विषय',activeCategory,'data-category',items.filter(x=>activeSpeaker==='all'||x.speaker===activeSpeaker).length)+
+    cats.map(([v,n])=>chip(v,v,activeCategory,'data-category',n)).join('');
+  $('categoryFilters').querySelectorAll('[data-category]').forEach(b=>b.onclick=()=>{
+    activeCategory=b.dataset.category;activeTag='all';renderFilters();render();
+  });
+  const tagMap=new Map();
+  items.filter(x=>activeSpeaker==='all'||x.speaker===activeSpeaker).filter(x=>activeCategory==='all'||x.category===activeCategory)
+    .forEach(x=>x.tags.forEach(t=>tagMap.set(t,(tagMap.get(t)||0)+1)));
+  const tags=[...tagMap.entries()].sort((a,b)=>String(a[0]).localeCompare(String(b[0]),'mr')).slice(0,60);
+  $('tagFilters').innerHTML=chip('all','सर्व Tags',activeTag,'data-tag')+tags.map(([v,n])=>chip(v,'#'+v,activeTag,'data-tag',n)).join('');
+  $('tagFilters').querySelectorAll('[data-tag]').forEach(b=>b.onclick=()=>{activeTag=b.dataset.tag;renderFilters();render();});
+}
+function render(){
+  const arr=items.filter(matches).sort((a,b)=>(a.day-b.day)||a.title.localeCompare(b.title,'mr'));
+  $('count').textContent=`${arr.length} ${arr.length===1?'संवाद':'संवाद'}`;
+  $('heading').textContent=query?'शोधाचे परिणाम':activeSpeaker==='all'?'सर्व संवाद':speakerLabel(activeSpeaker);
+  $('clearSearch').style.display=query?'grid':'none';
+  $('cards').innerHTML=arr.length?arr.map(x=>`
+    <article class="card" tabindex="0" role="button" data-id="${esc(x.id)}" aria-label="दिवस ${x.day}, ${esc(x.title)}">
+      <div class="cardtop">
+        <div class="daybox">दिवस <b>${x.day||'—'}</b></div>
+        <div class="cardbody">
+          <h3>${esc(x.title)}</h3>
+          <div class="meta">${esc(speakerShort(x.speaker))} · ${esc(x.category)}</div>
+        </div>
+      </div>
+      <div class="tags">${x.tags.slice(0,6).map(t=>`<span class="tag">#${esc(t)}</span>`).join('')}</div>
+    </article>`).join(''):`<div class="empty"><strong>या फिल्टरसाठी संवाद सापडला नाही.</strong><br><span>शोध किंवा फिल्टर बदलून पुन्हा प्रयत्न करा.</span></div>`;
+  $('cards').querySelectorAll('.card').forEach(c=>{
+    c.onclick=()=>openReader(c.dataset.id);
+    c.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openReader(c.dataset.id)}};
+  });
+}
+function readerArray(){return items.filter(matches).sort((a,b)=>(a.day-b.day)||a.title.localeCompare(b.title,'mr'))}
+function openReader(id){
+  const arr=readerArray();const x=arr.find(v=>v.id===id)||items.find(v=>v.id===id);if(!x)return;
+  readerId=x.id;lastFocus=document.activeElement;
+  $('rDay').innerHTML=`दिवस<br><b>${x.day||'—'}</b>`;
+  $('rTitle').textContent=x.title;
+  $('rMeta').textContent=`${speakerLabel(x.speaker)} · ${x.category}${x.tags.length?' · '+x.tags.map(t=>'#'+t).join(' '):''}`;
+  const inner=$('dialogue').querySelector('.dialogue-inner');
+  inner.innerHTML=x.lines.map(a=>`<div class="line"><div class="speaker"><i data-lucide="message-circle"></i>${esc(a[0]||speakerShort(x.speaker))}</div><div class="text">${esc(a[1]||'')}</div></div>`).join('');
+  if(x.lesson) inner.innerHTML+=`<div class="lesson"><b>बाळासाठी शिकवण</b><div>${esc(x.lesson)}</div></div>`;
+  const last=x.lines?.[x.lines.length-1]?.[1]||'तुझ्यासाठी प्रेम, शांतता आणि शुभेच्छा.';
+  inner.innerHTML+=`<div class="blessing">✦<br>${esc(last)}</div>`;
+  const idx=arr.findIndex(v=>v.id===x.id);
+  $('prev').disabled=idx<=0;$('next').disabled=idx<0||idx>=arr.length-1;
+  $('readerProgress').style.width=`${x.day?Math.min(100,(x.day/30)*100):0}%`;
+  $('reader').classList.add('open');document.body.style.overflow='hidden';$('dialogue').scrollTop=0;
+  localStorage.setItem('gs-last-id',x.id);localStorage.setItem('gs-last-day',String(x.day||1));
+  lucide.createIcons();
+  setTimeout(()=>$('close').focus(),0);
+}
+function closeReader(){
+  $('reader').classList.remove('open');document.body.style.overflow='';
+  if(lastFocus&&lastFocus.focus)lastFocus.focus();lastFocus=null;
+}
+function move(n){
+  const arr=readerArray();const i=arr.findIndex(x=>x.id===readerId);if(i<0)return;
+  const j=i+n;if(j>=0&&j<arr.length)openReader(arr[j].id);
+}
+function openDayPicker(){
+  const max=Math.max(30,...items.map(x=>x.day||0));
+  $('dayGrid').innerHTML=Array.from({length:max},(_,i)=>`<button class="daybtn ${Number($('rDay').textContent.replace(/\D/g,''))===i+1?'active':''}" data-day="${i+1}">दिवस ${i+1}</button>`).join('');
+  $('dayGrid').querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>{
+    const arr=readerArray();const day=Number(b.dataset.day);const x=arr.find(v=>v.day===day);
+    if(x){$('dayModal').classList.remove('open');openReader(x.id);}
+    else{alert(`दिवस ${day} साठी या फिल्टरमध्ये संवाद उपलब्ध नाही.`);}
+  });
+  $('dayModal').classList.add('open');setTimeout(()=>$('dayModalClose').focus(),0);
+}
+async function shareCurrent(){
+  const x=items.find(v=>v.id===readerId);if(!x)return;
+  const text=`🌸 गर्भसंवाद — दिवस ${x.day}\n${x.title}\n${speakerLabel(x.speaker)}\n\nप्रेम • संस्कार • प्रार्थना`;
+  if(navigator.share){try{await navigator.share({title:`गर्भसंवाद — दिवस ${x.day}`,text,url:location.href});return}catch(e){}}
+  try{await navigator.clipboard.writeText(text+'\n'+location.href);alert('शेअर मजकूर कॉपी झाला.');}
+  catch(e){alert('शेअर सुविधा सध्या उपलब्ध नाही.');}
+}
+$('search').oninput=e=>{query=e.target.value.trim();render()};
+$('clearSearch').onclick=()=>{$('search').value='';query='';render();$('search').focus()};
+$('close').onclick=closeReader;$('prev').onclick=()=>move(-1);$('next').onclick=()=>move(1);
+$('share').onclick=shareCurrent;$('dayPickerOpen').onclick=openDayPicker;
+$('dayModalClose').onclick=()=>$('dayModal').classList.remove('open');
+$('dayModal').onclick=e=>{if(e.target===$('dayModal'))$('dayModal').classList.remove('open')};
+$('reader').onclick=e=>{if(e.target===$('reader'))closeReader()};
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if($('dayModal').classList.contains('open'))$('dayModal').classList.remove('open');
+    else if($('reader').classList.contains('open'))closeReader();
+  }
+  if($('reader').classList.contains('open')){
+    if(e.key==='ArrowLeft')move(-1);
+    if(e.key==='ArrowRight')move(1);
+  }
+});
+window.addEventListener('scroll',()=>{$('toTop').classList.toggle('show',scrollY>450)},{passive:true});
+$('toTop').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+lucide.createIcons();
+loadAll();
+</script>
 </body>
 </html>
