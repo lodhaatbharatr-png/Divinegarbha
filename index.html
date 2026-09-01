@@ -118,7 +118,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* 3-WAY SEGMENTED SWITCH */
+    /* 4-WAY SEGMENTED SWITCH */
     .switch-container {
       position: relative;
       background: rgba(255, 255, 255, 0.06);
@@ -127,7 +127,7 @@
       padding: 3px;
       display: flex;
       align-items: center;
-      width: 210px;
+      width: 250px;
       height: 36px;
       user-select: none;
     }
@@ -136,7 +136,7 @@
       position: absolute;
       top: 3px;
       bottom: 3px;
-      width: calc(33.333% - 2px);
+      width: calc(25% - 2px);
       background: linear-gradient(135deg, #a75c82, #7e3b5e);
       border-radius: 999px;
       box-shadow: 0 2px 10px rgba(167, 92, 130, 0.4);
@@ -156,6 +156,12 @@
       box-shadow: 0 2px 10px rgba(184, 134, 11, 0.4);
     }
 
+    .switch-indicator.story {
+      transform: translateX(300%);
+      background: linear-gradient(135deg, #2e8b57, #1b5e20);
+      box-shadow: 0 2px 10px rgba(46, 139, 87, 0.4);
+    }
+
     .switch-btn {
       position: relative;
       z-index: 2;
@@ -163,7 +169,7 @@
       border: none;
       background: transparent;
       color: var(--muted);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
       cursor: pointer;
       text-align: center;
@@ -221,7 +227,7 @@
       overflow: hidden;
     }
 
-    /* STICKY CARD HEADER (Cleaned) */
+    /* STICKY CARD HEADER */
     .card-sticky-head {
       position: sticky;
       top: 0;
@@ -413,18 +419,23 @@
     ];
 
     const FALLBACK_FATHER = [
-      ["दिवस १", "पितृप्रेम, ओळख आणि सुरक्षिततेचे वचन", "१. माझ्या लाडक्या बाळा, मी तुझा बाबा तुझ्याशी बोलतोय; माझा हा आश्वासक आवाज तुझ्या अंतर्मनात शांततेने उतरू दे.\n२. तुझ्या आईच्या उदरात तू सुरक्षित आहेस आणि बाहेरून मी तुझ्या संरक्षणासाठी एक अभेद्य ढाल बनून उभा आहे.\n३. तू या जगात येण्याआधीच माझे संपूर्ण आयुष्य तुझ्या प्रेमाने, आनंदाने आणि नव्या स्वप्नांनी भरून गेले आहे.\n४. माझ्या हाताचा स्पर्श जेव्हा तुझ्या आईच्या पोटावर होतो, तेव्हा मला तुझ्या अस्तित्वाची आणि नात्याची सुंदर अनुभूती येते.\n५. तू मुलगा असो वा मुलगी, तू माझ्यासाठी या विश्वातील सर्वात अनमोल आणि सुंदर भेट आहेस.\n६. जीवनाच्या प्रत्येक वळणावर, प्रत्येक सुख-दुःखात तुझा हा बाबा तुझ्या पाठीशी खंबीरपणे आणि विश्वासाने उभा राहील.\n७. तुला जगातल्या सर्व संकटांपासून दूर ठेवून सर्वोत्तम जीवन देण्याचा मी आज तुला अंतःकरणापासून शब्द देतो.\n८. माझ्या प्रत्येक श्वासात तुझ्या उज्ज्वल भविष्याची आणि तुझ्या सुदृढ आरोग्याची मंगलमय प्रार्थना आहे.\n९. कोणत्याही भीतीशिवाय अगदी शांतपणे आणि सुखाने तू आईच्या कुशीत वाढत राहा.\n१०. बाळा, शांत झोप; तुझा बाबा तुझ्या आगमनाची अतिशय आतुरतेने आणि अभिमाने वाट पाहत आहे."]
+      ["दिवस १", "पितृप्रेम, ओळख आणि सुरक्षिततेचे वचन", "१. माझ्या लाडक्या बाळा, मी तुझा बाबा तुझ्याशी बोलतोय; माझा हा आश्वासक आवाज तुझ्या अंतर्मनात शांततेने उतरू दे.\n२. तुझ्या आईच्या उदरात तू सुरक्षित आहेस आणि बाहेरून मी तुझ्या संरक्षणासाठी एक अभेद्य ढाल बनून उभा आहे.\n३. तू या जगात येण्याआधीच माझे संपूर्ण आयुष्य तुझ्या प्रेमाने, आनंदाने आणि नव्या स्वप्नांनी भरून गेले आहे.\n४. माझ्या हाताचा स्पर्श जेव्हा तुझ्या आईच्या पोटावर होतो, तेव्हा मला तुझ्या अस्तित्वाची आणि नात्याची सुंदर अनुभूती येते.\n५. तू मुलगा असो वा मुलगी, तू माझ्यासाठी या विश्वातील सर्वात अनमोल आणि सुंदर भेट आहेस.\n६. जीवनाच्या प्रत्येक वळणावर, प्रत्येक सुख-दुःखात तुझा हा बाबा तुझ्या पाठीशी खंबीरपणे आणि विश्वासाने उभा राहील.\n७. तुला जगातल्या सर्व संकटांपासून दूर ठेवून सर्वोत्तम जीवन देण्याचा मी आज तुला अंतःकरणापासून शब्द देतो.\n८. माझ्या प्रत्येक श्वासात तुझ्या उज्ज्वल भविष्याची आणि तुझ्या सुदृढ आरोग्याची मंगलमय प्रार्थना आहे.\n९. कोणत्याही भीतीशिवाय अगदी शांतपणे आणि सुखाने तू आईच्या कुशीत वाढत राहा.\n१०. बाळा, शांत झोप; तुझा बाबा तुझ्या आगमनाची अतिशय आतुरतेने आणि अभिमानाने वाट पाहत आहे."]
     ];
 
     const FALLBACK_PARENT = [
       ["दिवस १", "कुटुंबातील आनंदाचे वातावरण आणि स्वागताची आतुरता", "१. आई-बाबा: माझ्या लाडक्या बाळा, आज आम्ही दोघेही एकत्र बसून तुझ्याशी मनापासून गप्पा मारायला आलो आहोत.\n२. आई: बघ बाळा, आईचा हा कोमल हात आणि बाबांचा हा भक्कम हात दोघांनी मिळून तुझ्या पाठीवर ठेवला आहे.\n३. बाबा: तू आमच्या आयुष्यात येणार आहेस या एकाच विचाराने आमचे संपूर्ण घर आनंदाने आणि उत्साहाने भरून गेले आहे.\n४. आई: आमच्या दोघांमधील हे प्रेम, आपुलकी आणि शांतता तुला गर्भाच्या आत अखंड सुरक्षिततेची ऊब देत आहे.\n५. बाबा: आम्ही दोघेही मिळून तुला या जगात एक अत्यंत सुंदर, सुसंस्कृत आणि समृद्ध आयुष्य देण्याचा संकल्प करतो.\n६. आई: घरातले वातावरण नेहमी हसरे, प्रसन्न आणि सकारात्मक राहावे याची आम्ही दोघेही सतत काळजी घेत आहोत.\n७. बाबा: तू या कुटुंबाचा सर्वात मोठा आनंद, आमच्या दोघांच्या प्रेमाचे प्रतीक आणि घराचा खरा प्रकाश आहेस.\n८. आई: माझ्या हृदयाचे ठोके आणि बाबांचा हा धीरगंभीर आवाज तुला सदैव सांगत आहेत की तू एकटा नाहीस.\n९. बाबा: बाहेरील जगाची अजिबात चिंता करू नकोस; आईची माया आणि बाबांचे संरक्षण सदैव तुझ्या पाठीशी आहे.\n१०. आई-बाबा: बाळा, अगदी निर्धास्त आणि आनंदी राहा; आम्ही दोघेही तुझी अतिशय आतुरतेने वाट पाहत आहोत!"]
     ];
 
+    const FALLBACK_STORY = [
+      ["दिवस १", "खारुताईची गोष्ट (लहान योगदान व निस्वार्थ सेवा)", "१. माझ्या लाडक्या सोन्या, आज तुझी आई तुला रामायणातील एका चिमुरड्या खारुताईची छान गोष्ट सांगणार आहे.\n२. प्रभू रामचंद्र लंकेला जाण्यासाठी सेतू बांधत असताना वानरे अजस्र दगड उचलून टाकत होती.\n३. छोटी खारुताई समुद्रात डुबकी मारून, वाळूत लोळून पुलावर वाळू झटकून योगदान देत होती.\n४. वानरांनी चेष्टा केली तरी तिने आपले काम थांबवले नाही.\n५. प्रभू रामचंद्रांनी तिला प्रेमाने जवळ घेऊन तिच्या पाठीवरून मायेने हात फिरवला.\n६. प्रभू म्हणाले, 'तिचे योगदान मोठ्या दगडांइतकेच अनमोल आहे.'\n७. बाळासाठी शिकवण: जगात कोणाचेही काम किंवा मदत कधीही लहान नसते.\n८. कामातील मोठेपणा हा ते काम किती मनापासून आणि प्रेमाने केले आहे यात असतो.\n९. तू मोठेपणी नेहमी इतरांना आपल्या परीने मदत करणारा सेवाभावी माणूस बनशील.\n१०. बाळा, असाच गुणी, विनम्र आणि निस्वार्थ सेवेचा दीपस्तंभ हो!"]
+    ];
+
     function App() {
-      const [speaker, setSpeaker] = useState('mother'); // 'mother', 'father', or 'parent'
+      const [speaker, setSpeaker] = useState('mother'); // 'mother', 'father', 'parent', 'story'
       const [motherData, setMotherData] = useState(FALLBACK_MOTHER);
       const [fatherData, setFatherData] = useState(FALLBACK_FATHER);
       const [parentData, setParentData] = useState(FALLBACK_PARENT);
+      const [storyData, setStoryData] = useState(FALLBACK_STORY);
       const [currentIndex, setCurrentIndex] = useState(0);
       const [toastMsg, setToastMsg] = useState('');
       const [isSharing, setIsSharing] = useState(false);
@@ -434,28 +445,31 @@
 
       // Load external JSON files
       useEffect(() => {
-        // Fetch Mother's Data
         fetch('./data/mothers.json')
           .then(res => res.ok ? res.json() : fetch('./data/mother.json').then(r => r.json()))
           .then(d => { if (Array.isArray(d) && d.length > 0) setMotherData(d); })
           .catch(() => console.log('Mother data using fallback'));
 
-        // Fetch Father's Data
         fetch('./data/fathers.json')
           .then(res => res.ok ? res.json() : fetch('./data/father.json').then(r => r.json()))
           .then(d => { if (Array.isArray(d) && d.length > 0) setFatherData(d); })
           .catch(() => console.log('Father data using fallback'));
 
-        // Fetch Parent's Data (parent.json or both.json)
         fetch('./data/parent.json')
           .then(res => res.ok ? res.json() : fetch('./data/both.json').then(r => r.json()))
           .then(d => { if (Array.isArray(d) && d.length > 0) setParentData(d); })
           .catch(() => console.log('Parent data using fallback'));
+
+        fetch('./data/story.json')
+          .then(res => res.ok ? res.json() : fetch('./data/stories.json').then(r => r.json()))
+          .then(d => { if (Array.isArray(d) && d.length > 0) setStoryData(d); })
+          .catch(() => console.log('Story data using fallback'));
       }, []);
 
       let activeList = motherData;
       if (speaker === 'father') activeList = fatherData;
       if (speaker === 'parent') activeList = parentData;
+      if (speaker === 'story') activeList = storyData;
 
       const totalDays = activeList.length;
       const safeIndex = Math.min(currentIndex, Math.max(0, totalDays - 1));
@@ -566,6 +580,7 @@
           let speakerName = 'आईचे संवाद';
           if (speaker === 'father') speakerName = 'बाबांचे संवाद';
           if (speaker === 'parent') speakerName = 'पालक (एकत्रित) संवाद';
+          if (speaker === 'story') speakerName = 'गोष्टीरूपी गर्भसंवाद (कथा)';
 
           ctx.fillStyle = '#e2ba6f';
           ctx.font = '800 28px "Noto Sans Devanagari", sans-serif';
@@ -656,10 +671,14 @@
               )
             ),
 
-            // 3-WAY SEGMENTED FILTER BUTTON
+            // 4-WAY SEGMENTED FILTER BUTTON
             React.createElement('div', { className: 'switch-container' },
               React.createElement('div', {
-                className: `switch-indicator ${speaker === 'father' ? 'father' : (speaker === 'parent' ? 'parent' : '')}`
+                className: `switch-indicator ${
+                  speaker === 'father' ? 'father' : 
+                  (speaker === 'parent' ? 'parent' : 
+                  (speaker === 'story' ? 'story' : ''))
+                }`
               }),
               React.createElement('button', {
                 className: `switch-btn ${speaker === 'mother' ? 'active' : ''}`,
@@ -672,7 +691,11 @@
               React.createElement('button', {
                 className: `switch-btn ${speaker === 'parent' ? 'active' : ''}`,
                 onClick: () => handleSpeakerChange('parent')
-              }, 'पालक')
+              }, 'पालक'),
+              React.createElement('button', {
+                className: `switch-btn ${speaker === 'story' ? 'active' : ''}`,
+                onClick: () => handleSpeakerChange('story')
+              }, 'कथा')
             )
           ),
 
@@ -696,7 +719,7 @@
             onTouchMove: handleTouchMove,
             onTouchEnd: handleTouchEnd
           },
-            // CLEAN FIXED HEADER (Title only)
+            // CLEAN FIXED HEADER
             React.createElement('div', { className: 'card-sticky-head' },
               React.createElement('h2', { className: 'card-title' }, titleText)
             ),
