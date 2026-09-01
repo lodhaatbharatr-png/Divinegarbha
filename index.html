@@ -168,9 +168,15 @@
 
       // LocalStorage Persistence (Requirement 18)
       useEffect(() => {
-        const saved = localStorage.getItem('garbhasamwad_progress');
-        if (saved) setProgress(JSON.parse(saved));
-      }, []);
+  Promise.all([
+    fetch('./data/mothers.json').then(res => res.json()),
+    fetch('./data/fathers.json').then(res => res.json()),
+    fetch('./data/both.json').then(res => res.json())
+  ]).then(([mothers, fathers, both]) => {
+    const combinedData = [...mothers, ...fathers, ...both];
+    setDialoguesDB(combinedData); // Store all data in a single state variable
+  }).catch(err => console.error("Error loading dialogue data", err));
+}, []);
 
       const saveProgress = (day) => {
         const p = { currentDay: day };
