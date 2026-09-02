@@ -29,8 +29,8 @@
       --accent-violet: #ba8ce0;
       --accent-gold: #e2ba6f;
       --accent-green: #7ecba1;
-      --accent-saffron: #f4a261;
-      --accent-teal: #48cae4;
+      --accent-saffron: #f4a261; /* मंत्रासाठी भगवा */
+      --accent-teal: #48cae4;   /* संस्कारासाठी आकाशी */
       --line: rgba(255, 255, 255, 0.07);
       --radius: 20px;
 
@@ -79,30 +79,25 @@
       min-height: calc(100dvh - max(20px, env(safe-area-inset-top) + env(safe-area-inset-bottom)));
     }
 
-    /* COMPACT HEADER */
-    .main-header {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding-top: 2px;
-    }
-
-    /* Top Row: Horizontal Logo + Text Left, Day Count Right */
-    .top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 4px;
-    }
-
-    .brand-horizontal {
+    /* TOPBAR (Logo and Brand only) */
+    .topbar {
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between; /* Brand left, day counter right */
+      gap: 12px;
+      padding: 4px 2px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
     }
 
     .dharmachakra-icon {
-      font-size: 1.5rem;
+      font-size: 1.85rem;
       color: var(--active-accent);
       animation: spinClockwise 22s linear infinite;
       display: inline-flex;
@@ -116,16 +111,17 @@
       to { transform: rotate(360deg); }
     }
 
-    .brand-inline-text {
+    .brand-text {
       display: flex;
-      align-items: baseline;
-      gap: 8px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
     }
 
-    .brand-inline-text h1 {
+    .brand-text h1 {
       margin: 0;
       font-family: "Rozha One", serif;
-      font-size: 1.15rem;
+      font-size: 1.35rem;
       font-weight: 400;
       letter-spacing: 0.5px;
       line-height: 1.1;
@@ -134,76 +130,82 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .brand-inline-text h2 {
-      margin: 0;
-      font-size: 0.75rem;
+    .brand-text h2 {
+      margin: 2px 0 0 0;
+      font-size: 0.82rem;
       font-weight: 700;
       color: #ffffff;
       letter-spacing: 0.01em;
-      line-height: 1.1;
+      line-height: 1.2;
     }
 
-    .header-day-count {
-      font-size: 0.76rem;
+    /* DAY COUNTER IN HEADER */
+    .header-day-counter {
+      flex: 0 0 auto;
+      min-width: 78px;
+      text-align: right;
+      font-size: 0.78rem;
       font-weight: 700;
       color: var(--active-accent);
-      background: rgba(255, 255, 255, 0.04);
-      padding: 3px 10px;
-      border-radius: 99px;
-      border: 1px solid var(--line);
-      font-family: "Noto Sans Devanagari", sans-serif;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      letter-spacing: 0.02em;
       white-space: nowrap;
     }
 
-    /* WEB-STYLE TABS (Seating on horizontal line) */
-    .web-tabs-container {
-      display: flex;
+    /* HORIZONTAL TABS (6 Items) */
+    .tabs-wrapper {
+      position: relative;
       width: 100%;
-      border-bottom: 1px solid var(--line);
+      margin: 4px 0 8px 0;
+    }
+
+    .tabs-container {
+      display: flex;
+      gap: 8px;
       overflow-x: auto;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      scrollbar-width: none; /* Firefox */
+      padding: 2px;
     }
 
-    .web-tabs-container::-webkit-scrollbar {
-      display: none;
+    .tabs-container::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
     }
 
-    .web-tab {
-      flex: 1;
-      min-width: max-content;
-      background: transparent;
-      border: none;
-      border-bottom: 3px solid transparent;
+    .tab-btn {
+      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line);
       color: var(--text-muted);
-      padding: 4px 10px 6px 10px;
-      font-size: 0.82rem;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.8rem;
       font-weight: 600;
+      font-family: "Noto Sans Devanagari", sans-serif;
       cursor: pointer;
       transition: all 200ms ease;
-      font-family: "Noto Sans Devanagari", sans-serif;
     }
 
-    .web-tab.active {
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+      border-color: var(--active-accent);
       color: #ffffff;
-      border-bottom: 3px solid var(--active-accent);
-      background: linear-gradient(to top, var(--active-glow) 0%, transparent 100%);
+      box-shadow: 0 2px 10px var(--active-glow);
     }
 
     /* PROGRESS TRACK */
     .progress-bar-wrap {
-      width: 100%;
-      padding: 0;
-      margin-top: -4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 4px;
     }
 
     .progress-track {
-      width: 100%;
-      height: 2px;
+      flex: 1;
+      height: 3px;
       border-radius: 99px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.08);
       overflow: hidden;
     }
 
@@ -214,10 +216,19 @@
       transition: width 300ms ease, background 300ms ease;
     }
 
+    .counter-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--active-accent);
+      min-width: 75px;
+      text-align: right;
+      letter-spacing: 0.02em;
+    }
+
     /* BOOK-LIKE NATURAL READER CONTAINER */
     .book-reader {
       width: 100%;
-      height: min(710px, 71dvh);
+      height: min(690px, 69dvh);
       position: relative;
       display: flex;
       flex-direction: column;
@@ -295,7 +306,7 @@
 
     .book-paragraph:first-of-type::first-letter {
       font-family: "Noto Serif Devanagari", serif;
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 600;
       float: left;
       line-height: 1;
@@ -410,31 +421,6 @@
       margin-top: -2px;
       letter-spacing: 0.03em;
     }
-
-    /* TOAST */
-    .toast {
-      position: fixed;
-      bottom: 75px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1c1726;
-      color: #fff;
-      border: 1px solid var(--active-accent);
-      padding: 8px 18px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      z-index: 100;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.65);
-      animation: fadeInOut 2.5s ease forwards;
-    }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; transform: translate(-50%, 10px); }
-      15% { opacity: 1; transform: translate(-50%, 0); }
-      85% { opacity: 1; transform: translate(-50%, 0); }
-      100% { opacity: 0; transform: translate(-50%, -10px); }
-    }
   </style>
 </head>
 <body>
@@ -485,7 +471,7 @@
     const FALLBACK_DATA = [{ day: "दिवस १", title: "माहिती उपलब्ध नाही", paragraphs: ["कृपया इंटरनेट कनेक्शन तपासा."] }];
 
     function App() {
-      const [speaker, setSpeaker] = useState('mother'); 
+      const [speaker, setSpeaker] = useState('mother'); // mother, father, parent, story, mantra, sanskar
       
       const [dataMap, setDataMap] = useState({
         mother: FALLBACK_DATA,
@@ -558,6 +544,7 @@
       const handleSpeakerChange = (newSpeaker, event) => {
         setSpeaker(newSpeaker);
         setCurrentIndex(0);
+        // Scroll tab into view if needed
         if (event && event.target && tabsContainerRef.current) {
           event.target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
@@ -566,155 +553,9 @@
       const goToPrev = () => { if (safeIndex > 0) setCurrentIndex(safeIndex - 1); };
       const goToNext = () => { if (safeIndex < totalDays - 1) setCurrentIndex(safeIndex + 1); };
 
-      useEffect(() => {
-        const handleKeyDown = (e) => {
-          if (e.key === 'ArrowLeft') goToPrev();
-          if (e.key === 'ArrowRight') goToNext();
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-      }, [safeIndex, totalDays]);
-
-      const handleTouchStart = (e) => { touchStartX.current = e.targetTouches[0].clientX; };
-      const handleTouchMove = (e) => { touchEndX.current = e.targetTouches[0].clientX; };
-      const handleTouchEnd = () => {
-        const diff = touchStartX.current - touchEndX.current;
-        if (diff > 55) goToNext();
-        else if (diff < -55) goToPrev();
-      };
-
-      const showToast = (msg) => {
-        setToastMsg(msg);
-        setTimeout(() => setToastMsg(''), 2600);
-      };
-
-      const handleShare = async () => {
-        if (isSharing) return;
-        setIsSharing(true);
-        showToast('पुस्तक पान तयार होत आहे...');
-
-        try {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          const width = 1080;
-          const padding = 80;
-          const contentWidth = width - padding * 2;
-
-          ctx.font = '300 32px "Noto Serif Devanagari", serif';
-          let calculatedHeight = 440;
-
-          const wrappedParagraphs = [];
-          paragraphs.forEach((pText) => {
-            const words = pText.split(' ');
-            let currentLine = '';
-            const pLines = [];
-            words.forEach((word) => {
-              const testLine = currentLine ? `${currentLine} ${word}` : word;
-              if (ctx.measureText(testLine).width > contentWidth) {
-                pLines.push(currentLine);
-                currentLine = word;
-              } else {
-                currentLine = testLine;
-              }
-            });
-            if (currentLine) pLines.push(currentLine);
-            wrappedParagraphs.push(pLines);
-          });
-
-          const totalLines = wrappedParagraphs.reduce((acc, p) => acc + p.length, 0);
-          calculatedHeight += totalLines * 52 + wrappedParagraphs.length * 28 + 180;
-          canvas.width = width;
-          canvas.height = Math.max(1450, calculatedHeight);
-
-          const bgGrad = ctx.createLinearGradient(0, 0, width, canvas.height);
-          bgGrad.addColorStop(0, '#16121d');
-          bgGrad.addColorStop(0.5, '#1e1829');
-          bgGrad.addColorStop(1, '#110d18');
-          ctx.fillStyle = bgGrad;
-          ctx.fillRect(0, 0, width, canvas.height);
-
-          ctx.strokeStyle = 'rgba(240, 168, 200, 0.25)';
-          ctx.lineWidth = 2;
-          ctx.strokeRect(30, 30, width - 60, canvas.height - 60);
-          ctx.strokeStyle = 'rgba(226, 186, 111, 0.18)';
-          ctx.lineWidth = 1;
-          ctx.strokeRect(40, 40, width - 80, canvas.height - 80);
-
-          ctx.fillStyle = '#f0a8c8';
-          ctx.font = '400 42px "Rozha One", serif';
-          ctx.fillText('उमाभरत नित्य गर्भसंवाद', padding, 120);
-
-          let sectionName = 'आईचे संवाद';
-          if (speaker === 'father') sectionName = 'बाबांचे संवाद';
-          if (speaker === 'parent') sectionName = 'पालक (एकत्रित) संवाद';
-          if (speaker === 'story') sectionName = 'गोष्टीरूपी गर्भसंवाद (कथा)';
-          if (speaker === 'mantra') sectionName = 'गर्भसंस्कार मंत्र';
-          if (speaker === 'sanskar') sectionName = 'गर्भसंस्कार विचार';
-
-          ctx.fillStyle = '#e2ba6f';
-          ctx.font = '600 26px "Noto Sans Devanagari", sans-serif';
-          ctx.fillText(`${day}  •  ${sectionName}`, padding, 180);
-
-          ctx.fillStyle = '#ffffff';
-          ctx.font = '700 44px "Noto Serif Devanagari", serif';
-          ctx.fillText(title, padding, 255);
-
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
-          ctx.fillRect(padding, 290, contentWidth, 2);
-
-          let y = 355;
-          ctx.fillStyle = '#eae2dc';
-          ctx.font = '300 32px "Noto Serif Devanagari", serif';
-
-          wrappedParagraphs.forEach((pLines) => {
-            pLines.forEach((wLine) => {
-              ctx.fillText(wLine, padding, y);
-              y += 50;
-            });
-            y += 24;
-          });
-
-          ctx.textAlign = 'center';
-          ctx.fillStyle = '#e2ba6f';
-          ctx.font = '400 30px "Tiro Devanagari Marathi", serif';
-          ctx.fillText('🙏 आई-बाबांचे प्रेम आणि शुभ आशीर्वाद 🙏', width / 2, canvas.height - 85);
-
-          canvas.toBlob(async (blob) => {
-            if (!blob) {
-              setIsSharing(false);
-              return;
-            }
-            const fileName = `Garbhasamwad_${day.replace(/\s+/g, '')}.png`;
-            const file = new File([blob], fileName, { type: 'image/png' });
-            const shareText = `*उमाभरत नित्य गर्भसंवाद*\n${day}: *${title}* (${sectionName})\n\n${paragraphs.join('\n\n')}\n\n🙏 आई-बाबांचे प्रेम आणि शुभ आशीर्वाद 🙏`;
-
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-              try {
-                await navigator.share({ files: [file], title: 'उमाभरत नित्य गर्भसंवाद', text: shareText });
-                showToast('यशस्वीरित्या शेअर केले!');
-              } catch (err) {
-                if (err.name !== 'AbortError') fallbackWhatsApp(shareText);
-              }
-            } else {
-              const downloadLink = document.createElement('a');
-              downloadLink.href = URL.createObjectURL(blob);
-              downloadLink.download = fileName;
-              downloadLink.click();
-              fallbackWhatsApp(shareText);
-            }
-            setIsSharing(false);
-          }, 'image/png');
-        } catch (e) {
-          setIsSharing(false);
-          showToast('शेअर करताना त्रुटी आली.');
-        }
-      };
-
-      const fallbackWhatsApp = (text) => {
-        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
-        window.open(url, '_blank');
-      };
-
+      // Touch / Share logic omitted for brevity in snippet (Keep your existing Touch & Canvas Share code here)
+      // ... 
+      
       const TABS = [
         { id: 'mother', label: 'आई' },
         { id: 'father', label: 'बाबा' },
@@ -727,36 +568,34 @@
       return React.createElement('div', { className: 'app' },
         React.createElement('div', { className: 'shell' },
 
-          /* COMPACT MAIN HEADER */
-          React.createElement('header', { className: 'main-header' },
-            
-            /* TOP ROW: Horizontal Logo + Text Left, Day Count Right */
-            React.createElement('div', { className: 'top-row' },
-              React.createElement('div', { className: 'brand-horizontal' },
-                React.createElement('i', { className: 'fa-solid fa-dharmachakra dharmachakra-icon' }),
-                React.createElement('div', { className: 'brand-inline-text' },
-                  React.createElement('h1', null, 'उमाभरत'),
-                  React.createElement('h2', null, 'नित्य गर्भसंवाद')
-                )
-              ),
-              React.createElement('div', { className: 'header-day-count' },
-                `${day} / ${totalDays}`
+          /* TOPBAR */
+          React.createElement('header', { className: 'topbar' },
+            React.createElement('div', { className: 'brand' },
+              React.createElement('i', { className: 'fa-solid fa-dharmachakra dharmachakra-icon' }),
+              React.createElement('div', { className: 'brand-text' },
+                React.createElement('h1', null, 'उमाभरत'),
+                React.createElement('h2', null, 'नित्य गर्भसंवाद')
               )
             ),
+            React.createElement('div', { className: 'header-day-counter' },
+              `${day} / ${totalDays}`
+            )
+          ),
 
-            /* WEB TABS CONTAINER (Bottom Border) */
-            React.createElement('div', { className: 'web-tabs-container', ref: tabsContainerRef },
+          /* 6-TABS SCROLLABLE STRIP */
+          React.createElement('div', { className: 'tabs-wrapper' },
+            React.createElement('div', { className: 'tabs-container', ref: tabsContainerRef },
               TABS.map(tab => 
                 React.createElement('button', {
                   key: tab.id,
-                  className: `web-tab ${speaker === tab.id ? 'active' : ''}`,
+                  className: `tab-btn ${speaker === tab.id ? 'active' : ''}`,
                   onClick: (e) => handleSpeakerChange(tab.id, e)
                 }, tab.label)
               )
             )
           ),
 
-          /* SLIM PROGRESS TRACK */
+          /* PROGRESS TRACK */
           React.createElement('div', { className: 'progress-bar-wrap' },
             React.createElement('div', { className: 'progress-track' },
               React.createElement('div', {
@@ -767,21 +606,15 @@
           ),
 
           /* BOOK READING CONTAINER */
-          React.createElement('main', {
-            className: 'book-reader',
-            onTouchStart: handleTouchStart,
-            onTouchMove: handleTouchMove,
-            onTouchEnd: handleTouchEnd
-          },
-            /* CHAPTER HEADER */
+          React.createElement('main', { className: 'book-reader' },
             React.createElement('div', { className: 'book-header' },
               React.createElement('h2', { className: 'chapter-title' }, title)
             ),
 
-            /* SCROLLABLE BOOK BODY */
             React.createElement('div', { className: 'book-body', ref: scrollRef },
               React.createElement('div', { className: 'prose-content' },
                 paragraphs.map((p, idx) => {
+                  // If it's the Sanskar tab, we can optionally style lines with a left border
                   if(speaker === 'sanskar' && (p.includes('विचार:') || p.includes('कृती:'))) {
                      return React.createElement('p', { key: idx, className: 'book-paragraph sanskar-line' }, p);
                   }
@@ -800,41 +633,20 @@
 
           /* BOTTOM NAV */
           React.createElement('nav', { className: 'bottom-nav' },
-            React.createElement('button', {
-              className: 'nav-btn',
-              onClick: goToPrev,
-              disabled: safeIndex === 0
-            },
-              React.createElement('i', { className: 'fa-solid fa-chevron-left' }),
-              ' मागील'
+            React.createElement('button', { className: 'nav-btn', onClick: goToPrev, disabled: safeIndex === 0 },
+              React.createElement('i', { className: 'fa-solid fa-chevron-left' }), ' मागील'
             ),
-
-            React.createElement('button', {
-              className: 'share-btn',
-              onClick: handleShare
-            },
-              React.createElement('i', { className: 'fa-solid fa-share-nodes' }),
-              'Share'
+            React.createElement('button', { className: 'share-btn' },
+              React.createElement('i', { className: 'fa-solid fa-share-nodes' }), ' Share'
             ),
-
-            React.createElement('button', {
-              className: 'nav-btn',
-              onClick: goToNext,
-              disabled: safeIndex === totalDays - 1
-            },
-              'पुढील ',
-              React.createElement('i', { className: 'fa-solid fa-chevron-right' })
+            React.createElement('button', { className: 'nav-btn', onClick: goToNext, disabled: safeIndex === totalDays - 1 },
+              'पुढील ', React.createElement('i', { className: 'fa-solid fa-chevron-right' })
             )
           ),
 
-          /* DEDICATION FOOTER */
-          React.createElement('div', { className: 'book-dedication-footer' },
-            'प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे...'
-          )
-        ),
-
-        /* TOAST */
-        toastMsg ? React.createElement('div', { className: 'toast' }, toastMsg) : null
+          /* FOOTER */
+          React.createElement('div', { className: 'book-dedication-footer' }, 'प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे...')
+        )
       );
     }
 
