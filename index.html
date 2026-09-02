@@ -7,10 +7,10 @@
   <meta name="description" content="उमाभरत गर्भसंवाद">
   <title>उमाभरत गर्भसंवाद</title>
 
-  <!-- Google Devanagari Fonts -->
+  <!-- Google Devanagari Fonts (Noto Serif 300 Lite Weight Included) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@600;700;800&family=Rozha+One&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@300;400;600;700;800&family=Rozha+One&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
 
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -228,15 +228,6 @@
       transition: width 300ms ease, background 300ms ease;
     }
 
-    .counter-label {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--active-accent);
-      min-width: 85px;
-      text-align: right;
-      letter-spacing: 0.02em;
-    }
-
     /* BOOK-LIKE NATURAL READER CONTAINER */
     .book-reader {
       width: 100%;
@@ -247,42 +238,36 @@
       border-radius: var(--radius);
       border: 1px solid var(--line);
       border-top: 2px solid var(--active-accent);
+      border-bottom: 2px solid var(--active-accent); /* Top सारखाच Bottom border */
       background: linear-gradient(180deg, rgba(23, 18, 30, 0.96) 0%, rgba(16, 12, 22, 0.98) 100%);
       box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 25px var(--active-glow);
       overflow: hidden;
       transition: border-color 300ms ease, box-shadow 300ms ease;
     }
 
-    /* Sticky Chapter Header */
+    /* Sticky Chapter Header (कमी उंची) */
     .book-header {
       position: sticky;
       top: 0;
       z-index: 10;
-      padding: 16px 22px 14px;
+      padding: 10px 18px; /* Height कमी केली */
       background: rgba(23, 18, 30, 0.94);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
       display: flex;
       flex-direction: column;
-      gap: 4px;
-    }
-
-    .chapter-tag {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--active-accent);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      justify-content: center;
     }
 
     .chapter-title {
       margin: 0;
       font-family: "Noto Serif Devanagari", serif;
-      font-size: clamp(1.2rem, 4.4vw, 1.45rem);
+      font-size: clamp(0.96rem, 3.5vw, 1.16rem); /* 20% size कमी */
       font-weight: 700;
       color: #fffdfa;
       line-height: 1.35;
+      text-align: left;
     }
 
     /* Scrollable Book Body */
@@ -290,7 +275,7 @@
       flex: 1;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 22px 24px 30px;
+      padding: 18px 20px 24px;
       scrollbar-width: thin;
       scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
     }
@@ -307,14 +292,14 @@
     .prose-content {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .book-paragraph {
       margin: 0;
-      font-family: "Noto Sans Devanagari", sans-serif;
-      font-size: clamp(0.96rem, 3.8vw, 1.05rem);
-      font-weight: 400;
+      font-family: "Noto Serif Devanagari", serif; /* Title सारखाच फॉन्ट */
+      font-size: clamp(0.92rem, 3.6vw, 1.02rem);
+      font-weight: 300; /* Lite Weight */
       line-height: 1.95;
       color: #ede5de;
       text-align: justify;
@@ -324,8 +309,8 @@
 
     .book-paragraph:first-of-type::first-letter {
       font-family: "Noto Serif Devanagari", serif;
-      font-size: 2.2rem;
-      font-weight: 700;
+      font-size: 2rem;
+      font-weight: 600;
       float: left;
       line-height: 1;
       margin-right: 8px;
@@ -334,8 +319,8 @@
 
     /* Sacred Closing Quote / Mantra */
     .closing-mantra-box {
-      margin-top: 28px;
-      padding: 16px 20px;
+      margin-top: 24px;
+      padding: 14px 18px;
       border-radius: 14px;
       background: rgba(255, 255, 255, 0.02);
       border-left: 2px solid var(--active-accent);
@@ -345,7 +330,7 @@
 
     .closing-text {
       font-family: "Tiro Devanagari Marathi", serif;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       color: var(--accent-gold);
       line-height: 1.7;
       margin: 0;
@@ -355,7 +340,7 @@
     /* BOTTOM NAV BAR */
     .bottom-nav {
       display: grid;
-      grid-template-columns: 1fr 1.15fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr 1.1fr; /* Share button ची width कमी केली */
       align-items: center;
       gap: 10px;
       width: 100%;
@@ -401,7 +386,7 @@
       box-shadow: none;
     }
 
-    /* SHARE BUTTON */
+    /* SHARE BUTTON (Slimmer) */
     .share-btn {
       min-height: 46px;
       border: 1px solid rgba(126, 203, 161, 0.35);
@@ -411,8 +396,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      font-size: 0.88rem;
+      gap: 6px;
+      font-size: 0.86rem;
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(46, 139, 87, 0.15);
@@ -470,11 +455,9 @@
   <script>
     const { useState, useEffect, useRef } = React;
 
-    // Helper: Normalize any format (paragraphs array OR numbered strings array OR newline text) into pure prose paragraphs
     function extractParagraphs(rawItem) {
       if (!rawItem) return { day: "दिवस १", title: "गर्भसंवाद", paragraphs: [] };
 
-      // Case 1: New JSON Schema { day, title, paragraphs: [...] }
       if (!Array.isArray(rawItem) && typeof rawItem === 'object') {
         const paras = Array.isArray(rawItem.paragraphs) ? rawItem.paragraphs : (rawItem.messages || []);
         return {
@@ -484,7 +467,6 @@
         };
       }
 
-      // Case 2: Legacy Array format ["दिवस १", "शीर्षक", "१. मजकूर..."]
       const day = rawItem[0] || "दिवस १";
       const title = rawItem[1] || "गर्भसंवाद";
       const rawBody = rawItem[2] || "";
@@ -503,7 +485,6 @@
       return { day, title, paragraphs };
     }
 
-    // Strips out "१. ", "1. ", "आई:", "बाबा:", "आई-बाबा:" so the text becomes continuous prose
     function cleanNumberedLine(line) {
       if (!line || typeof line !== 'string') return '';
       return line
@@ -513,14 +494,13 @@
         .trim();
     }
 
-    // Fallbacks
     const FALLBACK_MOTHER = [{
       day: "दिवस १",
       title: "प्रेम आणि सुरक्षिततेची ऊब",
       paragraphs: [
         "माझ्या लाडक्या बाळा, आजपासून मी तुझ्याशी मनापासून एक सुंदर आणि अखंड संवाद सुरू करत आहे. तू माझ्या उदरात सुरक्षित आहेस आणि माझ्या हृदयाचा प्रत्येक ठोका फक्त तुझ्यासाठी प्रेमाने धडधडत आहे.",
         "माझ्या पोटावरून फिरणारा हा मायेचा हात तुला संपूर्ण जगातील सर्वात सुरक्षित जागा देत आहे. तू या जगात येण्याआधीच मी आणि तुझे बाबा तुझ्यावर अथांग आणि निरपेक्ष प्रेम करत आहोत. माझ्या श्वासासोबत वाहणारी प्रत्येक भावना तुझ्या मनाला असीम शांती आणि तृप्ती देणारी ठरो.",
-        "तुझ्या आजूबाजूला केवळ सकारात्मक, शुद्ध आणि प्रेमळ स्पंदनांचे एक अभेद्य कवच निर्माण झाले आहे. स्वतःवर प्रेम करण्याचे आणि जगाला भरभरून प्रेम देण्याचे उत्तम संस्कार तुझ्या अंतर्मनात रुजत आहेत. कोणत्याही भीतीशिवाय अगदी निर्धास्तपणे तू माझ्या कुशीत वाढत राहा. शांत झोप आणि माझ्या प्रेमाची ऊब अनुभवत आनंदाने घडत राहा."
+        "तुझ्या आजूबाजूला केवळ सकारात्मक, शुद्ध आणि प्रेमळ स्पंदनांचे एक अभेद्य कवच निर्माण झाले आहे. स्वतःवर प्रेम करण्याचे आणि जगाला भरभरून प्रेम देण्याचे उत्तम संस्कार तुझ्या अंतर्मनात रुजत आहेत. कोणत्याही भीतीशिवाय अगदी निर्धास्तपणे तू माझ्या कुशीत वाढत राहा."
       ]
     }];
 
@@ -529,8 +509,8 @@
       title: "पितृप्रेम, ओळख आणि सुरक्षिततेचे वचन",
       paragraphs: [
         "माझ्या लाडक्या बाळा, मी तुझा बाबा तुझ्याशी बोलतोय; माझा हा आश्वासक आवाज तुझ्या अंतर्मनात शांततेने उतरू दे. तुझ्या आईच्या उदरात तू सुरक्षित आहेस आणि बाहेरून मी तुझ्या संरक्षणासाठी एक अभेद्य ढाल बनून उभा आहे.",
-        "तू या जगात येण्याआधीच माझे संपूर्ण आयुष्य तुझ्या प्रेमाने, आनंदाने आणि नव्या स्वप्नांनी भरून गेले आहे. माझ्या हाताचा स्पर्श जेव्हा तुझ्या आईच्या पोटावर होतो, तेव्हा मला तुझ्या अस्तित्वाची आणि नात्याची सुंदर अनुभूती येते. जीवनाच्या प्रत्येक वळणावर तुझा हा बाबा तुझ्या पाठीशी खंबीरपणे उभा राहील.",
-        "तुला जगातल्या सर्व संकटांपासून दूर ठेवून सर्वोत्तम जीवन देण्याचा मी आज तुला अंतःकरणापासून शब्द देतो. माझ्या प्रत्येक श्वासात तुझ्या उज्ज्वल भविष्याची आणि आरोग्याची मंगलमय प्रार्थना आहे. बाळा, शांत झोप; तुझा बाबा तुझ्या आगमनाची अतिशय आतुरतेने वाट पाहत आहे."
+        "तू या जगात येण्याआधीच माझे संपूर्ण आयुष्य तुझ्या प्रेमाने, आनंदाने आणि नव्या स्वप्नांनी भरून गेले आहे. माझ्या हाताचा स्पर्श जेव्हा तुझ्या आईच्या पोटावर होतो, तेव्हा मला तुझ्या अस्तित्वाची आणि नात्याची सुंदर अनुभूती येते.",
+        "तुला जगातल्या सर्व संकटांपासून दूर ठेवून सर्वोत्तम जीवन देण्याचा मी आज तुला अंतःकरणापासून शब्द देतो. माझ्या प्रत्येक श्वासात तुझ्या उज्ज्वल भविष्याची आणि आरोग्याची मंगलमय प्रार्थना आहे."
       ]
     }];
 
@@ -539,23 +519,23 @@
       title: "कुटुंबातील आनंदाचे वातावरण आणि स्वागताची आतुरता",
       paragraphs: [
         "माझ्या लाडक्या बाळा, आज आम्ही दोघेही एकत्र बसून तुझ्याशी मनापासून गप्पा मारायला आलो आहोत. बघ बाळा, आईचा हा कोमल हात आणि बाबांचा हा भक्कम हात दोघांनी मिळून तुझ्या पाठीवर ठेवला आहे.",
-        "तू आमच्या आयुष्यात येणार आहेस या एकाच विचाराने आमचे संपूर्ण घर आनंदाने आणि उत्साहाने भरून गेले आहे. आमच्या दोघांमधील हे प्रेम, आपुलकी आणि शांतता तुला गर्भाच्या आत अखंड सुरक्षिततेची ऊब देत आहे. आम्ही दोघेही तुला या जगात एक अत्यंत सुंदर, सुसंस्कृत आणि समृद्ध आयुष्य देण्याचा संकल्प करतो.",
-        "घरातले वातावरण नेहमी हसरे, प्रसन्न आणि सकारात्मक राहावे याची आम्ही दोघेही सतत काळजी घेत आहोत. तू या कुटुंबाचा सर्वात मोठा आनंद आणि घराचा प्रकाश आहेस. बाहेरील जगाची अजिबात चिंता करू नकोस; आईची माया आणि बाबांचे संरक्षण सदैव तुझ्या पाठीशी आहे."
+        "तू आमच्या आयुष्यात येणार आहेस या एकाच विचाराने आमचे संपूर्ण घर आनंदाने आणि उत्साहाने भरून गेले आहे. आमच्या दोघांमधील हे प्रेम, आपुलकी आणि शांतता तुला गर्भाच्या आत अखंड सुरक्षिततेची ऊब देत आहे.",
+        "घरातले वातावरण नेहमी हसरे, प्रसन्न आणि सकारात्मक राहावे याची आम्ही दोघेही सतत काळजी घेत आहोत. बाहेरील जगाची अजिबात चिंता करू नकोस; आईची माया आणि बाबांचे संरक्षण सदैव तुझ्या पाठीशी आहे."
       ]
     }];
 
     const FALLBACK_STORY = [{
       day: "दिवस १",
-      title: "खारुताईची गोष्ट (लहान योगदान व निस्वार्थ सेवा)",
+      title: "खारुताईची गोष्ट: लहान योगदान व निस्वार्थ सेवा",
       paragraphs: [
         "माझ्या लाडक्या सोन्या, आज तुझी आई तुला रामायणातील एका चिमुरड्या, गोड खारुताईची खूप छान गोष्ट सांगणार आहे. प्रभू रामचंद्र लंकेला जाण्यासाठी समुद्रावर मोठा सेतू बांधत होते, तेव्हा मोठी वानरे अजस्र दगड उचलून पाण्यात टाकत होती. तिथे एक छोटीशी खारुताई समुद्राच्या पाण्यात डुबकी मारून, वाळूत लोळून पुलावर जाऊन वाळू झटकून योगदान देत होती.",
         "वानरांनी तिची चेष्टा केली तरी तिने आपले काम थांबवले नाही. प्रभू रामचंद्रांनी त्या खारुताईला पाहिले, प्रेमाने उचलून स्वतःच्या छातीशी लावले आणि तिच्या पाठीवरून मायेने हात फिरवला. प्रभू म्हणाले, 'तिचे प्रेम आणि तिचे योगदान तुमच्या मोठ्या दगडांइतकेच अनमोल आहे.'",
-        "बाळासाठी शिकवण: जगात कोणतेही काम किंवा कोणाचेही योगदान कधीही लहान अथवा मोठे नसते. तू मोठेपणी नेहमी इतरांना आणि समाजाला आपल्या परीने मदत कर. कामातील मोठेपणा हा पैशात नसून, ते काम किती मनापासून आणि प्रेमाने केले आहे यात असतो. असाच गुणी आणि सेवाभावी हो बाळा!"
+        "बाळासाठी शिकवण: जगात कोणतेही काम किंवा कोणाचेही योगदान कधीही लहान अथवा मोठे नसते. तू मोठेपणी नेहमी इतरांना आणि समाजाला आपल्या परीने मदत कर. कामातील मोठेपणा हा पैशात नसून, ते काम किती मनापासून आणि प्रेमाने केले आहे यात असतो."
       ]
     }];
 
     function App() {
-      const [speaker, setSpeaker] = useState('mother'); // 'mother', 'father', 'parent', 'story'
+      const [speaker, setSpeaker] = useState('mother');
       const [motherData, setMotherData] = useState(FALLBACK_MOTHER);
       const [fatherData, setFatherData] = useState(FALLBACK_FATHER);
       const [parentData, setParentData] = useState(FALLBACK_PARENT);
@@ -568,7 +548,6 @@
       const touchEndX = useRef(0);
       const scrollRef = useRef(null);
 
-      // Theme sync
       useEffect(() => {
         const root = document.documentElement;
         if (speaker === 'mother') {
@@ -586,7 +565,6 @@
         }
       }, [speaker]);
 
-      // Load external JSON files
       useEffect(() => {
         fetch('./data/mothers.json')
           .then(res => res.ok ? res.json() : fetch('./data/mother.json').then(r => r.json()))
@@ -620,7 +598,6 @@
 
       const progressPercent = totalDays > 0 ? ((safeIndex + 1) / totalDays) * 100 : 0;
 
-      // Reset scroll upon day switch
       useEffect(() => {
         if (scrollRef.current) scrollRef.current.scrollTop = 0;
       }, [safeIndex, speaker]);
@@ -638,7 +615,6 @@
         if (safeIndex < totalDays - 1) setCurrentIndex(safeIndex + 1);
       };
 
-      // Keyboard navigation
       useEffect(() => {
         const handleKeyDown = (e) => {
           if (e.key === 'ArrowLeft') goToPrev();
@@ -648,7 +624,6 @@
         return () => window.removeEventListener('keydown', handleKeyDown);
       }, [safeIndex, totalDays]);
 
-      // Touch swipes
       const handleTouchStart = (e) => { touchStartX.current = e.targetTouches[0].clientX; };
       const handleTouchMove = (e) => { touchEndX.current = e.targetTouches[0].clientX; };
       const handleTouchEnd = () => {
@@ -662,7 +637,6 @@
         setTimeout(() => setToastMsg(''), 2600);
       };
 
-      // Natural Book Sharing Card
       const handleShare = async () => {
         if (isSharing) return;
         setIsSharing(true);
@@ -675,7 +649,7 @@
           const padding = 80;
           const contentWidth = width - padding * 2;
 
-          ctx.font = '400 32px "Noto Sans Devanagari", sans-serif';
+          ctx.font = '300 32px "Noto Serif Devanagari", serif';
           let calculatedHeight = 440;
 
           const wrappedParagraphs = [];
@@ -701,7 +675,6 @@
           canvas.width = width;
           canvas.height = Math.max(1450, calculatedHeight);
 
-          // Rich Parchment Book Gradient
           const bgGrad = ctx.createLinearGradient(0, 0, width, canvas.height);
           bgGrad.addColorStop(0, '#16121d');
           bgGrad.addColorStop(0.5, '#1e1829');
@@ -709,7 +682,6 @@
           ctx.fillStyle = bgGrad;
           ctx.fillRect(0, 0, width, canvas.height);
 
-          // Ornamental Double Border
           ctx.strokeStyle = 'rgba(240, 168, 200, 0.25)';
           ctx.lineWidth = 2;
           ctx.strokeRect(30, 30, width - 60, canvas.height - 60);
@@ -717,7 +689,6 @@
           ctx.lineWidth = 1;
           ctx.strokeRect(40, 40, width - 80, canvas.height - 80);
 
-          // Header
           ctx.fillStyle = '#f0a8c8';
           ctx.font = '400 42px "Rozha One", serif';
           ctx.fillText('उमाभरत गर्भसंवाद', padding, 120);
@@ -731,29 +702,25 @@
           ctx.font = '600 26px "Noto Sans Devanagari", sans-serif';
           ctx.fillText(`${day}  •  ${sectionName}`, padding, 180);
 
-          // Title
           ctx.fillStyle = '#ffffff';
-          ctx.font = '700 48px "Noto Serif Devanagari", serif';
-          ctx.fillText(title, padding, 260);
+          ctx.font = '700 44px "Noto Serif Devanagari", serif';
+          ctx.fillText(title, padding, 255);
 
-          // Divider Line
           ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
-          ctx.fillRect(padding, 295, contentWidth, 2);
+          ctx.fillRect(padding, 290, contentWidth, 2);
 
-          // Paragraphs
-          let y = 360;
+          let y = 355;
           ctx.fillStyle = '#eae2dc';
-          ctx.font = '400 32px "Noto Sans Devanagari", sans-serif';
+          ctx.font = '300 32px "Noto Serif Devanagari", serif';
 
           wrappedParagraphs.forEach((pLines) => {
             pLines.forEach((wLine) => {
               ctx.fillText(wLine, padding, y);
               y += 50;
             });
-            y += 24; // paragraph spacing
+            y += 24;
           });
 
-          // Blessing Footer
           ctx.textAlign = 'center';
           ctx.fillStyle = '#e2ba6f';
           ctx.font = '400 30px "Tiro Devanagari Marathi", serif';
@@ -841,9 +808,6 @@
                 className: 'progress-fill',
                 style: { width: `${progressPercent}%` }
               })
-            ),
-            React.createElement('div', { className: 'counter-label' },
-              `${day} / ३०`
             )
           ),
 
@@ -854,13 +818,12 @@
             onTouchMove: handleTouchMove,
             onTouchEnd: handleTouchEnd
           },
-            // CHAPTER HEADER
+            // CHAPTER HEADER (दिवस १ tag काढले, कमी उंची)
             React.createElement('div', { className: 'book-header' },
-              React.createElement('span', { className: 'chapter-tag' }, day),
               React.createElement('h2', { className: 'chapter-title' }, title)
             ),
 
-            // SCROLLABLE BOOK BODY (NO NUMBERED CARDS)
+            // SCROLLABLE BOOK BODY (Noto Serif Lite Weight Body)
             React.createElement('div', { className: 'book-body', ref: scrollRef },
               React.createElement('div', { className: 'prose-content' },
                 paragraphs.map((p, idx) =>
@@ -875,7 +838,7 @@
             )
           ),
 
-          // BOTTOM NAV
+          // BOTTOM NAV (Slim Share button)
           React.createElement('nav', { className: 'bottom-nav' },
             React.createElement('button', {
               className: 'nav-btn',
