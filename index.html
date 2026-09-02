@@ -83,11 +83,11 @@
     .main-header {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding-top: 4px;
+      gap: 6px;
+      padding-top: 2px;
     }
 
-    /* Top Row: Logo Left, Day Count Right */
+    /* Top Row: Horizontal Logo + Text Left, Day Count Right */
     .top-row {
       display: flex;
       justify-content: space-between;
@@ -95,14 +95,14 @@
       padding: 0 4px;
     }
 
-    .brand {
+    .brand-horizontal {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
     .dharmachakra-icon {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: var(--active-accent);
       animation: spinClockwise 22s linear infinite;
       display: inline-flex;
@@ -116,17 +116,16 @@
       to { transform: rotate(360deg); }
     }
 
-    .brand-text {
+    .brand-inline-text {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
+      align-items: baseline;
+      gap: 8px;
     }
 
-    .brand-text h1 {
+    .brand-inline-text h1 {
       margin: 0;
       font-family: "Rozha One", serif;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 400;
       letter-spacing: 0.5px;
       line-height: 1.1;
@@ -135,32 +134,33 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .brand-text h2 {
-      margin: 2px 0 0 0;
+    .brand-inline-text h2 {
+      margin: 0;
       font-size: 0.75rem;
       font-weight: 700;
       color: #ffffff;
       letter-spacing: 0.01em;
-      line-height: 1.2;
+      line-height: 1.1;
     }
 
     .header-day-count {
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 700;
       color: var(--active-accent);
       background: rgba(255, 255, 255, 0.04);
-      padding: 4px 12px;
+      padding: 3px 10px;
       border-radius: 99px;
       border: 1px solid var(--line);
       font-family: "Noto Sans Devanagari", sans-serif;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      white-space: nowrap;
     }
 
     /* WEB-STYLE TABS (Seating on horizontal line) */
     .web-tabs-container {
       display: flex;
       width: 100%;
-      border-bottom: 1px solid var(--line); /* Horizontal Line Separator */
+      border-bottom: 1px solid var(--line);
       overflow-x: auto;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
@@ -176,10 +176,10 @@
       min-width: max-content;
       background: transparent;
       border: none;
-      border-bottom: 3px solid transparent; /* Space for active underline */
+      border-bottom: 3px solid transparent;
       color: var(--text-muted);
-      padding: 6px 12px 8px 12px;
-      font-size: 0.85rem;
+      padding: 4px 10px 6px 10px;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 200ms ease;
@@ -188,15 +188,15 @@
 
     .web-tab.active {
       color: #ffffff;
-      border-bottom: 3px solid var(--active-accent); /* Colored Underline */
+      border-bottom: 3px solid var(--active-accent);
       background: linear-gradient(to top, var(--active-glow) 0%, transparent 100%);
     }
 
-    /* PROGRESS TRACK (Counter removed, span 100%) */
+    /* PROGRESS TRACK */
     .progress-bar-wrap {
       width: 100%;
       padding: 0;
-      margin-top: 2px;
+      margin-top: -4px;
     }
 
     .progress-track {
@@ -217,7 +217,7 @@
     /* BOOK-LIKE NATURAL READER CONTAINER */
     .book-reader {
       width: 100%;
-      height: min(690px, 69dvh);
+      height: min(710px, 71dvh);
       position: relative;
       display: flex;
       flex-direction: column;
@@ -558,7 +558,6 @@
       const handleSpeakerChange = (newSpeaker, event) => {
         setSpeaker(newSpeaker);
         setCurrentIndex(0);
-        // Scroll tab into view if needed
         if (event && event.target && tabsContainerRef.current) {
           event.target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
@@ -731,17 +730,17 @@
           /* COMPACT MAIN HEADER */
           React.createElement('header', { className: 'main-header' },
             
-            /* TOP ROW: Logo Left, Day Right */
+            /* TOP ROW: Horizontal Logo + Text Left, Day Count Right */
             React.createElement('div', { className: 'top-row' },
-              React.createElement('div', { className: 'brand' },
+              React.createElement('div', { className: 'brand-horizontal' },
                 React.createElement('i', { className: 'fa-solid fa-dharmachakra dharmachakra-icon' }),
-                React.createElement('div', { className: 'brand-text' },
+                React.createElement('div', { className: 'brand-inline-text' },
                   React.createElement('h1', null, 'उमाभरत'),
                   React.createElement('h2', null, 'नित्य गर्भसंवाद')
                 )
               ),
               React.createElement('div', { className: 'header-day-count' },
-                `${day} / ३०`
+                `${day} / ${totalDays}`
               )
             ),
 
