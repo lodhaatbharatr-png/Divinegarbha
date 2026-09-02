@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0d0b12">
-  <meta name="description" content="उमाभरत गर्भसंवाद">
-  <title>उमाभरत गर्भसंवाद</title>
+  <meta name="description" content="उमाभरत नित्य गर्भसंवाद">
+  <title>उमाभरत नित्य गर्भसंवाद</title>
 
-  <!-- Google Devanagari Fonts (Noto Serif 300 Lite Weight Included) -->
+  <!-- Google Devanagari Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@300;400;600;700;800&family=Rozha+One&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
@@ -89,50 +89,56 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .flower-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      border: 1.5px solid var(--active-accent);
-      box-shadow: 0 4px 18px var(--active-glow);
-      display: flex;
+    /* Spinning Dharmachakra Icon without box/border */
+    .dharmachakra-icon {
+      font-size: 1.85rem;
+      color: var(--active-accent);
+      animation: spinClockwise 22s linear infinite;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: var(--active-accent);
-      font-size: 1.35rem;
-      transition: all 300ms ease;
+      transition: color 300ms ease;
+    }
+
+    @keyframes spinClockwise {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     .brand-text {
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
+      text-align: center;
     }
 
+    /* Gradient: Left to Right Dark to Light (Dark part being larger) */
     .brand-text h1 {
       margin: 0;
       font-family: "Rozha One", serif;
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       font-weight: 400;
       letter-spacing: 0.5px;
       line-height: 1.1;
-      background: linear-gradient(120deg, #fff9f6 40%, var(--active-accent));
+      background: linear-gradient(90deg, #3d3546 0%, #685b73 55%, #eae3ef 85%, #ffffff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      transition: all 300ms ease;
+      text-align: center;
     }
 
+    /* Solid white subtitle aligned centrally to the title */
     .brand-text h2 {
-      margin: 0;
-      font-size: 0.85rem;
+      margin: 2px 0 0 0;
+      font-size: 0.8rem;
       font-weight: 700;
-      color: var(--text-muted);
+      color: #ffffff;
       letter-spacing: 0.08em;
       line-height: 1.2;
+      text-align: center;
     }
 
     /* 4-WAY SEGMENTED SWITCH */
@@ -238,19 +244,19 @@
       border-radius: var(--radius);
       border: 1px solid var(--line);
       border-top: 2px solid var(--active-accent);
-      border-bottom: 2px solid var(--active-accent); /* Top सारखाच Bottom border */
+      border-bottom: 2px solid var(--active-accent);
       background: linear-gradient(180deg, rgba(23, 18, 30, 0.96) 0%, rgba(16, 12, 22, 0.98) 100%);
       box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 25px var(--active-glow);
       overflow: hidden;
       transition: border-color 300ms ease, box-shadow 300ms ease;
     }
 
-    /* Sticky Chapter Header (कमी उंची) */
+    /* Sticky Chapter Header */
     .book-header {
       position: sticky;
       top: 0;
       z-index: 10;
-      padding: 10px 18px; /* Height कमी केली */
+      padding: 10px 18px;
       background: rgba(23, 18, 30, 0.94);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -263,7 +269,7 @@
     .chapter-title {
       margin: 0;
       font-family: "Noto Serif Devanagari", serif;
-      font-size: clamp(0.96rem, 3.5vw, 1.16rem); /* 20% size कमी */
+      font-size: clamp(0.96rem, 3.5vw, 1.16rem);
       font-weight: 700;
       color: #fffdfa;
       line-height: 1.35;
@@ -297,9 +303,9 @@
 
     .book-paragraph {
       margin: 0;
-      font-family: "Noto Serif Devanagari", serif; /* Title सारखाच फॉन्ट */
+      font-family: "Noto Serif Devanagari", serif;
       font-size: clamp(0.92rem, 3.6vw, 1.02rem);
-      font-weight: 300; /* Lite Weight */
+      font-weight: 300;
       line-height: 1.95;
       color: #ede5de;
       text-align: justify;
@@ -335,12 +341,21 @@
       line-height: 1.7;
       margin: 0;
       letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .closing-text i {
+      font-size: 0.95rem;
+      color: var(--active-accent);
     }
 
     /* BOTTOM NAV BAR */
     .bottom-nav {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr 1.1fr; /* Share button ची width कमी केली */
+      grid-template-columns: 1.1fr 0.9fr 1.1fr;
       align-items: center;
       gap: 10px;
       width: 100%;
@@ -348,10 +363,11 @@
 
     .nav-btn {
       min-height: 46px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--active-accent); /* Active accent border */
       border-radius: 14px;
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text);
+      background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+      color: #ffffff;
+      box-shadow: 0 4px 16px var(--active-glow);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -364,29 +380,25 @@
     }
 
     .nav-btn:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--active-accent);
     }
 
     .nav-btn:active {
       transform: scale(0.97);
     }
 
-    .nav-btn.primary {
-      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-      border: 1px solid var(--active-accent);
-      color: #ffffff;
-      box-shadow: 0 4px 16px var(--active-glow);
-    }
-
     .nav-btn:disabled {
       opacity: 0.25;
       cursor: not-allowed;
       border-color: var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
       box-shadow: none;
+      transform: none;
     }
 
-    /* SHARE BUTTON (Slimmer) */
+    /* SHARE BUTTON */
     .share-btn {
       min-height: 46px;
       border: 1px solid rgba(126, 203, 161, 0.35);
@@ -456,19 +468,19 @@
     const { useState, useEffect, useRef } = React;
 
     function extractParagraphs(rawItem) {
-      if (!rawItem) return { day: "दिवस १", title: "गर्भसंवाद", paragraphs: [] };
+      if (!rawItem) return { day: "दिवस १", title: "नित्य गर्भसंवाद", paragraphs: [] };
 
       if (!Array.isArray(rawItem) && typeof rawItem === 'object') {
         const paras = Array.isArray(rawItem.paragraphs) ? rawItem.paragraphs : (rawItem.messages || []);
         return {
           day: typeof rawItem.day === 'number' ? `दिवस ${rawItem.day}` : (rawItem.day || "दिवस १"),
-          title: rawItem.title || "गर्भसंवाद",
+          title: rawItem.title || "नित्य गर्भसंवाद",
           paragraphs: paras.map(p => cleanNumberedLine(p)).filter(Boolean)
         };
       }
 
       const day = rawItem[0] || "दिवस १";
-      const title = rawItem[1] || "गर्भसंवाद";
+      const title = rawItem[1] || "नित्य गर्भसंवाद";
       const rawBody = rawItem[2] || "";
 
       let lines = [];
@@ -691,7 +703,7 @@
 
           ctx.fillStyle = '#f0a8c8';
           ctx.font = '400 42px "Rozha One", serif';
-          ctx.fillText('उमाभरत गर्भसंवाद', padding, 120);
+          ctx.fillText('उमाभरत नित्य गर्भसंवाद', padding, 120);
 
           let sectionName = 'आईचे संवाद';
           if (speaker === 'father') sectionName = 'बाबांचे संवाद';
@@ -724,7 +736,7 @@
           ctx.textAlign = 'center';
           ctx.fillStyle = '#e2ba6f';
           ctx.font = '400 30px "Tiro Devanagari Marathi", serif';
-          ctx.fillText('✨ प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे ✨', width / 2, canvas.height - 85);
+          ctx.fillText('🙏 आई-बाबांचे प्रेम आणि शुभ आशीर्वाद 🙏', width / 2, canvas.height - 85);
 
           canvas.toBlob(async (blob) => {
             if (!blob) {
@@ -733,11 +745,11 @@
             }
             const fileName = `Garbhasamwad_${day.replace(/\s+/g, '')}.png`;
             const file = new File([blob], fileName, { type: 'image/png' });
-            const shareText = `*उमाभरत गर्भसंवाद*\n${day}: *${title}* (${sectionName})\n\n${paragraphs.join('\n\n')}\n\n✨ प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे ✨`;
+            const shareText = `*उमाभरत नित्य गर्भसंवाद*\n${day}: *${title}* (${sectionName})\n\n${paragraphs.join('\n\n')}\n\n🙏 आई-बाबांचे प्रेम आणि शुभ आशीर्वाद 🙏`;
 
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
               try {
-                await navigator.share({ files: [file], title: 'उमाभरत गर्भसंवाद', text: shareText });
+                await navigator.share({ files: [file], title: 'उमाभरत नित्य गर्भसंवाद', text: shareText });
                 showToast('यशस्वीरित्या शेअर केले!');
               } catch (err) {
                 if (err.name !== 'AbortError') fallbackWhatsApp(shareText);
@@ -765,19 +777,17 @@
       return React.createElement('div', { className: 'app' },
         React.createElement('div', { className: 'shell' },
 
-          // TOPBAR
+          /* TOPBAR */
           React.createElement('header', { className: 'topbar' },
             React.createElement('div', { className: 'brand' },
-              React.createElement('div', { className: 'flower-logo' },
-                React.createElement('i', { className: 'fa-solid fa-spa' })
-              ),
+              React.createElement('i', { className: 'fa-solid fa-dharmachakra dharmachakra-icon' }),
               React.createElement('div', { className: 'brand-text' },
                 React.createElement('h1', null, 'उमाभरत'),
-                React.createElement('h2', null, 'गर्भसंवाद')
+                React.createElement('h2', null, 'नित्य गर्भसंवाद')
               )
             ),
 
-            // 4-WAY SEGMENTED SWITCH
+            /* 4-WAY SEGMENTED SWITCH */
             React.createElement('div', { className: 'switch-container' },
               React.createElement('div', {
                 className: `switch-indicator ${speaker}`
@@ -801,7 +811,7 @@
             )
           ),
 
-          // PROGRESS TRACK
+          /* PROGRESS TRACK */
           React.createElement('div', { className: 'progress-bar-wrap' },
             React.createElement('div', { className: 'progress-track' },
               React.createElement('div', {
@@ -811,19 +821,19 @@
             )
           ),
 
-          // BOOK READING CONTAINER
+          /* BOOK READING CONTAINER */
           React.createElement('main', {
             className: 'book-reader',
             onTouchStart: handleTouchStart,
             onTouchMove: handleTouchMove,
             onTouchEnd: handleTouchEnd
           },
-            // CHAPTER HEADER (दिवस १ tag काढले, कमी उंची)
+            /* CHAPTER HEADER (Compact & No day count) */
             React.createElement('div', { className: 'book-header' },
               React.createElement('h2', { className: 'chapter-title' }, title)
             ),
 
-            // SCROLLABLE BOOK BODY (Noto Serif Lite Weight Body)
+            /* SCROLLABLE BOOK BODY (Noto Serif Lite Weight Body) */
             React.createElement('div', { className: 'book-body', ref: scrollRef },
               React.createElement('div', { className: 'prose-content' },
                 paragraphs.map((p, idx) =>
@@ -832,13 +842,15 @@
               ),
               React.createElement('div', { className: 'closing-mantra-box' },
                 React.createElement('p', { className: 'closing-text' },
-                  '✨ आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ✨'
+                  React.createElement('i', { className: 'fa-solid fa-praying-hands' }),
+                  ' आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ',
+                  React.createElement('i', { className: 'fa-solid fa-praying-hands' })
                 )
               )
             )
           ),
 
-          // BOTTOM NAV (Slim Share button)
+          /* BOTTOM NAV (Both Nav buttons active border & Slim Share button) */
           React.createElement('nav', { className: 'bottom-nav' },
             React.createElement('button', {
               className: 'nav-btn',
@@ -858,7 +870,7 @@
             ),
 
             React.createElement('button', {
-              className: 'nav-btn primary',
+              className: 'nav-btn',
               onClick: goToNext,
               disabled: safeIndex === totalDays - 1
             },
@@ -867,13 +879,13 @@
             )
           ),
 
-          // DEDICATION FOOTER
+          /* DEDICATION FOOTER */
           React.createElement('div', { className: 'book-dedication-footer' },
             'प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे...'
           )
         ),
 
-        // TOAST
+        /* TOAST */
         toastMsg ? React.createElement('div', { className: 'toast' }, toastMsg) : null
       );
     }
