@@ -4,34 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0d0b12">
-  <meta name="description" content="उमाभरत गर्भसंवाद — प्रेम • संस्कार • प्रार्थना">
+  <meta name="description" content="उमाभरत गर्भसंवाद">
   <title>उमाभरत गर्भसंवाद</title>
 
-  <!-- Google Marathi Font -->
+  <!-- Google Devanagari Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@600;700;800&family=Rozha+One&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
 
-  <!-- React 18 & Lucide Icons -->
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- React 18 -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
-      --bg: #0d0b12;
-      --card-bg: rgba(26, 22, 34, 0.96);
-      --card-border: rgba(240, 185, 205, 0.12);
-      --text: #fffbf7;
-      --content: #e8e0dc;
-      --muted: #a69b9e;
-      --accent: #f0a8c8;
+      --bg: #0c0a10;
+      --paper: #15111c;
+      --text: #f8f3eb;
+      --text-muted: #9f9699;
+      --accent-rose: #f0a8c8;
+      --accent-violet: #ba8ce0;
       --accent-gold: #e2ba6f;
-      --primary: #a1547b;
-      --primary-dark: #6e3352;
-      --line: rgba(255, 255, 255, 0.08);
-      --shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
-      --radius: 24px;
+      --accent-green: #7ecba1;
+      --line: rgba(255, 255, 255, 0.07);
+      --radius: 20px;
+
+      /* Active theme dynamic variable */
+      --active-accent: var(--accent-rose);
+      --active-glow: rgba(240, 168, 200, 0.18);
     }
 
     * {
@@ -46,22 +49,23 @@
       padding: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: "Noto Sans Devanagari", "Nirmala UI", sans-serif;
+      font-family: "Noto Sans Devanagari", sans-serif;
       overflow-x: hidden;
     }
 
     body {
       background:
-        radial-gradient(circle at 50% -15%, rgba(200, 110, 155, 0.22), transparent 45%),
-        radial-gradient(circle at 90% 85%, rgba(130, 80, 120, 0.15), transparent 40%),
+        radial-gradient(circle at 50% -10%, var(--active-glow), transparent 45%),
+        radial-gradient(circle at 95% 90%, rgba(130, 80, 120, 0.12), transparent 40%),
         var(--bg);
+      transition: background 400ms ease;
     }
 
     .app {
       min-height: 100dvh;
       display: flex;
       justify-content: center;
-      padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+      padding: max(10px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
     }
 
     .shell {
@@ -69,8 +73,8 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 10px;
-      min-height: calc(100dvh - max(24px, env(safe-area-inset-top) + env(safe-area-inset-bottom)));
+      gap: 12px;
+      min-height: calc(100dvh - max(20px, env(safe-area-inset-top) + env(safe-area-inset-bottom)));
     }
 
     /* TOPBAR */
@@ -78,8 +82,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      padding: 2px 4px;
+      gap: 10px;
+      padding: 4px 2px;
     }
 
     .brand {
@@ -88,78 +92,96 @@
       gap: 10px;
     }
 
-    .logo-badge {
-      width: 40px;
-      height: 40px;
+    .flower-logo {
+      width: 42px;
+      height: 42px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #d482a5, #793757);
-      border: 1.5px solid rgba(255, 230, 240, 0.28);
-      box-shadow: 0 4px 15px rgba(212, 130, 165, 0.3);
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      font-size: 16px;
-      letter-spacing: 0.5px;
-      color: #fff;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1.5px solid var(--active-accent);
+      box-shadow: 0 4px 18px var(--active-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--active-accent);
+      font-size: 1.35rem;
+      transition: all 300ms ease;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .brand-text h1 {
       margin: 0;
-      font-size: 0.96rem;
-      font-weight: 800;
-      color: #fff9f6;
-      line-height: 1.2;
+      font-family: "Rozha One", serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+      background: linear-gradient(120deg, #fff9f6 40%, var(--active-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 300ms ease;
     }
 
-    .brand-text p {
-      margin: 2px 0 0;
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.02em;
+    .brand-text h2 {
+      margin: 0;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      line-height: 1.2;
     }
 
     /* 4-WAY SEGMENTED SWITCH */
     .switch-container {
       position: relative;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--line);
       border-radius: 999px;
       padding: 3px;
       display: flex;
       align-items: center;
-      width: 250px;
-      height: 36px;
+      width: 240px;
+      height: 38px;
       user-select: none;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
     }
 
     .switch-indicator {
       position: absolute;
       top: 3px;
       bottom: 3px;
-      width: calc(25% - 2px);
-      background: linear-gradient(135deg, #a75c82, #7e3b5e);
-      border-radius: 999px;
-      box-shadow: 0 2px 10px rgba(167, 92, 130, 0.4);
-      transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
       left: 3px;
+      width: calc(25% - 2px);
+      border-radius: 999px;
+      transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1), background 300ms ease;
+    }
+
+    .switch-indicator.mother {
+      transform: translateX(0%);
+      background: linear-gradient(135deg, #a75c82, #7e3b5e);
+      box-shadow: 0 2px 10px rgba(167, 92, 130, 0.45);
     }
 
     .switch-indicator.father {
       transform: translateX(100%);
       background: linear-gradient(135deg, #745287, #4b325c);
-      box-shadow: 0 2px 10px rgba(116, 82, 135, 0.4);
+      box-shadow: 0 2px 10px rgba(116, 82, 135, 0.45);
     }
 
     .switch-indicator.parent {
       transform: translateX(200%);
-      background: linear-gradient(135deg, #b8860b, #7a5806);
-      box-shadow: 0 2px 10px rgba(184, 134, 11, 0.4);
+      background: linear-gradient(135deg, #9b7223, #6a4b08);
+      box-shadow: 0 2px 10px rgba(184, 134, 11, 0.45);
     }
 
     .switch-indicator.story {
       transform: translateX(300%);
-      background: linear-gradient(135deg, #2e8b57, #1b5e20);
-      box-shadow: 0 2px 10px rgba(46, 139, 87, 0.4);
+      background: linear-gradient(135deg, #2b704c, #16472b);
+      box-shadow: 0 2px 10px rgba(46, 139, 87, 0.45);
     }
 
     .switch-btn {
@@ -168,31 +190,32 @@
       flex: 1;
       border: none;
       background: transparent;
-      color: var(--muted);
-      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-size: 0.76rem;
       font-weight: 700;
       cursor: pointer;
       text-align: center;
       padding: 0;
-      line-height: 30px;
+      line-height: 32px;
       transition: color 200ms ease;
+      font-family: "Noto Sans Devanagari", sans-serif;
     }
 
     .switch-btn.active {
-      color: #fff;
+      color: #ffffff;
     }
 
     /* PROGRESS TRACK */
     .progress-bar-wrap {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       padding: 0 4px;
     }
 
     .progress-track {
       flex: 1;
-      height: 4px;
+      height: 3px;
       border-radius: 99px;
       background: rgba(255, 255, 255, 0.08);
       overflow: hidden;
@@ -201,108 +224,140 @@
     .progress-fill {
       height: 100%;
       border-radius: inherit;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      transition: width 300ms ease;
+      background: linear-gradient(90deg, var(--active-accent), #ffffff);
+      transition: width 300ms ease, background 300ms ease;
     }
 
     .counter-label {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      color: var(--accent);
-      min-width: 80px;
+      color: var(--active-accent);
+      min-width: 85px;
       text-align: right;
+      letter-spacing: 0.02em;
     }
 
-    /* CARD CONTAINER */
-    .card {
+    /* BOOK-LIKE NATURAL READER CONTAINER */
+    .book-reader {
       width: 100%;
-      height: min(680px, 68dvh);
+      height: min(690px, 69dvh);
       position: relative;
       display: flex;
       flex-direction: column;
       border-radius: var(--radius);
-      border: 1px solid var(--card-border);
-      background: var(--card-bg);
-      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      border-top: 2px solid var(--active-accent);
+      background: linear-gradient(180deg, rgba(23, 18, 30, 0.96) 0%, rgba(16, 12, 22, 0.98) 100%);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 25px var(--active-glow);
       overflow: hidden;
+      transition: border-color 300ms ease, box-shadow 300ms ease;
     }
 
-    /* STICKY CARD HEADER */
-    .card-sticky-head {
+    /* Sticky Chapter Header */
+    .book-header {
       position: sticky;
       top: 0;
       z-index: 10;
-      padding: 16px 18px 14px;
-      background: rgba(26, 22, 34, 0.94);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 16px 22px 14px;
+      background: rgba(23, 18, 30, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    .card-title {
+    .chapter-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--active-accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .chapter-title {
       margin: 0;
-      font-size: clamp(1.15rem, 4.2vw, 1.4rem);
-      font-weight: 800;
-      color: var(--text);
+      font-family: "Noto Serif Devanagari", serif;
+      font-size: clamp(1.2rem, 4.4vw, 1.45rem);
+      font-weight: 700;
+      color: #fffdfa;
       line-height: 1.35;
-      letter-spacing: -0.01em;
-      text-align: left;
     }
 
-    /* SCROLLABLE DIALOGUE BODY */
-    .card-scroll-body {
+    /* Scrollable Book Body */
+    .book-body {
       flex: 1;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 14px 18px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
+      padding: 22px 24px 30px;
       scrollbar-width: thin;
       scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
     }
 
-    .card-scroll-body::-webkit-scrollbar {
+    .book-body::-webkit-scrollbar {
       width: 4px;
     }
-    .card-scroll-body::-webkit-scrollbar-thumb {
+    .book-body::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.15);
       border-radius: 4px;
     }
 
-    .dialogue-item {
-      background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 12px;
-      padding: 9px 12px;
-      font-size: clamp(0.88rem, 3.7vw, 0.98rem);
-      line-height: 1.7;
-      color: var(--content);
-      font-weight: 500;
+    /* Long-Form Book Paragraphs */
+    .prose-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .dialogue-item.highlight {
-      border-left: 3px solid var(--accent);
-      background: rgba(240, 168, 200, 0.04);
+    .book-paragraph {
+      margin: 0;
+      font-family: "Noto Sans Devanagari", sans-serif;
+      font-size: clamp(0.96rem, 3.8vw, 1.05rem);
+      font-weight: 400;
+      line-height: 1.95;
+      color: #ede5de;
+      text-align: justify;
+      text-justify: inter-word;
+      letter-spacing: 0.012em;
     }
 
-    .card-footer-mantra {
-      margin-top: 10px;
-      padding-top: 12px;
-      border-top: 1px solid var(--line);
-      text-align: center;
-      font-size: 0.78rem;
+    .book-paragraph:first-of-type::first-letter {
+      font-family: "Noto Serif Devanagari", serif;
+      font-size: 2.2rem;
       font-weight: 700;
-      color: var(--accent);
+      float: left;
+      line-height: 1;
+      margin-right: 8px;
+      color: var(--active-accent);
+    }
+
+    /* Sacred Closing Quote / Mantra */
+    .closing-mantra-box {
+      margin-top: 28px;
+      padding: 16px 20px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border-left: 2px solid var(--active-accent);
+      border-right: 2px solid var(--active-accent);
+      text-align: center;
+    }
+
+    .closing-text {
+      font-family: "Tiro Devanagari Marathi", serif;
+      font-size: 1.05rem;
+      color: var(--accent-gold);
+      line-height: 1.7;
+      margin: 0;
       letter-spacing: 0.02em;
     }
 
     /* BOTTOM NAV BAR */
     .bottom-nav {
       display: grid;
-      grid-template-columns: 1fr 1.2fr 1fr;
+      grid-template-columns: 1fr 1.15fr 1fr;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       width: 100%;
     }
 
@@ -310,93 +365,94 @@
       min-height: 46px;
       border: 1px solid var(--line);
       border-radius: 14px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
       color: var(--text);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
       font-size: 0.85rem;
-      font-weight: 700;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 150ms ease;
-    }
-
-    .nav-btn:active {
-      transform: scale(0.96);
+      transition: all 180ms ease;
+      font-family: "Noto Sans Devanagari", sans-serif;
     }
 
     .nav-btn:hover {
-      background: rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-btn:active {
+      transform: scale(0.97);
     }
 
     .nav-btn.primary {
-      background: linear-gradient(135deg, #a75c82, #7e3b5e);
-      border-color: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 4px 16px rgba(167, 92, 130, 0.25);
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border: 1px solid var(--active-accent);
+      color: #ffffff;
+      box-shadow: 0 4px 16px var(--active-glow);
     }
 
     .nav-btn:disabled {
       opacity: 0.25;
       cursor: not-allowed;
+      border-color: var(--line);
       box-shadow: none;
     }
 
     /* SHARE BUTTON */
     .share-btn {
       min-height: 46px;
-      border: 1px solid rgba(37, 211, 102, 0.3);
+      border: 1px solid rgba(126, 203, 161, 0.35);
       border-radius: 14px;
-      background: linear-gradient(135deg, rgba(37, 211, 102, 0.18), rgba(18, 140, 126, 0.28));
-      color: #6ef0a4;
+      background: linear-gradient(135deg, rgba(126, 203, 161, 0.15), rgba(30, 80, 55, 0.35));
+      color: #88edb5;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      font-size: 0.86rem;
-      font-weight: 800;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.12);
-      transition: all 150ms ease;
-    }
-
-    .share-btn:active {
-      transform: scale(0.96);
+      box-shadow: 0 4px 15px rgba(46, 139, 87, 0.15);
+      transition: all 180ms ease;
     }
 
     .share-btn:hover {
-      background: linear-gradient(135deg, rgba(37, 211, 102, 0.26), rgba(18, 140, 126, 0.38));
-      border-color: rgba(37, 211, 102, 0.5);
+      background: linear-gradient(135deg, rgba(126, 203, 161, 0.25), rgba(30, 80, 55, 0.45));
+      border-color: rgba(126, 203, 161, 0.6);
     }
 
-    .share-btn svg {
-      width: 17px;
-      height: 17px;
-      stroke-width: 2.2;
+    .share-btn:active {
+      transform: scale(0.97);
     }
 
-    .swipe-hint {
+    /* DEDICATION FOOTER */
+    .book-dedication-footer {
       text-align: center;
-      font-size: 0.65rem;
-      color: #797177;
-      margin-top: -3px;
+      font-size: 0.72rem;
+      color: #928a90;
+      font-weight: 500;
+      margin-top: -2px;
+      letter-spacing: 0.03em;
     }
 
-    /* TOAST MESSAGE */
+    /* TOAST */
     .toast {
       position: fixed;
       bottom: 75px;
       left: 50%;
       transform: translateX(-50%);
-      background: #1c1824;
+      background: #1c1726;
       color: #fff;
-      border: 1px solid var(--accent);
-      padding: 8px 16px;
+      border: 1px solid var(--active-accent);
+      padding: 8px 18px;
       border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: 600;
       z-index: 100;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.65);
       animation: fadeInOut 2.5s ease forwards;
     }
 
@@ -414,21 +470,89 @@
   <script>
     const { useState, useEffect, useRef } = React;
 
-    const FALLBACK_MOTHER = [
-      ["दिवस १", "प्रेम आणि सुरक्षिततेची ऊब", "१. माझ्या लाडक्या बाळा, आजपासून मी तुझ्याशी मनापासून एक सुंदर आणि अखंड संवाद सुरू करत आहे.\n२. तू माझ्या उदरात सुरक्षित आहेस आणि माझ्या हृदयाचा प्रत्येक ठोका फक्त तुझ्यासाठी प्रेमाने धडधडत आहे.\n३. माझ्या पोटावरून फिरणारा हा मायेचा हात तुला संपूर्ण जगातील सर्वात सुरक्षित जागा देत आहे.\n४. तू या जगात येण्याआधीच मी आणि तुझे बाबा तुझ्यावर अथांग आणि निरपेक्ष प्रेम करत आहोत.\n५. माझ्या श्वासासोबत वाहणारी प्रत्येक भावना तुझ्या मनाला असीम शांती आणि तृप्ती देणारी ठरो.\n६. तुझ्या आजूबाजूला केवळ सकारात्मक, शुद्ध आणि प्रेमळ स्पंदनांचे एक अभेद्य कवच निर्माण झाले आहे.\n७. स्वतःवर प्रेम करण्याचे आणि जगाला भरभरून प्रेम देण्याचे उत्तम संस्कार तुझ्या अंतर्मनात रुजत आहेत.\n८. कोणत्याही भीतीशिवाय आणि संकोचाशिवाय तू माझ्या कुशीत अगदी निर्धास्तपणे आणि सुखाने वाढत राहा.\n९. तुझे अस्तित्व हे आमच्या संपूर्ण घराचे चैतन्य, आनंद आणि प्रकाशाचा अखंड झरा आहे.\n१०. बाळा, शांतपणे झोप आणि माझ्या प्रेमाची ऊब अनुभवत अतिशय आनंदाने आणि उत्साहाने घडत राहा."]
-    ];
+    // Helper: Normalize any format (paragraphs array OR numbered strings array OR newline text) into pure prose paragraphs
+    function extractParagraphs(rawItem) {
+      if (!rawItem) return { day: "दिवस १", title: "गर्भसंवाद", paragraphs: [] };
 
-    const FALLBACK_FATHER = [
-      ["दिवस १", "पितृप्रेम, ओळख आणि सुरक्षिततेचे वचन", "१. माझ्या लाडक्या बाळा, मी तुझा बाबा तुझ्याशी बोलतोय; माझा हा आश्वासक आवाज तुझ्या अंतर्मनात शांततेने उतरू दे.\n२. तुझ्या आईच्या उदरात तू सुरक्षित आहेस आणि बाहेरून मी तुझ्या संरक्षणासाठी एक अभेद्य ढाल बनून उभा आहे.\n३. तू या जगात येण्याआधीच माझे संपूर्ण आयुष्य तुझ्या प्रेमाने, आनंदाने आणि नव्या स्वप्नांनी भरून गेले आहे.\n४. माझ्या हाताचा स्पर्श जेव्हा तुझ्या आईच्या पोटावर होतो, तेव्हा मला तुझ्या अस्तित्वाची आणि नात्याची सुंदर अनुभूती येते.\n५. तू मुलगा असो वा मुलगी, तू माझ्यासाठी या विश्वातील सर्वात अनमोल आणि सुंदर भेट आहेस.\n६. जीवनाच्या प्रत्येक वळणावर, प्रत्येक सुख-दुःखात तुझा हा बाबा तुझ्या पाठीशी खंबीरपणे आणि विश्वासाने उभा राहील.\n७. तुला जगातल्या सर्व संकटांपासून दूर ठेवून सर्वोत्तम जीवन देण्याचा मी आज तुला अंतःकरणापासून शब्द देतो.\n८. माझ्या प्रत्येक श्वासात तुझ्या उज्ज्वल भविष्याची आणि तुझ्या सुदृढ आरोग्याची मंगलमय प्रार्थना आहे.\n९. कोणत्याही भीतीशिवाय अगदी शांतपणे आणि सुखाने तू आईच्या कुशीत वाढत राहा.\n१०. बाळा, शांत झोप; तुझा बाबा तुझ्या आगमनाची अतिशय आतुरतेने आणि अभिमानाने वाट पाहत आहे."]
-    ];
+      // Case 1: New JSON Schema { day, title, paragraphs: [...] }
+      if (!Array.isArray(rawItem) && typeof rawItem === 'object') {
+        const paras = Array.isArray(rawItem.paragraphs) ? rawItem.paragraphs : (rawItem.messages || []);
+        return {
+          day: typeof rawItem.day === 'number' ? `दिवस ${rawItem.day}` : (rawItem.day || "दिवस १"),
+          title: rawItem.title || "गर्भसंवाद",
+          paragraphs: paras.map(p => cleanNumberedLine(p)).filter(Boolean)
+        };
+      }
 
-    const FALLBACK_PARENT = [
-      ["दिवस १", "कुटुंबातील आनंदाचे वातावरण आणि स्वागताची आतुरता", "१. आई-बाबा: माझ्या लाडक्या बाळा, आज आम्ही दोघेही एकत्र बसून तुझ्याशी मनापासून गप्पा मारायला आलो आहोत.\n२. आई: बघ बाळा, आईचा हा कोमल हात आणि बाबांचा हा भक्कम हात दोघांनी मिळून तुझ्या पाठीवर ठेवला आहे.\n३. बाबा: तू आमच्या आयुष्यात येणार आहेस या एकाच विचाराने आमचे संपूर्ण घर आनंदाने आणि उत्साहाने भरून गेले आहे.\n४. आई: आमच्या दोघांमधील हे प्रेम, आपुलकी आणि शांतता तुला गर्भाच्या आत अखंड सुरक्षिततेची ऊब देत आहे.\n५. बाबा: आम्ही दोघेही मिळून तुला या जगात एक अत्यंत सुंदर, सुसंस्कृत आणि समृद्ध आयुष्य देण्याचा संकल्प करतो.\n६. आई: घरातले वातावरण नेहमी हसरे, प्रसन्न आणि सकारात्मक राहावे याची आम्ही दोघेही सतत काळजी घेत आहोत.\n७. बाबा: तू या कुटुंबाचा सर्वात मोठा आनंद, आमच्या दोघांच्या प्रेमाचे प्रतीक आणि घराचा खरा प्रकाश आहेस.\n८. आई: माझ्या हृदयाचे ठोके आणि बाबांचा हा धीरगंभीर आवाज तुला सदैव सांगत आहेत की तू एकटा नाहीस.\n९. बाबा: बाहेरील जगाची अजिबात चिंता करू नकोस; आईची माया आणि बाबांचे संरक्षण सदैव तुझ्या पाठीशी आहे.\n१०. आई-बाबा: बाळा, अगदी निर्धास्त आणि आनंदी राहा; आम्ही दोघेही तुझी अतिशय आतुरतेने वाट पाहत आहोत!"]
-    ];
+      // Case 2: Legacy Array format ["दिवस १", "शीर्षक", "१. मजकूर..."]
+      const day = rawItem[0] || "दिवस १";
+      const title = rawItem[1] || "गर्भसंवाद";
+      const rawBody = rawItem[2] || "";
 
-    const FALLBACK_STORY = [
-      ["दिवस १", "खारुताईची गोष्ट (लहान योगदान व निस्वार्थ सेवा)", "१. माझ्या लाडक्या सोन्या, आज तुझी आई तुला रामायणातील एका चिमुरड्या खारुताईची छान गोष्ट सांगणार आहे.\n२. प्रभू रामचंद्र लंकेला जाण्यासाठी सेतू बांधत असताना वानरे अजस्र दगड उचलून टाकत होती.\n३. छोटी खारुताई समुद्रात डुबकी मारून, वाळूत लोळून पुलावर वाळू झटकून योगदान देत होती.\n४. वानरांनी चेष्टा केली तरी तिने आपले काम थांबवले नाही.\n५. प्रभू रामचंद्रांनी तिला प्रेमाने जवळ घेऊन तिच्या पाठीवरून मायेने हात फिरवला.\n६. प्रभू म्हणाले, 'तिचे योगदान मोठ्या दगडांइतकेच अनमोल आहे.'\n७. बाळासाठी शिकवण: जगात कोणाचेही काम किंवा मदत कधीही लहान नसते.\n८. कामातील मोठेपणा हा ते काम किती मनापासून आणि प्रेमाने केले आहे यात असतो.\n९. तू मोठेपणी नेहमी इतरांना आपल्या परीने मदत करणारा सेवाभावी माणूस बनशील.\n१०. बाळा, असाच गुणी, विनम्र आणि निस्वार्थ सेवेचा दीपस्तंभ हो!"]
-    ];
+      let lines = [];
+      if (Array.isArray(rawBody)) {
+        lines = rawBody;
+      } else if (typeof rawBody === 'string') {
+        lines = rawBody.split('\n');
+      }
+
+      const paragraphs = lines
+        .map(l => cleanNumberedLine(l))
+        .filter(l => l.length > 0);
+
+      return { day, title, paragraphs };
+    }
+
+    // Strips out "१. ", "1. ", "आई:", "बाबा:", "आई-बाबा:" so the text becomes continuous prose
+    function cleanNumberedLine(line) {
+      if (!line || typeof line !== 'string') return '';
+      return line
+        .trim()
+        .replace(/^[०१२३४५६७८९\d]+[\.\-\)\s]+/u, '')
+        .replace(/^(आई-बाबा|आई|बाबा)\s*[:ः\-]\s*/u, '')
+        .trim();
+    }
+
+    // Fallbacks
+    const FALLBACK_MOTHER = [{
+      day: "दिवस १",
+      title: "प्रेम आणि सुरक्षिततेची ऊब",
+      paragraphs: [
+        "माझ्या लाडक्या बाळा, आजपासून मी तुझ्याशी मनापासून एक सुंदर आणि अखंड संवाद सुरू करत आहे. तू माझ्या उदरात सुरक्षित आहेस आणि माझ्या हृदयाचा प्रत्येक ठोका फक्त तुझ्यासाठी प्रेमाने धडधडत आहे.",
+        "माझ्या पोटावरून फिरणारा हा मायेचा हात तुला संपूर्ण जगातील सर्वात सुरक्षित जागा देत आहे. तू या जगात येण्याआधीच मी आणि तुझे बाबा तुझ्यावर अथांग आणि निरपेक्ष प्रेम करत आहोत. माझ्या श्वासासोबत वाहणारी प्रत्येक भावना तुझ्या मनाला असीम शांती आणि तृप्ती देणारी ठरो.",
+        "तुझ्या आजूबाजूला केवळ सकारात्मक, शुद्ध आणि प्रेमळ स्पंदनांचे एक अभेद्य कवच निर्माण झाले आहे. स्वतःवर प्रेम करण्याचे आणि जगाला भरभरून प्रेम देण्याचे उत्तम संस्कार तुझ्या अंतर्मनात रुजत आहेत. कोणत्याही भीतीशिवाय अगदी निर्धास्तपणे तू माझ्या कुशीत वाढत राहा. शांत झोप आणि माझ्या प्रेमाची ऊब अनुभवत आनंदाने घडत राहा."
+      ]
+    }];
+
+    const FALLBACK_FATHER = [{
+      day: "दिवस १",
+      title: "पितृप्रेम, ओळख आणि सुरक्षिततेचे वचन",
+      paragraphs: [
+        "माझ्या लाडक्या बाळा, मी तुझा बाबा तुझ्याशी बोलतोय; माझा हा आश्वासक आवाज तुझ्या अंतर्मनात शांततेने उतरू दे. तुझ्या आईच्या उदरात तू सुरक्षित आहेस आणि बाहेरून मी तुझ्या संरक्षणासाठी एक अभेद्य ढाल बनून उभा आहे.",
+        "तू या जगात येण्याआधीच माझे संपूर्ण आयुष्य तुझ्या प्रेमाने, आनंदाने आणि नव्या स्वप्नांनी भरून गेले आहे. माझ्या हाताचा स्पर्श जेव्हा तुझ्या आईच्या पोटावर होतो, तेव्हा मला तुझ्या अस्तित्वाची आणि नात्याची सुंदर अनुभूती येते. जीवनाच्या प्रत्येक वळणावर तुझा हा बाबा तुझ्या पाठीशी खंबीरपणे उभा राहील.",
+        "तुला जगातल्या सर्व संकटांपासून दूर ठेवून सर्वोत्तम जीवन देण्याचा मी आज तुला अंतःकरणापासून शब्द देतो. माझ्या प्रत्येक श्वासात तुझ्या उज्ज्वल भविष्याची आणि आरोग्याची मंगलमय प्रार्थना आहे. बाळा, शांत झोप; तुझा बाबा तुझ्या आगमनाची अतिशय आतुरतेने वाट पाहत आहे."
+      ]
+    }];
+
+    const FALLBACK_PARENT = [{
+      day: "दिवस १",
+      title: "कुटुंबातील आनंदाचे वातावरण आणि स्वागताची आतुरता",
+      paragraphs: [
+        "माझ्या लाडक्या बाळा, आज आम्ही दोघेही एकत्र बसून तुझ्याशी मनापासून गप्पा मारायला आलो आहोत. बघ बाळा, आईचा हा कोमल हात आणि बाबांचा हा भक्कम हात दोघांनी मिळून तुझ्या पाठीवर ठेवला आहे.",
+        "तू आमच्या आयुष्यात येणार आहेस या एकाच विचाराने आमचे संपूर्ण घर आनंदाने आणि उत्साहाने भरून गेले आहे. आमच्या दोघांमधील हे प्रेम, आपुलकी आणि शांतता तुला गर्भाच्या आत अखंड सुरक्षिततेची ऊब देत आहे. आम्ही दोघेही तुला या जगात एक अत्यंत सुंदर, सुसंस्कृत आणि समृद्ध आयुष्य देण्याचा संकल्प करतो.",
+        "घरातले वातावरण नेहमी हसरे, प्रसन्न आणि सकारात्मक राहावे याची आम्ही दोघेही सतत काळजी घेत आहोत. तू या कुटुंबाचा सर्वात मोठा आनंद आणि घराचा प्रकाश आहेस. बाहेरील जगाची अजिबात चिंता करू नकोस; आईची माया आणि बाबांचे संरक्षण सदैव तुझ्या पाठीशी आहे."
+      ]
+    }];
+
+    const FALLBACK_STORY = [{
+      day: "दिवस १",
+      title: "खारुताईची गोष्ट (लहान योगदान व निस्वार्थ सेवा)",
+      paragraphs: [
+        "माझ्या लाडक्या सोन्या, आज तुझी आई तुला रामायणातील एका चिमुरड्या, गोड खारुताईची खूप छान गोष्ट सांगणार आहे. प्रभू रामचंद्र लंकेला जाण्यासाठी समुद्रावर मोठा सेतू बांधत होते, तेव्हा मोठी वानरे अजस्र दगड उचलून पाण्यात टाकत होती. तिथे एक छोटीशी खारुताई समुद्राच्या पाण्यात डुबकी मारून, वाळूत लोळून पुलावर जाऊन वाळू झटकून योगदान देत होती.",
+        "वानरांनी तिची चेष्टा केली तरी तिने आपले काम थांबवले नाही. प्रभू रामचंद्रांनी त्या खारुताईला पाहिले, प्रेमाने उचलून स्वतःच्या छातीशी लावले आणि तिच्या पाठीवरून मायेने हात फिरवला. प्रभू म्हणाले, 'तिचे प्रेम आणि तिचे योगदान तुमच्या मोठ्या दगडांइतकेच अनमोल आहे.'",
+        "बाळासाठी शिकवण: जगात कोणतेही काम किंवा कोणाचेही योगदान कधीही लहान अथवा मोठे नसते. तू मोठेपणी नेहमी इतरांना आणि समाजाला आपल्या परीने मदत कर. कामातील मोठेपणा हा पैशात नसून, ते काम किती मनापासून आणि प्रेमाने केले आहे यात असतो. असाच गुणी आणि सेवाभावी हो बाळा!"
+      ]
+    }];
 
     function App() {
       const [speaker, setSpeaker] = useState('mother'); // 'mother', 'father', 'parent', 'story'
@@ -442,28 +566,47 @@
 
       const touchStartX = useRef(0);
       const touchEndX = useRef(0);
+      const scrollRef = useRef(null);
+
+      // Theme sync
+      useEffect(() => {
+        const root = document.documentElement;
+        if (speaker === 'mother') {
+          root.style.setProperty('--active-accent', 'var(--accent-rose)');
+          root.style.setProperty('--active-glow', 'rgba(240, 168, 200, 0.20)');
+        } else if (speaker === 'father') {
+          root.style.setProperty('--active-accent', 'var(--accent-violet)');
+          root.style.setProperty('--active-glow', 'rgba(186, 140, 224, 0.20)');
+        } else if (speaker === 'parent') {
+          root.style.setProperty('--active-accent', 'var(--accent-gold)');
+          root.style.setProperty('--active-glow', 'rgba(226, 186, 111, 0.20)');
+        } else if (speaker === 'story') {
+          root.style.setProperty('--active-accent', 'var(--accent-green)');
+          root.style.setProperty('--active-glow', 'rgba(126, 203, 161, 0.20)');
+        }
+      }, [speaker]);
 
       // Load external JSON files
       useEffect(() => {
         fetch('./data/mothers.json')
           .then(res => res.ok ? res.json() : fetch('./data/mother.json').then(r => r.json()))
           .then(d => { if (Array.isArray(d) && d.length > 0) setMotherData(d); })
-          .catch(() => console.log('Mother data using fallback'));
+          .catch(() => {});
 
         fetch('./data/fathers.json')
           .then(res => res.ok ? res.json() : fetch('./data/father.json').then(r => r.json()))
           .then(d => { if (Array.isArray(d) && d.length > 0) setFatherData(d); })
-          .catch(() => console.log('Father data using fallback'));
+          .catch(() => {});
 
         fetch('./data/parent.json')
           .then(res => res.ok ? res.json() : fetch('./data/both.json').then(r => r.json()))
           .then(d => { if (Array.isArray(d) && d.length > 0) setParentData(d); })
-          .catch(() => console.log('Parent data using fallback'));
+          .catch(() => {});
 
         fetch('./data/story.json')
           .then(res => res.ok ? res.json() : fetch('./data/stories.json').then(r => r.json()))
           .then(d => { if (Array.isArray(d) && d.length > 0) setStoryData(d); })
-          .catch(() => console.log('Story data using fallback'));
+          .catch(() => {});
       }, []);
 
       let activeList = motherData;
@@ -473,15 +616,14 @@
 
       const totalDays = activeList.length;
       const safeIndex = Math.min(currentIndex, Math.max(0, totalDays - 1));
-      const currentItem = activeList[safeIndex] || ["दिवस १", "संवाद", "माहिती उपलब्ध नाही."];
-      const [dayLabel, titleText, rawContent] = currentItem;
-
-      // Parse lines
-      const lines = typeof rawContent === 'string'
-        ? rawContent.split('\n').filter(l => l.trim().length > 0)
-        : (Array.isArray(rawContent) ? rawContent : [rawContent]);
+      const { day, title, paragraphs } = extractParagraphs(activeList[safeIndex]);
 
       const progressPercent = totalDays > 0 ? ((safeIndex + 1) / totalDays) * 100 : 0;
+
+      // Reset scroll upon day switch
+      useEffect(() => {
+        if (scrollRef.current) scrollRef.current.scrollTop = 0;
+      }, [safeIndex, speaker]);
 
       const handleSpeakerChange = (newSpeaker) => {
         setSpeaker(newSpeaker);
@@ -496,7 +638,7 @@
         if (safeIndex < totalDays - 1) setCurrentIndex(safeIndex + 1);
       };
 
-      // Keyboard arrow navigation
+      // Keyboard navigation
       useEffect(() => {
         const handleKeyDown = (e) => {
           if (e.key === 'ArrowLeft') goToPrev();
@@ -506,13 +648,13 @@
         return () => window.removeEventListener('keydown', handleKeyDown);
       }, [safeIndex, totalDays]);
 
-      // Touch swipe
+      // Touch swipes
       const handleTouchStart = (e) => { touchStartX.current = e.targetTouches[0].clientX; };
       const handleTouchMove = (e) => { touchEndX.current = e.targetTouches[0].clientX; };
       const handleTouchEnd = () => {
         const diff = touchStartX.current - touchEndX.current;
-        if (diff > 50) goToNext();
-        else if (diff < -50) goToPrev();
+        if (diff > 55) goToNext();
+        else if (diff < -55) goToPrev();
       };
 
       const showToast = (msg) => {
@@ -520,122 +662,118 @@
         setTimeout(() => setToastMsg(''), 2600);
       };
 
-      // Share Logic
+      // Natural Book Sharing Card
       const handleShare = async () => {
         if (isSharing) return;
         setIsSharing(true);
-        showToast('इमेज तयार होत आहे...');
+        showToast('पुस्तक पान तयार होत आहे...');
 
         try {
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
           const width = 1080;
-          const padding = 70;
+          const padding = 80;
           const contentWidth = width - padding * 2;
 
-          ctx.font = '500 32px "Noto Sans Devanagari", sans-serif';
-          let calculatedHeight = 520;
-          
-          const wrappedLines = [];
-          lines.forEach((line) => {
-            const words = line.split(' ');
+          ctx.font = '400 32px "Noto Sans Devanagari", sans-serif';
+          let calculatedHeight = 440;
+
+          const wrappedParagraphs = [];
+          paragraphs.forEach((pText) => {
+            const words = pText.split(' ');
             let currentLine = '';
+            const pLines = [];
             words.forEach((word) => {
               const testLine = currentLine ? `${currentLine} ${word}` : word;
-              const testWidth = ctx.measureText(testLine).width;
-              if (testWidth > contentWidth) {
-                wrappedLines.push(currentLine);
+              if (ctx.measureText(testLine).width > contentWidth) {
+                pLines.push(currentLine);
                 currentLine = word;
               } else {
                 currentLine = testLine;
               }
             });
-            if (currentLine) wrappedLines.push(currentLine);
-            wrappedLines.push('');
+            if (currentLine) pLines.push(currentLine);
+            wrappedParagraphs.push(pLines);
           });
 
-          calculatedHeight += wrappedLines.length * 44 + 200;
+          const totalLines = wrappedParagraphs.reduce((acc, p) => acc + p.length, 0);
+          calculatedHeight += totalLines * 52 + wrappedParagraphs.length * 28 + 180;
           canvas.width = width;
-          canvas.height = Math.max(1400, calculatedHeight);
+          canvas.height = Math.max(1450, calculatedHeight);
 
+          // Rich Parchment Book Gradient
           const bgGrad = ctx.createLinearGradient(0, 0, width, canvas.height);
-          bgGrad.addColorStop(0, '#15101c');
-          bgGrad.addColorStop(0.5, '#1e1628');
-          bgGrad.addColorStop(1, '#0e0b14');
+          bgGrad.addColorStop(0, '#16121d');
+          bgGrad.addColorStop(0.5, '#1e1829');
+          bgGrad.addColorStop(1, '#110d18');
           ctx.fillStyle = bgGrad;
           ctx.fillRect(0, 0, width, canvas.height);
 
+          // Ornamental Double Border
           ctx.strokeStyle = 'rgba(240, 168, 200, 0.25)';
-          ctx.lineWidth = 4;
-          ctx.strokeRect(25, 25, width - 50, canvas.height - 50);
+          ctx.lineWidth = 2;
+          ctx.strokeRect(30, 30, width - 60, canvas.height - 60);
+          ctx.strokeStyle = 'rgba(226, 186, 111, 0.18)';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(40, 40, width - 80, canvas.height - 80);
 
+          // Header
           ctx.fillStyle = '#f0a8c8';
-          ctx.font = '800 36px "Noto Sans Devanagari", sans-serif';
-          ctx.fillText('उमाभरत गर्भसंवाद', padding, 110);
+          ctx.font = '400 42px "Rozha One", serif';
+          ctx.fillText('उमाभरत गर्भसंवाद', padding, 120);
 
-          ctx.fillStyle = '#a69b9e';
-          ctx.font = '600 24px "Noto Sans Devanagari", sans-serif';
-          ctx.fillText('प्रेम • संस्कार • प्रार्थना', padding, 150);
-
-          let speakerName = 'आईचे संवाद';
-          if (speaker === 'father') speakerName = 'बाबांचे संवाद';
-          if (speaker === 'parent') speakerName = 'पालक (एकत्रित) संवाद';
-          if (speaker === 'story') speakerName = 'गोष्टीरूपी गर्भसंवाद (कथा)';
+          let sectionName = 'आईचे संवाद';
+          if (speaker === 'father') sectionName = 'बाबांचे संवाद';
+          if (speaker === 'parent') sectionName = 'पालक (एकत्रित) संवाद';
+          if (speaker === 'story') sectionName = 'गोष्टीरूपी गर्भसंवाद (कथा)';
 
           ctx.fillStyle = '#e2ba6f';
-          ctx.font = '800 28px "Noto Sans Devanagari", sans-serif';
-          ctx.fillText(`${dayLabel}  •  ${speakerName}`, padding, 220);
+          ctx.font = '600 26px "Noto Sans Devanagari", sans-serif';
+          ctx.fillText(`${day}  •  ${sectionName}`, padding, 180);
 
+          // Title
           ctx.fillStyle = '#ffffff';
-          ctx.font = '900 48px "Noto Sans Devanagari", sans-serif';
-          ctx.fillText(titleText, padding, 290);
+          ctx.font = '700 48px "Noto Serif Devanagari", serif';
+          ctx.fillText(title, padding, 260);
 
-          const divGrad = ctx.createLinearGradient(padding, 320, padding + 300, 320);
-          divGrad.addColorStop(0, '#f0a8c8');
-          divGrad.addColorStop(1, 'transparent');
-          ctx.fillStyle = divGrad;
-          ctx.fillRect(padding, 320, 300, 4);
+          // Divider Line
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
+          ctx.fillRect(padding, 295, contentWidth, 2);
 
-          ctx.fillStyle = '#f1e9e5';
-          ctx.font = '500 32px "Noto Sans Devanagari", sans-serif';
-          let y = 380;
+          // Paragraphs
+          let y = 360;
+          ctx.fillStyle = '#eae2dc';
+          ctx.font = '400 32px "Noto Sans Devanagari", sans-serif';
 
-          wrappedLines.forEach((wLine) => {
-            if (wLine === '') {
-              y += 16;
-            } else {
+          wrappedParagraphs.forEach((pLines) => {
+            pLines.forEach((wLine) => {
               ctx.fillText(wLine, padding, y);
-              y += 44;
-            }
+              y += 50;
+            });
+            y += 24; // paragraph spacing
           });
 
+          // Blessing Footer
           ctx.textAlign = 'center';
-          ctx.fillStyle = '#f0a8c8';
-          ctx.font = '700 28px "Noto Sans Devanagari", sans-serif';
-          ctx.fillText('✨ आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ✨', width / 2, canvas.height - 80);
+          ctx.fillStyle = '#e2ba6f';
+          ctx.font = '400 30px "Tiro Devanagari Marathi", serif';
+          ctx.fillText('✨ प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे ✨', width / 2, canvas.height - 85);
 
           canvas.toBlob(async (blob) => {
             if (!blob) {
               setIsSharing(false);
               return;
             }
-
-            const fileName = `Garbhasamwad_${dayLabel.replace(/\s+/g, '')}.png`;
+            const fileName = `Garbhasamwad_${day.replace(/\s+/g, '')}.png`;
             const file = new File([blob], fileName, { type: 'image/png' });
-            const shareText = `*उमाभरत गर्भसंवाद*\n${dayLabel}: *${titleText}* (${speakerName})\n\n${lines.join('\n')}\n\n✨ आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ✨`;
+            const shareText = `*उमाभरत गर्भसंवाद*\n${day}: *${title}* (${sectionName})\n\n${paragraphs.join('\n\n')}\n\n✨ प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे ✨`;
 
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
               try {
-                await navigator.share({
-                  files: [file],
-                  title: 'उमाभरत गर्भसंवाद',
-                  text: shareText
-                });
+                await navigator.share({ files: [file], title: 'उमाभरत गर्भसंवाद', text: shareText });
                 showToast('यशस्वीरित्या शेअर केले!');
               } catch (err) {
-                if (err.name !== 'AbortError') {
-                  fallbackWhatsApp(shareText);
-                }
+                if (err.name !== 'AbortError') fallbackWhatsApp(shareText);
               }
             } else {
               const downloadLink = document.createElement('a');
@@ -647,7 +785,6 @@
             setIsSharing(false);
           }, 'image/png');
         } catch (e) {
-          console.error(e);
           setIsSharing(false);
           showToast('शेअर करताना त्रुटी आली.');
         }
@@ -664,21 +801,19 @@
           // TOPBAR
           React.createElement('header', { className: 'topbar' },
             React.createElement('div', { className: 'brand' },
-              React.createElement('div', { className: 'logo-badge' }, 'UB'),
+              React.createElement('div', { className: 'flower-logo' },
+                React.createElement('i', { className: 'fa-solid fa-spa' })
+              ),
               React.createElement('div', { className: 'brand-text' },
-                React.createElement('h1', null, 'उमाभरत गर्भसंवाद'),
-                React.createElement('p', null, 'प्रेम • संस्कार • प्रार्थना')
+                React.createElement('h1', null, 'उमाभरत'),
+                React.createElement('h2', null, 'गर्भसंवाद')
               )
             ),
 
-            // 4-WAY SEGMENTED FILTER BUTTON
+            // 4-WAY SEGMENTED SWITCH
             React.createElement('div', { className: 'switch-container' },
               React.createElement('div', {
-                className: `switch-indicator ${
-                  speaker === 'father' ? 'father' : 
-                  (speaker === 'parent' ? 'parent' : 
-                  (speaker === 'story' ? 'story' : ''))
-                }`
+                className: `switch-indicator ${speaker}`
               }),
               React.createElement('button', {
                 className: `switch-btn ${speaker === 'mother' ? 'active' : ''}`,
@@ -708,32 +843,34 @@
               })
             ),
             React.createElement('div', { className: 'counter-label' },
-              `दिवस ${safeIndex + 1} / ${totalDays}`
+              `${day} / ३०`
             )
           ),
 
-          // MAIN CARD
+          // BOOK READING CONTAINER
           React.createElement('main', {
-            className: 'card',
+            className: 'book-reader',
             onTouchStart: handleTouchStart,
             onTouchMove: handleTouchMove,
             onTouchEnd: handleTouchEnd
           },
-            // CLEAN FIXED HEADER
-            React.createElement('div', { className: 'card-sticky-head' },
-              React.createElement('h2', { className: 'card-title' }, titleText)
+            // CHAPTER HEADER
+            React.createElement('div', { className: 'book-header' },
+              React.createElement('span', { className: 'chapter-tag' }, day),
+              React.createElement('h2', { className: 'chapter-title' }, title)
             ),
 
-            // SCROLLABLE BODY
-            React.createElement('div', { className: 'card-scroll-body' },
-              lines.map((ln, idx) =>
-                React.createElement('div', {
-                  key: idx,
-                  className: `dialogue-item ${idx === 0 || idx === lines.length - 1 ? 'highlight' : ''}`
-                }, ln)
+            // SCROLLABLE BOOK BODY (NO NUMBERED CARDS)
+            React.createElement('div', { className: 'book-body', ref: scrollRef },
+              React.createElement('div', { className: 'prose-content' },
+                paragraphs.map((p, idx) =>
+                  React.createElement('p', { key: idx, className: 'book-paragraph' }, p)
+                )
               ),
-              React.createElement('div', { className: 'card-footer-mantra' },
-                '✨ आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ✨'
+              React.createElement('div', { className: 'closing-mantra-box' },
+                React.createElement('p', { className: 'closing-text' },
+                  '✨ आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ✨'
+                )
               )
             )
           ),
@@ -744,13 +881,16 @@
               className: 'nav-btn',
               onClick: goToPrev,
               disabled: safeIndex === 0
-            }, '← मागील'),
+            },
+              React.createElement('i', { className: 'fa-solid fa-chevron-left' }),
+              ' मागील'
+            ),
 
             React.createElement('button', {
               className: 'share-btn',
               onClick: handleShare
             },
-              React.createElement('i', { 'data-lucide': 'share-2' }),
+              React.createElement('i', { className: 'fa-solid fa-share-nodes' }),
               'Share'
             ),
 
@@ -758,22 +898,24 @@
               className: 'nav-btn primary',
               onClick: goToNext,
               disabled: safeIndex === totalDays - 1
-            }, 'पुढील →')
+            },
+              'पुढील ',
+              React.createElement('i', { className: 'fa-solid fa-chevron-right' })
+            )
           ),
 
-          // SWIPE HINT
-          React.createElement('div', { className: 'swipe-hint' },
-            'बोटाने सरकवून किंवा एरो की वापरून पुढील दिवस पाहा'
+          // DEDICATION FOOTER
+          React.createElement('div', { className: 'book-dedication-footer' },
+            'प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे...'
           )
         ),
 
-        // TOAST NOTIFICATION
+        // TOAST
         toastMsg ? React.createElement('div', { className: 'toast' }, toastMsg) : null
       );
     }
 
     ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
-    if (window.lucide) window.lucide.createIcons();
   </script>
 </body>
 </html>
