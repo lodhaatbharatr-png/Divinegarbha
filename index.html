@@ -83,7 +83,7 @@
     .topbar {
       display: flex;
       align-items: center;
-      justify-content: center; /* Centered Logo */
+      justify-content: space-between; /* Brand left, day counter right */
       gap: 12px;
       padding: 4px 2px;
     }
@@ -129,6 +129,18 @@
       color: #ffffff;
       letter-spacing: 0.01em;
       line-height: 1.2;
+    }
+
+    /* DAY COUNTER IN HEADER */
+    .header-day-counter {
+      flex: 0 0 auto;
+      min-width: 78px;
+      text-align: right;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--active-accent);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
     }
 
     /* HORIZONTAL TABS (6 Items) */
@@ -556,6 +568,9 @@
                 React.createElement('h1', null, 'उमाभरत'),
                 React.createElement('h2', null, 'नित्य गर्भसंवाद')
               )
+            ),
+            React.createElement('div', { className: 'header-day-counter' },
+              `${day} / ${totalDays}`
             )
           ),
 
@@ -579,9 +594,6 @@
                 className: 'progress-fill',
                 style: { width: `${progressPercent}%` }
               })
-            ),
-            React.createElement('div', { className: 'counter-label' },
-              `${day} / ३०`
             )
           ),
 
