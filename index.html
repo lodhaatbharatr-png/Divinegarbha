@@ -116,7 +116,7 @@
       text-align: center;
     }
 
-    /* Gradient: Left to Right Dark to Light (Dark part being larger) */
+    /* Gradient: Left to Right Light to Dark (Light portion being larger) */
     .brand-text h1 {
       margin: 0;
       font-family: "Rozha One", serif;
@@ -124,19 +124,19 @@
       font-weight: 400;
       letter-spacing: 0.5px;
       line-height: 1.1;
-      background: linear-gradient(90deg, #3d3546 0%, #685b73 55%, #eae3ef 85%, #ffffff 100%);
+      background: linear-gradient(90deg, #ffffff 0%, #f5eef9 60%, #8a7898 85%, #3d3546 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-align: center;
     }
 
-    /* Solid white subtitle aligned centrally to the title */
+    /* Solid white subtitle with close letters */
     .brand-text h2 {
       margin: 2px 0 0 0;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: #ffffff;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.01em;
       line-height: 1.2;
       text-align: center;
     }
@@ -215,7 +215,7 @@
     .progress-bar-wrap {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       padding: 0 4px;
     }
 
@@ -232,6 +232,15 @@
       border-radius: inherit;
       background: linear-gradient(90deg, var(--active-accent), #ffffff);
       transition: width 300ms ease, background 300ms ease;
+    }
+
+    .counter-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--active-accent);
+      min-width: 75px;
+      text-align: right;
+      letter-spacing: 0.02em;
     }
 
     /* BOOK-LIKE NATURAL READER CONTAINER */
@@ -363,7 +372,7 @@
 
     .nav-btn {
       min-height: 46px;
-      border: 1px solid var(--active-accent); /* Active accent border */
+      border: 1px solid var(--active-accent);
       border-radius: 14px;
       background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
       color: #ffffff;
@@ -540,7 +549,7 @@
       day: "दिवस १",
       title: "खारुताईची गोष्ट: लहान योगदान व निस्वार्थ सेवा",
       paragraphs: [
-        "माझ्या लाडक्या सोन्या, आज तुझी आई तुला रामायणातील एका चिमुरड्या, गोड खारुताईची खूप छान गोष्ट सांगणार आहे. प्रभू रामचंद्र लंकेला जाण्यासाठी समुद्रावर मोठा सेतू बांधत होते, तेव्हा मोठी वानरे अजस्र दगड उचलून पाण्यात टाकत होती. तिथे एक छोटीशी खारुताई समुद्राच्या पाण्यात डुबकी मारून, वाळूत लोळून पुलावर जाऊन वाळू झटकून योगदान देत होती.",
+        "माझ्या लाडक्या सोन्या, आज तुझी आई तुला रामायणातील एका चिमुरड्या, गोड खारुताईची खूप छान गोष्ट सांगणार आहे. प्रभू रामचंद्र लंकेला जाण्यासाठी समुद्रावर मोठा सेतू बांधत होते, तेव्हा मोठी वानरे अजस्र दगड उचलून पाण्यात टाकत होती. तिथे एक छोटीशी खारुताई समुद्राच्या पाण्यात डुबकी मारायची, वाळूत लोळून पुलावर जाऊन वाळू झटकून योगदान देत होती.",
         "वानरांनी तिची चेष्टा केली तरी तिने आपले काम थांबवले नाही. प्रभू रामचंद्रांनी त्या खारुताईला पाहिले, प्रेमाने उचलून स्वतःच्या छातीशी लावले आणि तिच्या पाठीवरून मायेने हात फिरवला. प्रभू म्हणाले, 'तिचे प्रेम आणि तिचे योगदान तुमच्या मोठ्या दगडांइतकेच अनमोल आहे.'",
         "बाळासाठी शिकवण: जगात कोणतेही काम किंवा कोणाचेही योगदान कधीही लहान अथवा मोठे नसते. तू मोठेपणी नेहमी इतरांना आणि समाजाला आपल्या परीने मदत कर. कामातील मोठेपणा हा पैशात नसून, ते काम किती मनापासून आणि प्रेमाने केले आहे यात असतो."
       ]
@@ -818,6 +827,9 @@
                 className: 'progress-fill',
                 style: { width: `${progressPercent}%` }
               })
+            ),
+            React.createElement('div', { className: 'counter-label' },
+              `${day} / ३०`
             )
           ),
 
@@ -828,12 +840,12 @@
             onTouchMove: handleTouchMove,
             onTouchEnd: handleTouchEnd
           },
-            /* CHAPTER HEADER (Compact & No day count) */
+            /* CHAPTER HEADER */
             React.createElement('div', { className: 'book-header' },
               React.createElement('h2', { className: 'chapter-title' }, title)
             ),
 
-            /* SCROLLABLE BOOK BODY (Noto Serif Lite Weight Body) */
+            /* SCROLLABLE BOOK BODY */
             React.createElement('div', { className: 'book-body', ref: scrollRef },
               React.createElement('div', { className: 'prose-content' },
                 paragraphs.map((p, idx) =>
