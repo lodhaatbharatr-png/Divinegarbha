@@ -10,7 +10,7 @@
   <!-- Google Devanagari Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@300;400;600;700;800&family=Rozha+One&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@300;400;600;700;800&family=Rozha+One&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
 
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -29,11 +29,12 @@
       --accent-violet: #ba8ce0;
       --accent-gold: #e2ba6f;
       --accent-green: #7ecba1;
-      --accent-saffron: #f4a261;
-      --accent-teal: #48cae4;
+      --accent-saffron: #f4a261; /* मंत्रासाठी भगवा */
+      --accent-teal: #48cae4;   /* संस्कारासाठी आकाशी */
       --line: rgba(255, 255, 255, 0.07);
       --radius: 20px;
 
+      /* Active theme dynamic variable */
       --active-accent: var(--accent-rose);
       --active-glow: rgba(240, 168, 200, 0.18);
     }
@@ -67,7 +68,6 @@
       display: flex;
       justify-content: center;
       padding: max(8px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
-      touch-action: pan-y;
     }
 
     .shell {
@@ -79,13 +79,13 @@
       min-height: calc(100dvh - max(20px, env(safe-area-inset-top) + env(safe-area-inset-bottom)));
     }
 
-    /* TOPBAR */
+    /* TOPBAR (Logo and Brand only) */
     .topbar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 3px 2px;
+      justify-content: space-between; /* Brand left, day counter right */
+      gap: 12px;
+      padding: 4px 2px;
     }
 
     .brand {
@@ -94,18 +94,16 @@
       align-items: center;
       gap: 8px;
       min-width: 0;
-      flex: 1;
     }
 
     .dharmachakra-icon {
-      font-size: 1.75rem;
+      font-size: 1.85rem;
       color: var(--active-accent);
       animation: spinClockwise 22s linear infinite;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       transition: color 300ms ease;
-      flex: 0 0 auto;
     }
 
     @keyframes spinClockwise {
@@ -118,7 +116,6 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      min-width: 0;
     }
 
     .brand-text h1 {
@@ -135,64 +132,60 @@
 
     .brand-text h2 {
       margin: 2px 0 0 0;
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: #ffffff;
       letter-spacing: 0.01em;
       line-height: 1.2;
     }
 
-    /* HEADER ACTIONS */
-    .header-actions {
-      display: inline-flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 7px;
-      flex: 0 0 auto;
-    }
-
+    /* DAY COUNTER IN HEADER */
     .header-day-counter {
-      min-width: 65px;
+      flex: 0 0 auto;
+      min-width: 78px;
       text-align: right;
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: var(--active-accent);
       letter-spacing: 0.02em;
       white-space: nowrap;
     }
 
+    .header-actions {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
     .header-share-btn {
-      width: 31px;
-      height: 31px;
-      min-width: 31px;
-      min-height: 31px;
+      width: 32px;
+      height: 32px;
+      min-height: 32px;
       padding: 0;
       border: 1px solid rgba(126, 203, 161, 0.35);
       border-radius: 50%;
-      background: linear-gradient(
-        135deg,
-        rgba(126, 203, 161, 0.15),
-        rgba(30, 80, 55, 0.35)
-      );
+      background: linear-gradient(135deg, rgba(126, 203, 161, 0.15), rgba(30, 80, 55, 0.35));
       color: #88edb5;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       cursor: pointer;
       box-shadow: 0 3px 12px rgba(46, 139, 87, 0.15);
       transition: all 180ms ease;
     }
 
     .header-share-btn:active {
-      transform: scale(0.91);
+      transform: scale(0.93);
     }
 
-    /* TABS */
+    /* HORIZONTAL TABS (6 Items) */
     .tabs-wrapper {
       position: relative;
       width: 100%;
-      margin: 3px 0 6px 0;
+      margin: 4px 0 8px 0;
     }
 
     .tabs-container {
@@ -201,12 +194,12 @@
       overflow-x: auto;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      scrollbar-width: none; /* Firefox */
       padding: 2px;
     }
 
     .tabs-container::-webkit-scrollbar {
-      display: none;
+      display: none; /* Chrome/Safari */
     }
 
     .tab-btn {
@@ -221,21 +214,16 @@
       font-family: "Noto Sans Devanagari", sans-serif;
       cursor: pointer;
       transition: all 200ms ease;
-      touch-action: manipulation;
     }
 
     .tab-btn.active {
-      background: linear-gradient(
-        135deg,
-        rgba(255,255,255,0.1),
-        rgba(255,255,255,0.02)
-      );
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
       border-color: var(--active-accent);
       color: #ffffff;
       box-shadow: 0 2px 10px var(--active-glow);
     }
 
-    /* PROGRESS */
+    /* PROGRESS TRACK */
     .progress-bar-wrap {
       display: flex;
       align-items: center;
@@ -254,19 +242,23 @@
     .progress-fill {
       height: 100%;
       border-radius: inherit;
-      background: linear-gradient(
-        90deg,
-        var(--active-accent),
-        #ffffff
-      );
+      background: linear-gradient(90deg, var(--active-accent), #ffffff);
       transition: width 300ms ease, background 300ms ease;
     }
 
-    /* BOOK READER */
+    .counter-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--active-accent);
+      min-width: 75px;
+      text-align: right;
+      letter-spacing: 0.02em;
+    }
+
+    /* BOOK-LIKE NATURAL READER CONTAINER */
     .book-reader {
       width: 100%;
       height: min(820px, 80dvh);
-      min-height: 470px;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -274,18 +266,13 @@
       border: 1px solid var(--line);
       border-top: 2px solid var(--active-accent);
       border-bottom: 2px solid var(--active-accent);
-      background: linear-gradient(
-        180deg,
-        rgba(23, 18, 30, 0.96) 0%,
-        rgba(16, 12, 22, 0.98) 100%
-      );
-      box-shadow:
-        0 15px 45px rgba(0, 0, 0, 0.6),
-        0 0 25px var(--active-glow);
+      background: linear-gradient(180deg, rgba(23, 18, 30, 0.96) 0%, rgba(16, 12, 22, 0.98) 100%);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 25px var(--active-glow);
       overflow: hidden;
       transition: border-color 300ms ease, box-shadow 300ms ease;
     }
 
+    /* Sticky Chapter Header */
     .book-header {
       position: sticky;
       top: 0;
@@ -298,7 +285,6 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      flex: 0 0 auto;
     }
 
     .chapter-title {
@@ -311,6 +297,7 @@
       text-align: left;
     }
 
+    /* Scrollable Book Body */
     .book-body {
       flex: 1;
       overflow-y: auto;
@@ -318,18 +305,17 @@
       padding: 18px 20px 24px;
       scrollbar-width: thin;
       scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
-      touch-action: pan-y;
     }
 
     .book-body::-webkit-scrollbar {
       width: 4px;
     }
-
     .book-body::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.15);
       border-radius: 4px;
     }
 
+    /* Long-Form Book Paragraphs */
     .prose-content {
       display: flex;
       flex-direction: column;
@@ -358,6 +344,7 @@
       color: var(--active-accent);
     }
 
+    /* For Sanskar block rendering */
     .sanskar-line {
       margin: 4px 0;
       padding-left: 12px;
@@ -365,10 +352,11 @@
       color: #f8f3eb;
     }
 
+    /* Sacred Closing Quote / Mantra */
     .closing-mantra-box {
       margin-top: 24px;
       padding: 14px 18px;
-      border-radius: 14px;
+      border-radius: 50%;
       background: rgba(255, 255, 255, 0.02);
       border-left: 2px solid var(--active-accent);
       border-right: 2px solid var(--active-accent);
@@ -392,7 +380,7 @@
       font-size: 0.95rem;
     }
 
-    /* BOTTOM NAV */
+    /* BOTTOM NAV BAR */
     .bottom-nav {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
@@ -404,26 +392,21 @@
     .nav-btn {
       width: 34px;
       height: 34px;
-      min-width: 34px;
       min-height: 34px;
       border: 1px solid var(--active-accent);
       border-radius: 50%;
-      background: linear-gradient(
-        135deg,
-        rgba(255,255,255,0.07),
-        rgba(255,255,255,0.02)
-      );
+      background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
       color: #ffffff;
       box-shadow: 0 4px 16px var(--active-glow);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0;
-      font-size: 0.78rem;
+      gap: 0;
+      font-size: 0.9rem;
+      font-weight: 600;
       cursor: pointer;
       transition: all 180ms ease;
       font-family: "Noto Sans Devanagari", sans-serif;
-      touch-action: manipulation;
     }
 
     .nav-btn:hover {
@@ -431,7 +414,7 @@
     }
 
     .nav-btn:active {
-      transform: scale(0.91);
+      transform: scale(0.97);
     }
 
     .nav-btn:disabled {
@@ -443,6 +426,28 @@
       box-shadow: none;
     }
 
+    /* SHARE BUTTON */
+    .share-btn {
+      width: 34px;
+      height: 34px;
+      min-height: 34px;
+      padding: 0;
+      border: 1px solid rgba(126, 203, 161, 0.35);
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(126, 203, 161, 0.15), rgba(30, 80, 55, 0.35));
+      color: #88edb5;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(46, 139, 87, 0.15);
+      transition: all 180ms ease;
+    }
+
+    /* DEDICATION FOOTER */
     .book-dedication-footer {
       text-align: center;
       font-size: 0.72rem;
@@ -450,104 +455,34 @@
       font-weight: 500;
       margin-top: -2px;
       letter-spacing: 0.03em;
-      padding-bottom: 2px;
     }
+  
+/* Mantra / Sloka presentation */
+.mantra-content { font-family: 'Noto Sans Devanagari', sans-serif; }
+.mantra-section-header { display:block; margin:24px 0 12px; font-weight:800; font-size:clamp(1.05rem,2.3vw,1.28rem); line-height:1.55; color:var(--accent, #c98b5a); }
+.mantra-verse { margin:0 0 20px; padding:14px 16px; border-radius:14px; background:rgba(201,139,90,.06); font-family:'Yatra One','Noto Sans Devanagari',serif; color:var(--accent,#c98b5a); font-size:clamp(1.08rem,2.6vw,1.38rem); line-height:1.9; letter-spacing:.01em; }
+.mantra-line { display:block; margin:0; white-space:nowrap; }
+.mantra-spacer { height:7px; }
+.mantra-prose-line { margin:0 0 10px; line-height:1.85; }
+@media (max-width:600px){ .mantra-section-header{margin-top:20px;font-size:1.05rem}.mantra-verse{padding:12px 10px;font-size:1.02rem;line-height:1.85;overflow-x:auto}.mantra-line{white-space:nowrap} }
 
-    @media (max-width: 480px) {
-      .shell {
-        gap: 9px;
-      }
-
-      .topbar {
-        gap: 6px;
-      }
-
-      .dharmachakra-icon {
-        font-size: 1.55rem;
-      }
-
-      .brand-text h1 {
-        font-size: 1.2rem;
-      }
-
-      .brand-text h2 {
-        font-size: 0.7rem;
-      }
-
-      .header-day-counter {
-        min-width: 55px;
-        font-size: 0.7rem;
-      }
-
-      .header-share-btn {
-        width: 29px;
-        height: 29px;
-        min-width: 29px;
-        min-height: 29px;
-        font-size: 0.75rem;
-      }
-
-      .tab-btn {
-        padding: 5px 13px;
-        font-size: 0.76rem;
-      }
-
-      .book-reader {
-        height: min(780px, 79dvh);
-        min-height: 450px;
-      }
-
-      .book-body {
-        padding: 16px 16px 22px;
-      }
-
-      .book-paragraph {
-        line-height: 1.9;
-      }
-    }
-  </style>
+</style>
 </head>
-
 <body>
   <div id="root"></div>
 
   <script>
     const { useState, useEffect, useRef } = React;
 
-    function cleanNumberedLine(line) {
-      if (!line || typeof line !== 'string') return '';
-
-      return line
-        .trim()
-        .replace(/^[०१२३४५६७८९\d]+[\.\-\)\s]+/u, '')
-        .replace(/^(आई-बाबा|आई|बाबा)\s*[:ः\-]\s*/u, '')
-        .trim();
-    }
-
     function extractParagraphs(rawItem) {
-      if (!rawItem) {
-        return {
-          day: "दिवस १",
-          title: "नित्य गर्भसंवाद",
-          paragraphs: []
-        };
-      }
+      if (!rawItem) return { day: "दिवस १", title: "नित्य गर्भसंवाद", paragraphs: [] };
 
       if (!Array.isArray(rawItem) && typeof rawItem === 'object') {
-        const paras = Array.isArray(rawItem.paragraphs)
-          ? rawItem.paragraphs
-          : (rawItem.messages || []);
-
+        const paras = Array.isArray(rawItem.paragraphs) ? rawItem.paragraphs : (rawItem.messages || []);
         return {
-          day: typeof rawItem.day === 'number'
-            ? `दिवस ${rawItem.day}`
-            : (rawItem.day || "दिवस १"),
-
+          day: typeof rawItem.day === 'number' ? `दिवस ${rawItem.day}` : (rawItem.day || "दिवस १"),
           title: rawItem.title || "नित्य गर्भसंवाद",
-
-          paragraphs: paras
-            .map(p => cleanNumberedLine(p))
-            .filter(Boolean)
+          paragraphs: paras.map(p => cleanNumberedLine(p)).filter(Boolean)
         };
       }
 
@@ -556,7 +491,6 @@
       const rawBody = rawItem[2] || "";
 
       let lines = [];
-
       if (Array.isArray(rawBody)) {
         lines = rawBody;
       } else if (typeof rawBody === 'string') {
@@ -567,24 +501,48 @@
         .map(l => cleanNumberedLine(l))
         .filter(l => l.length > 0);
 
-      return {
-        day,
-        title,
-        paragraphs
-      };
+      return { day, title, paragraphs };
     }
 
-    const FALLBACK_DATA = [
-      {
-        day: "दिवस १",
-        title: "माहिती उपलब्ध नाही",
-        paragraphs: ["कृपया इंटरनेट कनेक्शन तपासा."]
-      }
-    ];
+    function cleanNumberedLine(line) {
+      if (!line || typeof line !== 'string') return '';
+      return line.trim()
+        .replace(/^[०१२३४५६७८९\d]+[\.\-\)\s]+/u, '')
+        .replace(/^(आई-बाबा|आई|बाबा)\s*[:ः\-]\s*/u, '')
+        .trim();
+    }
+
+    // Default Fallbacks
+    const FALLBACK_DATA = [{ day: "दिवस १", title: "माहिती उपलब्ध नाही", paragraphs: ["कृपया इंटरनेट कनेक्शन तपासा."] }];
+
+    function renderMantraParagraph(text) {
+      const lines = String(text || '').split(/\\r?\
+/);
+      const out = [];
+      let verse = [];
+      const flush = () => {
+        if (!verse.length) return;
+        out.push(React.createElement('div', { className: 'mantra-verse', key: 'v-'+out.length },
+          verse.map((line, i) => React.createElement('div', { className:'mantra-line', key:i }, line))
+        ));
+        verse = [];
+      };
+      lines.forEach((raw,i) => {
+        const line = raw.trim();
+        if (!line) { flush(); out.push(React.createElement('div',{className:'mantra-spacer',key:'s-'+i})); return; }
+        const isHeader = /^॥[^\
+]*॥$/.test(line);
+        if (isHeader) { flush(); out.push(React.createElement('div',{className:'mantra-section-header',key:'h-'+i},line)); return; }
+        if (/[।॥]\\s*$/.test(line) || /^ॐ\\b/.test(line)) { verse.push(line); }
+        else { flush(); out.push(React.createElement('div',{className:'mantra-prose-line',key:'p-'+i},line)); }
+      });
+      flush();
+      return out;
+    }
 
     function App() {
-      const [speaker, setSpeaker] = useState('mother');
-
+      const [speaker, setSpeaker] = useState('mother'); // mother, father, parent, story, mantra, sanskar
+      
       const [dataMap, setDataMap] = useState({
         mother: FALLBACK_DATA,
         father: FALLBACK_DATA,
@@ -595,191 +553,79 @@
       });
 
       const [currentIndex, setCurrentIndex] = useState(0);
-
       const scrollRef = useRef(null);
       const tabsContainerRef = useRef(null);
 
-      const touchStartX = useRef(null);
-      const touchStartY = useRef(null);
-      const touchStartTime = useRef(0);
-
-      /* THEME */
+      // Theme Sync
       useEffect(() => {
         const root = document.documentElement;
-
         const themes = {
-          mother: {
-            accent: 'var(--accent-rose)',
-            glow: 'rgba(240, 168, 200, 0.18)'
-          },
-
-          father: {
-            accent: 'var(--accent-violet)',
-            glow: 'rgba(186, 140, 224, 0.18)'
-          },
-
-          parent: {
-            accent: 'var(--accent-gold)',
-            glow: 'rgba(226, 186, 111, 0.18)'
-          },
-
-          story: {
-            accent: 'var(--accent-green)',
-            glow: 'rgba(126, 203, 161, 0.18)'
-          },
-
-          mantra: {
-            accent: 'var(--accent-saffron)',
-            glow: 'rgba(244, 162, 97, 0.18)'
-          },
-
-          sanskar: {
-            accent: 'var(--accent-teal)',
-            glow: 'rgba(72, 202, 228, 0.18)'
-          }
+          mother: { accent: 'var(--accent-rose)', glow: 'rgba(240, 168, 200, 0.18)' },
+          father: { accent: 'var(--accent-violet)', glow: 'rgba(186, 140, 224, 0.18)' },
+          parent: { accent: 'var(--accent-gold)', glow: 'rgba(226, 186, 111, 0.18)' },
+          story: { accent: 'var(--accent-green)', glow: 'rgba(126, 203, 161, 0.18)' },
+          mantra: { accent: 'var(--accent-saffron)', glow: 'rgba(244, 162, 97, 0.18)' },
+          sanskar: { accent: 'var(--accent-teal)', glow: 'rgba(72, 202, 228, 0.18)' }
         };
-
         const activeTheme = themes[speaker] || themes.mother;
-
-        root.style.setProperty(
-          '--active-accent',
-          activeTheme.accent
-        );
-
-        root.style.setProperty(
-          '--active-glow',
-          activeTheme.glow
-        );
+        root.style.setProperty('--active-accent', activeTheme.accent);
+        root.style.setProperty('--active-glow', activeTheme.glow);
       }, [speaker]);
 
-      /* LOAD ALL 6 JSON FILES */
+      // Load all 6 JSON files
       useEffect(() => {
         const loadFiles = async () => {
           const files = [
-            {
-              key: 'mother',
-              path: './data/mothers.json'
-            },
-            {
-              key: 'father',
-              path: './data/fathers.json'
-            },
-            {
-              key: 'parent',
-              path: './data/parent.json'
-            },
-            {
-              key: 'story',
-              path: './data/story.json'
-            },
-            {
-              key: 'mantra',
-              path: './data/mantra.json'
-            },
-            {
-              key: 'sanskar',
-              path: './data/sanskar.json'
-            }
+            { key: 'mother', path: './data/mothers.json' },
+            { key: 'father', path: './data/fathers.json' },
+            { key: 'parent', path: './data/parent.json' },
+            { key: 'story', path: './data/story.json' },
+            { key: 'mantra', path: './data/mantra.json' },
+            { key: 'sanskar', path: './data/sanskar.json' }
           ];
 
-          const newDataMap = {
-            ...dataMap
-          };
-
+          const newDataMap = { ...dataMap };
           for (let file of files) {
             try {
               const res = await fetch(file.path);
-
               if (res.ok) {
                 const data = await res.json();
-
                 if (Array.isArray(data) && data.length > 0) {
                   newDataMap[file.key] = data;
                 }
               }
-            } catch (e) {
-              console.log(
-                `Could not load ${file.path}`,
-                e
-              );
-            }
+            } catch (e) { console.log(`Could not load ${file.path}`); }
           }
-
           setDataMap(newDataMap);
         };
-
         loadFiles();
       }, []);
 
-      const activeList =
-        dataMap[speaker] || FALLBACK_DATA;
-
+      const activeList = dataMap[speaker] || FALLBACK_DATA;
       const totalDays = activeList.length;
+      const safeIndex = Math.min(currentIndex, Math.max(0, totalDays - 1));
+      const { day, title, paragraphs } = extractParagraphs(activeList[safeIndex]);
+      const progressPercent = totalDays > 0 ? ((safeIndex + 1) / totalDays) * 100 : 0;
 
-      const safeIndex = Math.min(
-        currentIndex,
-        Math.max(0, totalDays - 1)
-      );
-
-      const {
-        day,
-        title,
-        paragraphs
-      } = extractParagraphs(
-        activeList[safeIndex]
-      );
-
-      const progressPercent =
-        totalDays > 0
-          ? ((safeIndex + 1) / totalDays) * 100
-          : 0;
-
-      /* RESET BOOK SCROLL WHEN DAY/TAB CHANGES */
       useEffect(() => {
-        if (scrollRef.current) {
-          scrollRef.current.scrollTop = 0;
-        }
+        if (scrollRef.current) scrollRef.current.scrollTop = 0;
       }, [safeIndex, speaker]);
 
-      /* TAB CHANGE */
-      const handleSpeakerChange = (
-        newSpeaker,
-        event
-      ) => {
+      const handleSpeakerChange = (newSpeaker, event) => {
         setSpeaker(newSpeaker);
         setCurrentIndex(0);
-
-        if (
-          event &&
-          event.target &&
-          tabsContainerRef.current
-        ) {
-          event.target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'center'
-          });
+        // Scroll tab into view if needed
+        if (event && event.target && tabsContainerRef.current) {
+          event.target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
       };
 
-      /* DAY NAVIGATION */
-      const goToPrev = () => {
-        if (safeIndex > 0) {
-          setCurrentIndex(safeIndex - 1);
-        }
-      };
+      const goToPrev = () => { if (safeIndex > 0) setCurrentIndex(safeIndex - 1); };
+      const goToNext = () => { if (safeIndex < totalDays - 1) setCurrentIndex(safeIndex + 1); };
 
-      const goToNext = () => {
-        if (safeIndex < totalDays - 1) {
-          setCurrentIndex(safeIndex + 1);
-        }
-      };
-
-      /* SHARE */
+      // Share + swipe navigation
       const handleShare = async () => {
-        const shareText =
-          `${title}\n${day}\n\nउमाभरत – नित्य गर्भसंवाद`;
-
+        const shareText = `${title}\n${day}\n\nउमाभरत – नित्य गर्भसंवाद`;
         try {
           if (navigator.share) {
             await navigator.share({
@@ -787,547 +633,176 @@
               text: shareText
             });
           } else if (navigator.clipboard) {
-            await navigator.clipboard.writeText(
-              shareText
-            );
-
+            await navigator.clipboard.writeText(shareText);
             alert('सामग्री कॉपी झाली.');
           } else {
             alert(shareText);
           }
         } catch (e) {
-          if (
-            e &&
-            e.name !== 'AbortError'
-          ) {
-            console.log(
-              'Share cancelled/unavailable',
-              e
-            );
-          }
+          if (e && e.name !== 'AbortError') console.log('Share cancelled/unavailable', e);
         }
       };
 
-      /* SWIPE ANYWHERE */
+      const touchStartX = useRef(null);
+      const touchStartY = useRef(null);
+      const touchStartTime = useRef(0);
+
       useEffect(() => {
         const onTouchStart = (e) => {
-          if (
-            !e.touches ||
-            e.touches.length !== 1
-          ) {
-            return;
-          }
-
-          touchStartX.current =
-            e.touches[0].clientX;
-
-          touchStartY.current =
-            e.touches[0].clientY;
-
-          touchStartTime.current =
-            Date.now();
+          if (!e.touches || e.touches.length !== 1) return;
+          touchStartX.current = e.touches[0].clientX;
+          touchStartY.current = e.touches[0].clientY;
+          touchStartTime.current = Date.now();
         };
 
         const onTouchEnd = (e) => {
-          if (
-            touchStartX.current === null ||
-            !e.changedTouches ||
-            e.changedTouches.length !== 1
-          ) {
-            return;
-          }
+          if (touchStartX.current === null || !e.changedTouches || e.changedTouches.length !== 1) return;
 
-          const endX =
-            e.changedTouches[0].clientX;
-
-          const endY =
-            e.changedTouches[0].clientY;
-
-          const dx =
-            endX - touchStartX.current;
-
-          const dy =
-            endY - touchStartY.current;
-
-          const elapsed =
-            Date.now() -
-            touchStartTime.current;
+          const endX = e.changedTouches[0].clientX;
+          const endY = e.changedTouches[0].clientY;
+          const dx = endX - touchStartX.current;
+          const dy = endY - touchStartY.current;
+          const elapsed = Date.now() - touchStartTime.current;
 
           touchStartX.current = null;
           touchStartY.current = null;
 
-          /*
-           * Only a clear horizontal gesture
-           * becomes day navigation.
-           *
-           * This prevents normal vertical
-           * reading/scrolling from changing days.
-           */
-          if (
-            elapsed > 900 ||
-            Math.abs(dx) < 55 ||
-            Math.abs(dx) <
-              Math.abs(dy) * 1.35
-          ) {
-            return;
-          }
+          // Only treat a clear, reasonably quick horizontal gesture as day navigation.
+          if (elapsed > 900 || Math.abs(dx) < 55 || Math.abs(dx) < Math.abs(dy) * 1.35) return;
 
-          if (dx < 0) {
-            goToNext();
-          } else {
-            goToPrev();
-          }
+          if (dx < 0) goToNext();
+          else goToPrev();
         };
 
-        document.addEventListener(
-          'touchstart',
-          onTouchStart,
-          { passive: true }
-        );
-
-        document.addEventListener(
-          'touchend',
-          onTouchEnd,
-          { passive: true }
-        );
+        document.addEventListener('touchstart', onTouchStart, { passive: true });
+        document.addEventListener('touchend', onTouchEnd, { passive: true });
 
         return () => {
-          document.removeEventListener(
-            'touchstart',
-            onTouchStart
-          );
-
-          document.removeEventListener(
-            'touchend',
-            onTouchEnd
-          );
+          document.removeEventListener('touchstart', onTouchStart);
+          document.removeEventListener('touchend', onTouchEnd);
         };
       }, [safeIndex, totalDays]);
 
+      // Keep the reader vertically scrollable while allowing horizontal swipes anywhere.
+      useEffect(() => {
+        document.body.style.touchAction = 'pan-y';
+        return () => { document.body.style.touchAction = ''; };
+      }, []);
+      
       const TABS = [
-        {
-          id: 'mother',
-          label: 'आई'
-        },
-        {
-          id: 'father',
-          label: 'बाबा'
-        },
-        {
-          id: 'parent',
-          label: 'पालक'
-        },
-        {
-          id: 'story',
-          label: 'कथा'
-        },
-        {
-          id: 'mantra',
-          label: 'मंत्र'
-        },
-        {
-          id: 'sanskar',
-          label: 'संस्कार'
-        }
+        { id: 'mother', label: 'आई' },
+        { id: 'father', label: 'बाबा' },
+        { id: 'parent', label: 'पालक' },
+        { id: 'story', label: 'कथा' },
+        { id: 'mantra', label: 'मंत्र' },
+        { id: 'sanskar', label: 'संस्कार' }
       ];
 
-      return React.createElement(
-        'div',
-        {
-          className: 'app'
-        },
+      return React.createElement('div', { className: 'app' },
+        React.createElement('div', { className: 'shell' },
 
-        React.createElement(
-          'div',
-          {
-            className: 'shell'
-          },
-
-          /* HEADER */
-          React.createElement(
-            'header',
-            {
-              className: 'topbar'
-            },
-
-            React.createElement(
-              'div',
-              {
-                className: 'brand'
-              },
-
-              React.createElement(
-                'i',
-                {
-                  className:
-                    'fa-solid fa-dharmachakra dharmachakra-icon'
-                }
-              ),
-
-              React.createElement(
-                'div',
-                {
-                  className: 'brand-text'
-                },
-
-                React.createElement(
-                  'h1',
-                  null,
-                  'उमाभरत'
-                ),
-
-                React.createElement(
-                  'h2',
-                  null,
-                  'नित्य गर्भसंवाद'
-                )
+          /* TOPBAR */
+          React.createElement('header', { className: 'topbar' },
+            React.createElement('div', { className: 'brand' },
+              React.createElement('i', { className: 'fa-solid fa-dharmachakra dharmachakra-icon' }),
+              React.createElement('div', { className: 'brand-text' },
+                React.createElement('h1', null, 'उमाभरत'),
+                React.createElement('h2', null, 'नित्य गर्भसंवाद')
               )
             ),
-
-            React.createElement(
-              'div',
-              {
-                className: 'header-actions'
-              },
-
-              React.createElement(
-                'div',
-                {
-                  className:
-                    'header-day-counter'
-                },
+            React.createElement('div', { className: 'header-actions' },
+              React.createElement('div', { className: 'header-day-counter' },
                 `${day} / ${totalDays}`
               ),
+              React.createElement('button', {
+                className: 'header-share-btn',
+                onClick: handleShare,
+                'aria-label': 'शेअर करा',
+                title: 'शेअर करा'
+              }, React.createElement('i', { className: 'fa-solid fa-share-nodes' }))
+            )
+          ),
 
-              React.createElement(
-                'button',
-                {
-                  className:
-                    'header-share-btn',
-
-                  onClick:
-                    handleShare,
-
-                  'aria-label':
-                    'शेअर करा',
-
-                  title:
-                    'शेअर करा'
-                },
-
-                React.createElement(
-                  'i',
-                  {
-                    className:
-                      'fa-solid fa-share-nodes'
-                  }
-                )
+          /* 6-TABS SCROLLABLE STRIP */
+          React.createElement('div', { className: 'tabs-wrapper' },
+            React.createElement('div', { className: 'tabs-container', ref: tabsContainerRef },
+              TABS.map(tab => 
+                React.createElement('button', {
+                  key: tab.id,
+                  className: `tab-btn ${speaker === tab.id ? 'active' : ''}`,
+                  onClick: (e) => handleSpeakerChange(tab.id, e)
+                }, tab.label)
               )
             )
           ),
 
-          /* TABS */
-          React.createElement(
-            'div',
-            {
-              className:
-                'tabs-wrapper'
-            },
-
-            React.createElement(
-              'div',
-              {
-                className:
-                  'tabs-container',
-
-                ref:
-                  tabsContainerRef
-              },
-
-              TABS.map(
-                tab =>
-                  React.createElement(
-                    'button',
-                    {
-                      key: tab.id,
-
-                      className:
-                        `tab-btn ${
-                          speaker === tab.id
-                            ? 'active'
-                            : ''
-                        }`,
-
-                      onClick: e =>
-                        handleSpeakerChange(
-                          tab.id,
-                          e
-                        )
-                    },
-
-                    tab.label
-                  )
-              )
+          /* PROGRESS TRACK */
+          React.createElement('div', { className: 'progress-bar-wrap' },
+            React.createElement('div', { className: 'progress-track' },
+              React.createElement('div', {
+                className: 'progress-fill',
+                style: { width: `${progressPercent}%` }
+              })
             )
           ),
 
-          /* PROGRESS */
-          React.createElement(
-            'div',
-            {
-              className:
-                'progress-bar-wrap'
-            },
-
-            React.createElement(
-              'div',
-              {
-                className:
-                  'progress-track'
-              },
-
-              React.createElement(
-                'div',
-                {
-                  className:
-                    'progress-fill',
-
-                  style: {
-                    width:
-                      `${progressPercent}%`
-                  }
-                }
-              )
-            )
-          ),
-
-          /* MAIN BOOK */
-          React.createElement(
-            'main',
-            {
-              className:
-                'book-reader'
-            },
-
-            React.createElement(
-              'div',
-              {
-                className:
-                  'book-header'
-              },
-
-              React.createElement(
-                'h2',
-                {
-                  className:
-                    'chapter-title'
-                },
-
-                title
-              )
+          /* BOOK READING CONTAINER */
+          React.createElement('main', { className: 'book-reader' },
+            React.createElement('div', { className: 'book-header' },
+              React.createElement('h2', { className: 'chapter-title' }, title)
             ),
 
-            React.createElement(
-              'div',
-              {
-                className:
-                  'book-body',
-
-                ref:
-                  scrollRef
-              },
-
-              React.createElement(
-                'div',
-                {
-                  className:
-                    'prose-content'
-                },
-
-                paragraphs.map(
-                  (p, idx) => {
-
-                    if (
-                      speaker === 'sanskar' &&
-                      (
-                        p.includes('विचार:') ||
-                        p.includes('कृती:')
-                      )
-                    ) {
-                      return React.createElement(
-                        'p',
-                        {
-                          key: idx,
-                          className:
-                            'book-paragraph sanskar-line'
-                        },
-                        p
-                      );
-                    }
-
-                    return React.createElement(
-                      'p',
-                      {
-                        key: idx,
-                        className:
-                          'book-paragraph'
-                      },
-                      p
-                    );
-                  }
-                )
+            React.createElement('div', { className: 'book-body', ref: scrollRef },
+              React.createElement('div', { className: 'prose-content' },
+                speaker === 'mantra'
+                  ? paragraphs.map((p, idx) => React.createElement(React.Fragment, { key: idx }, renderMantraParagraph(p)))
+                  : paragraphs.map((p, idx) => {
+                      if(speaker === 'sanskar' && (p.includes('विचार:') || p.includes('कृती:'))) {
+                        return React.createElement('p', { key: idx, className: 'book-paragraph sanskar-line' }, p);
+                      }
+                      return React.createElement('p', { key: idx, className: 'book-paragraph' }, p);
+                    })
               ),
-
-              React.createElement(
-                'div',
-                {
-                  className:
-                    'closing-mantra-box'
-                },
-
-                React.createElement(
-                  'p',
-                  {
-                    className:
-                      'closing-text'
-                  },
-
-                  React.createElement(
-                    'i',
-                    {
-                      className:
-                        'fa-solid fa-praying-hands'
-                    }
-                  ),
-
+              React.createElement('div', { className: 'closing-mantra-box' },
+                React.createElement('p', { className: 'closing-text' },
+                  React.createElement('i', { className: 'fa-solid fa-praying-hands' }),
                   ' आई-बाबांचे प्रेम आणि शुभ आशीर्वाद ',
-
-                  React.createElement(
-                    'i',
-                    {
-                      className:
-                        'fa-solid fa-praying-hands'
-                    }
-                  )
+                  React.createElement('i', { className: 'fa-solid fa-praying-hands' })
                 )
               )
             )
           ),
 
           /* BOTTOM NAV */
-          React.createElement(
-            'nav',
-            {
-              className:
-                'bottom-nav'
-            },
-
-            React.createElement(
-              'div',
-              {
-                style: {
-                  display: 'flex',
-                  justifyContent:
-                    'flex-start'
-                }
-              },
-
-              React.createElement(
-                'button',
-                {
-                  className:
-                    'nav-btn',
-
-                  onClick:
-                    goToPrev,
-
-                  disabled:
-                    safeIndex === 0,
-
-                  'aria-label':
-                    'मागील दिवस',
-
-                  title:
-                    'मागील दिवस'
-                },
-
-                React.createElement(
-                  'i',
-                  {
-                    className:
-                      'fa-solid fa-chevron-left'
-                  }
-                )
-              )
+          React.createElement('nav', { className: 'bottom-nav' },
+            React.createElement('div', { style: { display: 'flex', justifyContent: 'flex-start' } },
+              React.createElement('button', {
+                className: 'nav-btn',
+                onClick: goToPrev,
+                disabled: safeIndex === 0,
+                'aria-label': 'मागील दिवस',
+                title: 'मागील दिवस'
+              }, React.createElement('i', { className: 'fa-solid fa-chevron-left' }))
             ),
-
-            React.createElement(
-              'div',
-              null
-            ),
-
-            React.createElement(
-              'div',
-              {
-                style: {
-                  display: 'flex',
-                  justifyContent:
-                    'flex-end'
-                }
-              },
-
-              React.createElement(
-                'button',
-                {
-                  className:
-                    'nav-btn',
-
-                  onClick:
-                    goToNext,
-
-                  disabled:
-                    safeIndex ===
-                    totalDays - 1,
-
-                  'aria-label':
-                    'पुढील दिवस',
-
-                  title:
-                    'पुढील दिवस'
-                },
-
-                React.createElement(
-                  'i',
-                  {
-                    className:
-                      'fa-solid fa-chevron-right'
-                  }
-                )
-              )
+            React.createElement('div', null),
+            React.createElement('div', { style: { display: 'flex', justifyContent: 'flex-end' } },
+              React.createElement('button', {
+                className: 'nav-btn',
+                onClick: goToNext,
+                disabled: safeIndex === totalDays - 1,
+                'aria-label': 'पुढील दिवस',
+                title: 'पुढील दिवस'
+              }, React.createElement('i', { className: 'fa-solid fa-chevron-right' }))
             )
           ),
 
           /* FOOTER */
-          React.createElement(
-            'div',
-            {
-              className:
-                'book-dedication-footer'
-            },
-
-            'प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे...'
-          )
+          React.createElement('div', { className: 'book-dedication-footer' }, 'प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे...')
         )
       );
     }
 
-    ReactDOM
-      .createRoot(
-        document.getElementById('root')
-      )
-      .render(
-        React.createElement(App)
-      );
+    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
   </script>
 </body>
 </html>
