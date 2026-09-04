@@ -7,10 +7,10 @@
   <meta name="description" content="उमाभरत नित्य गर्भसंवाद">
   <title>उमाभरत नित्य गर्भसंवाद</title>
 
-  <!-- Google Devanagari & Mantra Fonts -->
+  <!-- Google Devanagari Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@300;400;600;700;800&family=Rozha+One&family=Tiro+Devanagari+Marathi:ital@0;1&family=Yatra+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@300;400;600;700;800&family=Rozha+One&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
 
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -79,7 +79,7 @@
       min-height: calc(100dvh - max(16px, env(safe-area-inset-top) + env(safe-area-inset-bottom)));
     }
 
-    /* COMPACT TOPBAR */
+    /* TOPBAR */
     .topbar {
       display: flex;
       align-items: center;
@@ -88,11 +88,13 @@
       padding: 2px 2px;
     }
 
-    .brand-horizontal {
+    .brand {
       display: flex;
+      flex-direction: row;
       align-items: center;
       gap: 8px;
       min-width: 0;
+      flex: 1;
     }
 
     .dharmachakra-icon {
@@ -111,7 +113,7 @@
       to { transform: rotate(360deg); }
     }
 
-    .brand-inline-text {
+    .brand-text {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -119,7 +121,7 @@
       min-width: 0;
     }
 
-    .brand-inline-text h1 {
+    .brand-text h1 {
       margin: 0;
       font-family: "Rozha One", serif;
       font-size: 1.18rem;
@@ -131,7 +133,7 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .brand-inline-text h2 {
+    .brand-text h2 {
       margin: 1px 0 0 0;
       font-size: 0.72rem;
       font-weight: 700;
@@ -326,6 +328,7 @@
       text-align: justify;
       text-justify: inter-word;
       letter-spacing: 0.012em;
+      white-space: pre-line;
     }
 
     .book-paragraph:first-of-type::first-letter {
@@ -338,46 +341,55 @@
       color: var(--active-accent);
     }
 
-    /* MANTRA CUSTOM STYLES */
-    .mantra-section-header {
-      margin: 14px 0 4px 0;
-      font-family: "Noto Serif Devanagari", serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--active-accent);
-      letter-spacing: 0.02em;
-      display: block;
-    }
-
-    .mantra-block {
-      margin: 8px 0 12px 0;
-      padding: 12px 14px;
-      border-radius: 12px;
+    /* MANTRA CARD (Matches closing-mantra-box: left/right border, center aligned) */
+    .mantra-verse-card {
+      margin: 14px 0 16px 0;
+      padding: 14px 18px;
+      border-radius: 14px;
       background: rgba(255, 255, 255, 0.02);
       border-left: 2px solid var(--active-accent);
+      border-right: 2px solid var(--active-accent);
+      text-align: center;
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
 
-    .mantra-line {
-      font-family: 'Yatra One', cursive;
-      font-size: clamp(0.98rem, 3.8vw, 1.15rem);
-      line-height: 1.85;
+    .mantra-verse-title {
+      font-family: "Noto Serif Devanagari", serif;
+      font-size: 1.05rem;
+      font-weight: 700;
       color: var(--active-accent);
-      text-shadow: 0 0 10px var(--active-glow);
-      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
       display: block;
     }
 
-    .mantra-empty-line {
+    .mantra-verse-line {
+      font-family: "Noto Serif Devanagari", serif;
+      font-size: clamp(0.96rem, 3.7vw, 1.08rem);
+      font-weight: 700;
+      line-height: 1.9;
+      color: var(--active-accent);
+      letter-spacing: 0.02em;
+      display: block;
+    }
+
+    .mantra-verse-empty {
       height: 8px;
       display: block;
     }
 
-    .meaning-line {
-      margin: 4px 0;
-      line-height: 1.85;
+    /* SECTION HEADER (॥ चरणनिहाय सविस्तर अर्थ ॥ / ॥ गर्भसंवाद ॥) */
+    .mantra-content-header {
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-family: "Noto Serif Devanagari", serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--active-accent);
+      display: block;
+      letter-spacing: 0.02em;
     }
 
     .sanskar-line {
@@ -471,12 +483,8 @@
     }
 
     @media (max-width: 480px) {
-      .shell {
-        gap: 8px;
-      }
-      .book-reader {
-        height: min(760px, 78dvh);
-      }
+      .shell { gap: 8px; }
+      .book-reader { height: min(760px, 78dvh); }
     }
   </style>
 </head>
@@ -497,11 +505,7 @@
 
     function extractParagraphs(rawItem) {
       if (!rawItem) {
-        return {
-          day: "दिवस १",
-          title: "नित्य गर्भसंवाद",
-          paragraphs: []
-        };
+        return { day: "दिवस १", title: "नित्य गर्भसंवाद", paragraphs: [] };
       }
 
       if (!Array.isArray(rawItem) && typeof rawItem === 'object') {
@@ -510,15 +514,9 @@
           : (rawItem.messages || []);
 
         return {
-          day: typeof rawItem.day === 'number'
-            ? `दिवस ${rawItem.day}`
-            : (rawItem.day || "दिवस १"),
-
+          day: typeof rawItem.day === 'number' ? `दिवस ${rawItem.day}` : (rawItem.day || "दिवस १"),
           title: rawItem.title || "नित्य गर्भसंवाद",
-
-          paragraphs: paras
-            .map(p => cleanNumberedLine(p))
-            .filter(Boolean)
+          paragraphs: paras.map(p => cleanNumberedLine(p)).filter(Boolean)
         };
       }
 
@@ -533,22 +531,16 @@
         lines = rawBody.split('\n');
       }
 
-      const paragraphs = lines
-        .map(l => cleanNumberedLine(l))
-        .filter(l => l.length > 0);
+      const paragraphs = lines.map(l => cleanNumberedLine(l)).filter(l => l.length > 0);
 
-      return {
-        day,
-        title,
-        paragraphs
-      };
+      return { day, title, paragraphs };
     }
 
     const FALLBACK_DATA = [
       {
         day: "दिवस १",
         title: "माहिती उपलब्ध नाही",
-        paragraphs: ["कृपया इंटरनेट कनेक्शन किंवा डेटा फाइल्स तपासा."]
+        paragraphs: ["कृपया इंटरनेट कनेक्शन किंवा डेटा फाइल्सचा पाथ तपासा."]
       }
     ];
 
@@ -573,7 +565,7 @@
       const touchStartY = useRef(null);
       const touchStartTime = useRef(0);
 
-      /* DYNAMIC THEME SYNC */
+      /* DYNAMIC THEME */
       useEffect(() => {
         const root = document.documentElement;
 
@@ -591,7 +583,7 @@
         root.style.setProperty('--active-glow', activeTheme.glow);
       }, [speaker]);
 
-      /* LOAD ALL 6 JSON FILES */
+      /* LOAD DATA FILES */
       useEffect(() => {
         const loadFiles = async () => {
           const files = [
@@ -671,11 +663,11 @@
             alert(shareText);
           }
         } catch (e) {
-          if (e && e.name !== 'AbortError') console.log('Share unavailable', e);
+          if (e && e.name !== 'AbortError') console.log('Share error', e);
         }
       };
 
-      /* SWIPE ANYWHERE LOGIC */
+      /* SWIPE GESTURES */
       useEffect(() => {
         const onTouchStart = (e) => {
           if (!e.touches || e.touches.length !== 1) return;
@@ -717,6 +709,80 @@
         { id: 'sanskar', label: 'संस्कार' }
       ];
 
+      /* MANTRA RENDERER WITH DEDICATED VERSE CARD */
+      const renderContent = () => {
+        if (speaker !== 'mantra') {
+          return paragraphs.map((p, idx) => {
+            const trimmed = p.trim();
+            if (speaker === 'sanskar' && (trimmed.includes('विचार:') || trimmed.includes('कृती:'))) {
+              return React.createElement('p', { key: idx, className: 'book-paragraph sanskar-line' }, trimmed);
+            }
+            return React.createElement('p', { key: idx, className: 'book-paragraph' }, p);
+          });
+        }
+
+        // MANTRA TAB SPECIFIC PROCESSING
+        const elements = [];
+        let i = 0;
+        while (i < paragraphs.length) {
+          const trimmed = paragraphs[i].trim();
+
+          // Check if this is the start of a Mantra Verse Card:
+          // Either a header like ॥ प्रातःस्मरण महामंत्र ॥ immediately followed by verses,
+          // OR direct shloka block containing । or ॥ or starting with ॐ
+          const isHeader = trimmed.startsWith('॥') && trimmed.endsWith('॥') && !trimmed.includes('\n');
+          const isVerseHeader = isHeader && !trimmed.includes('अर्थ') && !trimmed.includes('गर्भसंवाद') && !trimmed.includes('हितगुज');
+
+          if (isVerseHeader && i + 1 < paragraphs.length && (paragraphs[i + 1].includes('।') || paragraphs[i + 1].includes('॥') || paragraphs[i + 1].trim().startsWith('ॐ'))) {
+            const cardHeader = trimmed;
+            const cardVerseLines = paragraphs[i + 1].split('\n');
+            elements.push(
+              React.createElement('div', { key: `mantra-card-${i}`, className: 'mantra-verse-card' },
+                React.createElement('span', { className: 'mantra-verse-title' }, cardHeader),
+                cardVerseLines.map((line, lIdx) => {
+                  const lTrim = line.trim();
+                  if (!lTrim) return React.createElement('span', { key: lIdx, className: 'mantra-verse-empty' });
+                  return React.createElement('span', { key: lIdx, className: 'mantra-verse-line' }, lTrim);
+                })
+              )
+            );
+            i += 2;
+            continue;
+          } else if (!isHeader && (trimmed.includes('।') || trimmed.includes('॥') || trimmed.startsWith('ॐ'))) {
+            // Standalone shloka verse block
+            const cardVerseLines = paragraphs[i].split('\n');
+            elements.push(
+              React.createElement('div', { key: `mantra-card-${i}`, className: 'mantra-verse-card' },
+                cardVerseLines.map((line, lIdx) => {
+                  const lTrim = line.trim();
+                  if (!lTrim) return React.createElement('span', { key: lIdx, className: 'mantra-verse-empty' });
+                  return React.createElement('span', { key: lIdx, className: 'mantra-verse-line' }, lTrim);
+                })
+              )
+            );
+            i++;
+            continue;
+          }
+
+          // Content Headers: ॥ चरणनिहाय सविस्तर अर्थ ॥ or ॥ गर्भसंवाद ॥
+          if (isHeader) {
+            elements.push(
+              React.createElement('h3', { key: `header-${i}`, className: 'mantra-content-header' }, trimmed)
+            );
+            i++;
+            continue;
+          }
+
+          // Standard paragraph (intro, numbered meanings, or garbhasamvad)
+          elements.push(
+            React.createElement('p', { key: `para-${i}`, className: 'book-paragraph' }, paragraphs[i])
+          );
+          i++;
+        }
+
+        return elements;
+      };
+
       return React.createElement(
         'div',
         { className: 'app' },
@@ -724,17 +790,17 @@
           'div',
           { className: 'shell' },
 
-          /* COMPACT HEADER */
+          /* TOPBAR */
           React.createElement(
             'header',
             { className: 'topbar' },
             React.createElement(
               'div',
-              { className: 'brand-horizontal' },
+              { className: 'brand' },
               React.createElement('i', { className: 'fa-solid fa-dharmachakra dharmachakra-icon' }),
               React.createElement(
                 'div',
-                { className: 'brand-inline-text' },
+                { className: 'brand-text' },
                 React.createElement('h1', null, 'उमाभरत'),
                 React.createElement('h2', null, 'नित्य गर्भसंवाद')
               )
@@ -806,55 +872,7 @@
               React.createElement(
                 'div',
                 { className: 'prose-content' },
-                paragraphs.map((p, idx) => {
-                  const trimmed = p.trim();
-
-                  // 1. SANSKAR formatting
-                  if (speaker === 'sanskar' && (trimmed.includes('विचार:') || trimmed.includes('कृती:'))) {
-                    return React.createElement('p', { key: idx, className: 'book-paragraph sanskar-line' }, trimmed);
-                  }
-
-                  // 2. MANTRA tab specialized rendering
-                  if (speaker === 'mantra') {
-                    // Section headers: ॥ ... ॥
-                    if (trimmed.startsWith('॥') && trimmed.endsWith('॥') && !trimmed.includes('\n')) {
-                      return React.createElement('h3', { key: idx, className: 'mantra-section-header' }, trimmed);
-                    }
-
-                    // Shloka / Mantra blocks (containing । or ॥ or beginning with ॐ)
-                    if (trimmed.includes('।') || trimmed.includes('॥') || trimmed.startsWith('ॐ')) {
-                      const lines = p.split('\n');
-                      return React.createElement(
-                        'div',
-                        { key: idx, className: 'mantra-block' },
-                        lines.map((line, lIdx) => {
-                          const lTrim = line.trim();
-                          if (!lTrim) {
-                            return React.createElement('span', { key: lIdx, className: 'mantra-empty-line' });
-                          }
-                          return React.createElement('span', { key: lIdx, className: 'mantra-line' }, lTrim);
-                        })
-                      );
-                    }
-
-                    // Multi-line numbered meaning lines
-                    if (trimmed.includes('\n') && (trimmed.includes('१.') || trimmed.includes('२.'))) {
-                      const lines = p.split('\n');
-                      return React.createElement(
-                        'div',
-                        { key: idx, className: 'prose-content' },
-                        lines.map((line, lIdx) => {
-                          const lTrim = line.trim();
-                          if (!lTrim) return null;
-                          return React.createElement('p', { key: lIdx, className: 'book-paragraph meaning-line' }, lTrim);
-                        })
-                      );
-                    }
-                  }
-
-                  // 3. Regular paragraphs for all tabs
-                  return React.createElement('p', { key: idx, className: 'book-paragraph' }, p);
-                })
+                renderContent()
               ),
 
               React.createElement(
