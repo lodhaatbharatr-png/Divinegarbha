@@ -10,7 +10,7 @@
   <!-- Google Devanagari & Mantra Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@300;400;600;700;800&family=Rozha+One&family=Tiro+Devanagari+Marathi:ital@0;1&family=Yatra+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@300;400;600;700;800&family=Rozha+One&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
 
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -31,7 +31,7 @@
       --accent-green: #7ecba1;
       --accent-saffron: #f4a261;
       --accent-teal: #48cae4;
-      --line: rgba(255, 255, 255, 0.08);
+      --line: rgba(255, 255, 255, 0.12);
       --radius: 20px;
 
       --active-accent: var(--accent-rose);
@@ -183,23 +183,24 @@
       transform: scale(0.91);
     }
 
-    /* COMPACT ROUNDED TABS WITH BORDERS */
+    /* COMPACT ROUNDED TABS WITH THIN CONTINUOUS BOTTOM BORDER & EQUAL PADDING */
     .tabs-wrapper {
       position: relative;
       width: 100%;
-      margin: 1px 0 2px 0;
+      margin: 1px 0 3px 0;
     }
 
     .tabs-container {
       display: flex;
       width: 100%;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid var(--line); /* Thin continuous bottom border */
       overflow-x: auto;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      gap: 4px;
+      gap: 5px;
       align-items: flex-end;
+      padding-bottom: 0;
     }
 
     .tabs-container::-webkit-scrollbar {
@@ -209,26 +210,28 @@
     .tab-btn {
       flex: 1;
       min-width: max-content;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--line);
       border-bottom: none;
       border-radius: 8px 8px 0 0;
       color: var(--text-muted);
-      padding: 3px 10px 4px 10px;
+      padding: 5px 10px; /* Equal top-bottom padding */
       font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 180ms ease;
       font-family: "Noto Sans Devanagari", sans-serif;
       touch-action: manipulation;
-      line-height: 1.3;
+      line-height: 1.15;
+      margin-bottom: 0;
     }
 
+    /* Solid Theme Color Fill for Active Tab */
     .tab-btn.active {
       color: #ffffff;
-      background: linear-gradient(to top, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+      background: var(--active-accent);
       border: 1px solid var(--active-accent);
-      border-bottom: 2px solid var(--active-accent);
+      border-bottom: none;
       box-shadow: 0 -2px 10px var(--active-glow);
     }
 
@@ -236,7 +239,7 @@
     .progress-bar-wrap {
       width: 100%;
       padding: 0;
-      margin-top: -2px;
+      margin-top: 1px;
     }
 
     .progress-track {
@@ -254,7 +257,7 @@
       transition: width 300ms ease, background 300ms ease;
     }
 
-    /* BOOK READER CONTAINER (MAXIMIZED HEIGHT) */
+    /* BOOK READER CONTAINER */
     .book-reader {
       width: 100%;
       height: min(860px, 82dvh);
@@ -346,7 +349,7 @@
       color: var(--active-accent);
     }
 
-    /* MANTRA CARD (left/right border, center aligned) */
+    /* MANTRA CARD */
     .mantra-verse-card {
       margin: 14px 0 16px 0;
       padding: 14px 18px;
@@ -430,21 +433,21 @@
       font-size: 0.9rem;
     }
 
-    /* BOTTOM NAV + FOOTER ALIGNED TOGETHER */
+    /* BOTTOM NAV + FOOTER CONTAINER (Breathable spacing & Height matching) */
     .bottom-nav {
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
       gap: 8px;
       width: 100%;
-      padding: 4px 4px 6px 4px;
+      padding: 6px 4px 10px 4px; /* Padding for bottom breathability */
     }
 
     .nav-btn {
-      width: 32px;
-      height: 32px;
-      min-width: 32px;
-      min-height: 32px;
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
+      min-height: 34px;
       border: 1px solid var(--active-accent);
       border-radius: 50%;
       background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
@@ -454,7 +457,7 @@
       align-items: center;
       justify-content: center;
       padding: 0;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       cursor: pointer;
       transition: all 180ms ease;
       font-family: "Noto Sans Devanagari", sans-serif;
@@ -478,16 +481,19 @@
       box-shadow: none;
     }
 
+    /* Breathable Dedicated Footer Box matching Button Height */
     .book-dedication-footer {
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       font-size: 0.72rem;
       color: #928a90;
       font-weight: 500;
       letter-spacing: 0.03em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      padding: 0 4px;
+      line-height: 1.25;
+      padding: 2px 6px;
     }
 
     @media (max-width: 480px) {
@@ -672,12 +678,10 @@
         if (speaker === 'mantra') sectionName = 'गर्भसंस्कार मंत्र';
         if (speaker === 'sanskar') sectionName = 'गर्भसंस्कार विचार';
 
-        // Full text for caption / whatsapp
         const fullContentText = paragraphs.join('\n\n');
         const shareText = `*उमाभरत नित्य गर्भसंवाद*\n${day} : *${title}* (${sectionName})\n\n${fullContentText}\n\n🙏 प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे... 🙏`;
 
         try {
-          // Create Canvas to draw Snap of the Card
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
           const width = 1080;
@@ -687,7 +691,6 @@
           ctx.font = '300 32px "Noto Serif Devanagari", serif';
           let calculatedHeight = 440;
 
-          // Wrap lines
           const wrappedParagraphs = [];
           paragraphs.forEach((pText) => {
             const lines = pText.split('\n');
@@ -714,7 +717,6 @@
           canvas.width = width;
           canvas.height = Math.max(1350, calculatedHeight);
 
-          // Card Background
           const bgGrad = ctx.createLinearGradient(0, 0, width, canvas.height);
           bgGrad.addColorStop(0, '#16121d');
           bgGrad.addColorStop(0.5, '#1e1829');
@@ -722,31 +724,25 @@
           ctx.fillStyle = bgGrad;
           ctx.fillRect(0, 0, width, canvas.height);
 
-          // Card Outer Border
           ctx.strokeStyle = 'rgba(240, 168, 200, 0.35)';
           ctx.lineWidth = 3;
           ctx.strokeRect(30, 30, width - 60, canvas.height - 60);
 
-          // Brand Heading
           ctx.fillStyle = '#f0a8c8';
           ctx.font = '400 44px "Rozha One", serif';
           ctx.fillText('उमाभरत नित्य गर्भसंवाद', padding, 115);
 
-          // Subtitle
           ctx.fillStyle = '#e2ba6f';
           ctx.font = '600 28px "Noto Sans Devanagari", sans-serif';
           ctx.fillText(`${day}  •  ${sectionName}`, padding, 175);
 
-          // Title
           ctx.fillStyle = '#ffffff';
           ctx.font = '700 42px "Noto Serif Devanagari", serif';
           ctx.fillText(title, padding, 245);
 
-          // Separator
           ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
           ctx.fillRect(padding, 275, contentWidth, 2);
 
-          // Body text
           let y = 335;
           ctx.fillStyle = '#ede5de';
           ctx.font = '300 32px "Noto Serif Devanagari", serif';
@@ -766,13 +762,11 @@
             y += 20;
           });
 
-          // Bottom Blessing
           ctx.textAlign = 'center';
           ctx.fillStyle = '#e2ba6f';
           ctx.font = '400 30px "Tiro Devanagari Marathi", serif';
           ctx.fillText('🙏 आई-बाबांचे प्रेम आणि शुभ आशीर्वाद 🙏', width / 2, canvas.height - 80);
 
-          // Convert to Blob and Share Native
           canvas.toBlob(async (blob) => {
             if (!blob) {
               fallbackShare(shareText);
@@ -792,7 +786,6 @@
                 if (err && err.name !== 'AbortError') fallbackShare(shareText);
               }
             } else {
-              // If image sharing not supported, download snap and open text share
               const downloadLink = document.createElement('a');
               downloadLink.href = URL.createObjectURL(blob);
               downloadLink.download = fileName;
@@ -859,7 +852,7 @@
         { id: 'sanskar', label: 'संस्कार' }
       ];
 
-      /* MANTRA RENDERER WITH DEDICATED VERSE CARD */
+      /* MANTRA RENDERER */
       const renderContent = () => {
         if (speaker !== 'mantra') {
           return paragraphs.map((p, idx) => {
@@ -879,7 +872,6 @@
           const isHeader = trimmed.startsWith('॥') && trimmed.endsWith('॥') && !trimmed.includes('\n');
           const isVerseHeader = isHeader && !trimmed.includes('अर्थ') && !trimmed.includes('गर्भसंवाद') && !trimmed.includes('हितगुज');
 
-          // Mantra Card Case: Header followed by shloka verse
           if (isVerseHeader && i + 1 < paragraphs.length && (paragraphs[i + 1].includes('।') || paragraphs[i + 1].includes('॥') || paragraphs[i + 1].trim().startsWith('ॐ'))) {
             const cardHeader = trimmed;
             const cardVerseLines = paragraphs[i + 1].split('\n');
@@ -896,7 +888,6 @@
             i += 2;
             continue;
           } else if (!isHeader && (trimmed.includes('।') || trimmed.includes('॥') || trimmed.startsWith('ॐ'))) {
-            // Standalone shloka verse
             const cardVerseLines = paragraphs[i].split('\n');
             elements.push(
               React.createElement('div', { key: `mantra-card-${i}`, className: 'mantra-verse-card' },
@@ -911,7 +902,6 @@
             continue;
           }
 
-          // Section Title Headers (अर्थ, गर्भसंवाद)
           if (isHeader) {
             elements.push(
               React.createElement('h3', { key: `header-${i}`, className: 'mantra-content-header' }, trimmed)
@@ -920,7 +910,6 @@
             continue;
           }
 
-          // Standard text paragraph
           elements.push(
             React.createElement('p', { key: `para-${i}`, className: 'book-paragraph' }, paragraphs[i])
           );
@@ -969,7 +958,7 @@
             )
           ),
 
-          /* COMPACT ROUNDED TABS */
+          /* COMPACT ROUNDED TABS (EQUAL PADDING & THIN CONTINUOUS BORDER) */
           React.createElement(
             'div',
             { className: 'tabs-wrapper' },
@@ -1036,7 +1025,7 @@
             )
           ),
 
-          /* BOTTOM NAV ALIGNED WITH FOOTER */
+          /* BOTTOM NAV ALIGNED WITH FOOTER (MATCHING 34px HEIGHT) */
           React.createElement(
             'nav',
             { className: 'bottom-nav' },
