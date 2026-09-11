@@ -509,7 +509,7 @@
       text-overflow: ellipsis;
     }
 
-    /* RESUME READING MODAL (सुंदर मराठी पॉपअप) */
+    /* RESUME READING MODAL */
     .resume-modal-backdrop {
       position: fixed;
       top: 0;
@@ -672,9 +672,10 @@
     ];
 
     function App() {
-      // १. लोकलस्टोरेजमधून शेवटचा टॅब वाचणे
+      // १. आधीचा टॅब फक्त जर युझरने वाचले असेल तरच लोड करा, नाहीतर डीफॉल्ट 'mother'
       const [speaker, setSpeaker] = useState(() => {
-        return localStorage.getItem('ub_active_tab') || 'mother';
+        const hasHistory = localStorage.getItem('ub_has_read');
+        return hasHistory ? (localStorage.getItem('ub_active_tab') || 'mother') : 'mother';
       });
 
       const [dataMap, setDataMap] = useState({
@@ -686,14 +687,18 @@
         sanskar: FALLBACK_DATA
       });
 
-      // २. त्या टॅबचा शेवटचा सेव्ह असलेला दिवस वाचणे
+      // २. आधीचा सेव्ह असलेला दिवस वाचणे
       const [currentIndex, setCurrentIndex] = useState(() => {
+        const hasHistory = localStorage.getItem('ub_has_read');
+        if (!hasHistory) return 0;
         const initialTab = localStorage.getItem('ub_active_tab') || 'mother';
         const savedIndex = localStorage.getItem(`ub_day_${initialTab}`);
         return savedIndex !== null ? parseInt(savedIndex, 10) : 0;
       });
 
-      // ३. "पुढे सुरू ठेवा" / "नको" मोडल दाखवण्यासाठी स्टेट
+      // डेटा लोड झाला आहे का हे ट्रॅक करण्यासाठी रिफ (जेणेकरून 0 ओव्हरराईट होणार नाही)
+      const isDataLoaded = useRef(false);
+
       const [showResumeModal, setShowResumeModal] = useState(false);
       const [resumeData, setResumeData] = useState(null);
 
@@ -723,7 +728,7 @@
         root.style.setProperty('--active-text-dark', activeTheme.darkText);
       }, [speaker]);
 
-      /* LOAD DATA FILES WITH CACHE-BUSTING (30+ दिवस लोड होण्यासाठी) */
+      /* LOAD DATA FILES WITH CACHE-BUSTING */
       useEffect(() => {
         const loadFiles = async () => {
           const files = [
@@ -753,10 +758,13 @@
           }
 
           setDataMap(newDataMap);
+          isDataLoaded.current = true;
 
-          // ४. जर युझरकडे आधीचा सेव्ह केलेला इतिहास असेल, तर पॉपअप विचारणे
+          // जर युझरने खरोखर आधी वाचन केले असेल (`ub_has_read` ट्रू असेल), तरच पॉपअप दाखवणे
+          const hasHistory = localStorage.getItem('ub_has_read');
           const lastTab = localStorage.getItem('ub_active_tab');
-          if (lastTab) {
+
+          if (hasHistory && lastTab) {
             const savedIndex = localStorage.getItem(`ub_day_${lastTab}`);
             if (savedIndex !== null) {
               const prevIdx = parseInt(savedIndex, 10);
@@ -781,20 +789,21 @@
 
       const activeList = dataMap[speaker] || FALLBACK_DATA;
       const totalDays = activeList.length;
-      const safeIndex = Math.min(currentIndex, Math.max(0, totalDays - 1));
-      const { day, title, paragraphs } = extractParagraphs(activeList[safeIndex]);
+      const safeIndex = isDataLoaded.current 
+        ? Math.min(currentIndex, Math.max(0, totalDays - 1))
+        : currentIndex;
 
+      const { day, title, paragraphs } = extractParagraphs(activeList[safeIndex]);
       const progressPercent = totalDays > 0 ? ((safeIndex + 1) / totalDays) * 100 : 0;
 
-      // दिवस बदलल्यावर आपोआप त्या टॅबसाठी सेव्ह करणे
+      // दिवस किंवा टॅब बदलल्यावर सेव्ह करणे (फक्त डेटा लोड झाल्यानंतरच)
       useEffect(() => {
-        localStorage.setItem(`ub_day_${speaker}`, safeIndex);
+        if (isDataLoaded.current) {
+          localStorage.setItem(`ub_day_${speaker}`, safeIndex);
+          localStorage.setItem('ub_active_tab', speaker);
+          localStorage.setItem('ub_has_read', 'true'); // युझरने वाचन सुरू केले आहे हे मार्क करणे
+        }
       }, [safeIndex, speaker]);
-
-      // टॅब बदलल्यावर सेव्ह करणे
-      useEffect(() => {
-        localStorage.setItem('ub_active_tab', speaker);
-      }, [speaker]);
 
       useEffect(() => {
         if (scrollRef.current) {
@@ -802,11 +811,12 @@
         }
       }, [safeIndex, speaker]);
 
-      // टॅब स्विच करताना: त्या त्या टॅबचा शेवटचा सोडलेला दिवस उघडणे
+      // टॅब स्विच करताना: त्या टॅबचा आधीचा अचूक दिवस लोड करणे
       const handleSpeakerChange = (newSpeaker, event) => {
         setSpeaker(newSpeaker);
         const savedIndex = localStorage.getItem(`ub_day_${newSpeaker}`);
-        setCurrentIndex(savedIndex !== null ? parseInt(savedIndex, 10) : 0);
+        const restoredIdx = savedIndex !== null ? parseInt(savedIndex, 10) : 0;
+        setCurrentIndex(restoredIdx);
 
         if (event && event.target && tabsContainerRef.current) {
           event.target.scrollIntoView({
@@ -829,14 +839,14 @@
       const handleResumeContinue = () => {
         if (resumeData) {
           setSpeaker(resumeData.tabKey);
-          // जर पुढचा दिवस उपलब्ध असेल तर Day + 1, नाहीतर शेवटच्या दिवसावरच
+          // जर पुढचा दिवस शिल्लक असेल तर Day + 1, अन्यथा शेवटच्या दिवसावर
           const nextIndex = Math.min(resumeData.currentIndex + 1, resumeData.totalDays - 1);
           setCurrentIndex(nextIndex);
         }
         setShowResumeModal(false);
       };
 
-      /* मोडल - 'नको' (त्याच दिवसावर ठेवणे) */
+      /* मोडल - 'नको' (सोडलेल्या मूळ दिवसावरच ठेवणे) */
       const handleResumeDismiss = () => {
         if (resumeData) {
           setSpeaker(resumeData.tabKey);
@@ -1022,7 +1032,7 @@
         { id: 'sanskar', label: 'संस्कार' }
       ];
 
-      /* CONTENT RENDERER */
+      /* MANTRA / SANSKAR RENDERER */
       const renderContent = () => {
         if (speaker !== 'mantra') {
           return paragraphs.map((p, idx) => {
@@ -1229,7 +1239,7 @@
           )
         ),
 
-        /* ५. रेझ्युम / पुढे सुरू ठेवा मोडल (Prompt Modal) */
+        /* रेझ्युम पॉपअप - फक्त पूर्वी वाचन केले असेल तरच दिसेल */
         showResumeModal && resumeData ? React.createElement(
           'div',
           { className: 'resume-modal-backdrop' },
