@@ -7,7 +7,7 @@
   <meta name="description" content="उमाभरत नित्य गर्भसंवाद">
   <title>उमाभरत नित्य गर्भसंवाद</title>
 
-  <!-- Google Devanagari & Mantra Fonts -->
+  <!-- Google Devanagari Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@300;400;600;700;800&family=Rozha+One&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
@@ -68,7 +68,7 @@
       height: 100dvh;
       display: flex;
       justify-content: center;
-      padding: max(4px, env(safe-area-inset-top)) 10px 0;
+      padding: max(4px, env(safe-area-inset-top)) 10px max(6px, env(safe-area-inset-bottom));
       overflow: hidden;
     }
 
@@ -187,7 +187,7 @@
       transform: scale(0.91);
     }
 
-    /* COMPACT TABS */
+    /* COMPACT ROUNDED TABS */
     .tabs-wrapper {
       position: relative;
       width: 100%;
@@ -356,6 +356,7 @@
       color: var(--active-accent);
     }
 
+    /* MANTRA CARD */
     .mantra-verse-card {
       margin: 12px 0 14px 0;
       padding: 14px 16px;
@@ -448,7 +449,7 @@
       align-items: center;
       gap: 8px;
       width: 100%;
-      padding: 2px 4px 0 4px;
+      padding: 6px 4px 6px 4px;
       margin-bottom: 0;
       flex-shrink: 0;
     }
@@ -566,7 +567,10 @@
     ];
 
     function App() {
-      const [speaker, setSpeaker] = useState('mother');
+      // १. सेव्ह केलेला स्पीकर/टॅब localStorage मधून वाचणे
+      const [speaker, setSpeaker] = useState(() => {
+        return localStorage.getItem('ub_active_tab') || 'mother';
+      });
 
       const [dataMap, setDataMap] = useState({
         mother: FALLBACK_DATA,
@@ -577,7 +581,12 @@
         sanskar: FALLBACK_DATA
       });
 
-      const [currentIndex, setCurrentIndex] = useState(0);
+      // २. प्रत्येक टॅबचा इंडेक्स स्वतंत्रपणे सेव्ह व लोड करणे
+      const [currentIndex, setCurrentIndex] = useState(() => {
+        const initialTab = localStorage.getItem('ub_active_tab') || 'mother';
+        const savedIndex = localStorage.getItem(`ub_day_${initialTab}`);
+        return savedIndex !== null ? parseInt(savedIndex, 10) : 0;
+      });
 
       const scrollRef = useRef(null);
       const tabsContainerRef = useRef(null);
@@ -605,7 +614,7 @@
         root.style.setProperty('--active-text-dark', activeTheme.darkText);
       }, [speaker]);
 
-      /* LOAD DATA FILES */
+      /* LOAD DATA FILES WITH CACHE-BUSTING (30 नंतरचे दिवस लगेच दिसण्यासाठी) */
       useEffect(() => {
         const loadFiles = async () => {
           const files = [
@@ -618,10 +627,11 @@
           ];
 
           const newDataMap = { ...dataMap };
+          const cacheBuster = `?t=${Date.now()}`;
 
           for (let file of files) {
             try {
-              const res = await fetch(file.path);
+              const res = await fetch(file.path + cacheBuster);
               if (res.ok) {
                 const data = await res.json();
                 if (Array.isArray(data) && data.length > 0) {
@@ -646,6 +656,16 @@
 
       const progressPercent = totalDays > 0 ? ((safeIndex + 1) / totalDays) * 100 : 0;
 
+      // दिवस बदलल्यावर आपोआप localStorage मध्ये सेव्ह करणे
+      useEffect(() => {
+        localStorage.setItem(`ub_day_${speaker}`, safeIndex);
+      }, [safeIndex, speaker]);
+
+      // टॅब बदलल्यावर तो टॅब लक्षात ठेवणे
+      useEffect(() => {
+        localStorage.setItem('ub_active_tab', speaker);
+      }, [speaker]);
+
       useEffect(() => {
         if (scrollRef.current) {
           scrollRef.current.scrollTop = 0;
@@ -654,7 +674,9 @@
 
       const handleSpeakerChange = (newSpeaker, event) => {
         setSpeaker(newSpeaker);
-        setCurrentIndex(0);
+        // त्या टॅबचा आधी सेव्ह असलेला दिवस परत लोड करणे
+        const savedIndex = localStorage.getItem(`ub_day_${newSpeaker}`);
+        setCurrentIndex(savedIndex !== null ? parseInt(savedIndex, 10) : 0);
 
         if (event && event.target && tabsContainerRef.current) {
           event.target.scrollIntoView({
@@ -856,7 +878,7 @@
         { id: 'sanskar', label: 'संस्कार' }
       ];
 
-      /* MANTRA RENDERER */
+      /* CONTENT RENDERER */
       const renderContent = () => {
         if (speaker !== 'mantra') {
           return paragraphs.map((p, idx) => {
@@ -948,7 +970,7 @@
             React.createElement(
               'div',
               { className: 'header-actions' },
-              /* इथे / totalDays काढून फक्त day दाखवला आहे */
+              // केवळ 'दिवस X' दिसेल, '/ 30' चे बंधन कायमचे काढले आहे
               React.createElement('div', { className: 'header-day-counter' }, day),
               React.createElement(
                 'button',
