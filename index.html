@@ -70,6 +70,7 @@
       justify-content: center;
       padding: max(4px, env(safe-area-inset-top)) 10px max(6px, env(safe-area-inset-bottom));
       overflow: hidden;
+      position: relative;
     }
 
     .shell {
@@ -187,7 +188,7 @@
       transform: scale(0.91);
     }
 
-    /* COMPACT ROUNDED TABS */
+    /* COMPACT TABS */
     .tabs-wrapper {
       position: relative;
       width: 100%;
@@ -356,7 +357,6 @@
       color: var(--active-accent);
     }
 
-    /* MANTRA CARD */
     .mantra-verse-card {
       margin: 12px 0 14px 0;
       padding: 14px 16px;
@@ -508,6 +508,102 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
+    /* RESUME READING MODAL (सुंदर मराठी पॉपअप) */
+    .resume-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+      animation: fadeIn 200ms ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .resume-modal-card {
+      background: linear-gradient(180deg, #1b1624 0%, #120d1a 100%);
+      border: 1px solid var(--active-accent);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 25px var(--active-glow);
+      border-radius: 18px;
+      padding: 18px 20px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .resume-modal-title {
+      font-family: "Rozha One", serif;
+      font-size: 1.2rem;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .resume-modal-desc {
+      font-family: "Noto Sans Devanagari", sans-serif;
+      font-size: 0.88rem;
+      color: #ede5de;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .resume-modal-desc strong {
+      color: var(--active-accent);
+    }
+
+    .resume-modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 6px;
+    }
+
+    .modal-btn-confirm {
+      flex: 1;
+      background: var(--active-accent);
+      color: var(--active-text-dark);
+      font-weight: 800;
+      font-size: 0.85rem;
+      border: none;
+      border-radius: 99px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-family: "Noto Sans Devanagari", sans-serif;
+      transition: all 180ms ease;
+      box-shadow: 0 4px 15px var(--active-glow);
+    }
+
+    .modal-btn-cancel {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-family: "Noto Sans Devanagari", sans-serif;
+      transition: all 180ms ease;
+    }
+
+    .modal-btn-confirm:active, .modal-btn-cancel:active {
+      transform: scale(0.94);
+    }
   </style>
 </head>
 
@@ -516,6 +612,15 @@
 
   <script>
     const { useState, useEffect, useRef } = React;
+
+    const TAB_NAMES = {
+      mother: 'आई',
+      father: 'बाबा',
+      parent: 'पालक',
+      story: 'कथा',
+      mantra: 'मंत्र',
+      sanskar: 'संस्कार'
+    };
 
     function cleanNumberedLine(line) {
       if (!line || typeof line !== 'string') return '';
@@ -567,7 +672,7 @@
     ];
 
     function App() {
-      // १. सेव्ह केलेला स्पीकर/टॅब localStorage मधून वाचणे
+      // १. लोकलस्टोरेजमधून शेवटचा टॅब वाचणे
       const [speaker, setSpeaker] = useState(() => {
         return localStorage.getItem('ub_active_tab') || 'mother';
       });
@@ -581,12 +686,16 @@
         sanskar: FALLBACK_DATA
       });
 
-      // २. प्रत्येक टॅबचा इंडेक्स स्वतंत्रपणे सेव्ह व लोड करणे
+      // २. त्या टॅबचा शेवटचा सेव्ह असलेला दिवस वाचणे
       const [currentIndex, setCurrentIndex] = useState(() => {
         const initialTab = localStorage.getItem('ub_active_tab') || 'mother';
         const savedIndex = localStorage.getItem(`ub_day_${initialTab}`);
         return savedIndex !== null ? parseInt(savedIndex, 10) : 0;
       });
+
+      // ३. "पुढे सुरू ठेवा" / "नको" मोडल दाखवण्यासाठी स्टेट
+      const [showResumeModal, setShowResumeModal] = useState(false);
+      const [resumeData, setResumeData] = useState(null);
 
       const scrollRef = useRef(null);
       const tabsContainerRef = useRef(null);
@@ -614,7 +723,7 @@
         root.style.setProperty('--active-text-dark', activeTheme.darkText);
       }, [speaker]);
 
-      /* LOAD DATA FILES WITH CACHE-BUSTING (30 नंतरचे दिवस लगेच दिसण्यासाठी) */
+      /* LOAD DATA FILES WITH CACHE-BUSTING (30+ दिवस लोड होण्यासाठी) */
       useEffect(() => {
         const loadFiles = async () => {
           const files = [
@@ -644,6 +753,27 @@
           }
 
           setDataMap(newDataMap);
+
+          // ४. जर युझरकडे आधीचा सेव्ह केलेला इतिहास असेल, तर पॉपअप विचारणे
+          const lastTab = localStorage.getItem('ub_active_tab');
+          if (lastTab) {
+            const savedIndex = localStorage.getItem(`ub_day_${lastTab}`);
+            if (savedIndex !== null) {
+              const prevIdx = parseInt(savedIndex, 10);
+              const list = newDataMap[lastTab] || [];
+              if (list.length > 0 && prevIdx < list.length) {
+                const item = extractParagraphs(list[prevIdx]);
+                setResumeData({
+                  tabKey: lastTab,
+                  tabName: TAB_NAMES[lastTab] || 'संवाद',
+                  dayText: item.day,
+                  currentIndex: prevIdx,
+                  totalDays: list.length
+                });
+                setShowResumeModal(true);
+              }
+            }
+          }
         };
 
         loadFiles();
@@ -656,12 +786,12 @@
 
       const progressPercent = totalDays > 0 ? ((safeIndex + 1) / totalDays) * 100 : 0;
 
-      // दिवस बदलल्यावर आपोआप localStorage मध्ये सेव्ह करणे
+      // दिवस बदलल्यावर आपोआप त्या टॅबसाठी सेव्ह करणे
       useEffect(() => {
         localStorage.setItem(`ub_day_${speaker}`, safeIndex);
       }, [safeIndex, speaker]);
 
-      // टॅब बदलल्यावर तो टॅब लक्षात ठेवणे
+      // टॅब बदलल्यावर सेव्ह करणे
       useEffect(() => {
         localStorage.setItem('ub_active_tab', speaker);
       }, [speaker]);
@@ -672,9 +802,9 @@
         }
       }, [safeIndex, speaker]);
 
+      // टॅब स्विच करताना: त्या त्या टॅबचा शेवटचा सोडलेला दिवस उघडणे
       const handleSpeakerChange = (newSpeaker, event) => {
         setSpeaker(newSpeaker);
-        // त्या टॅबचा आधी सेव्ह असलेला दिवस परत लोड करणे
         const savedIndex = localStorage.getItem(`ub_day_${newSpeaker}`);
         setCurrentIndex(savedIndex !== null ? parseInt(savedIndex, 10) : 0);
 
@@ -695,15 +825,29 @@
         if (safeIndex < totalDays - 1) setCurrentIndex(safeIndex + 1);
       };
 
+      /* मोडल - 'पुढे सुरू ठेवा' (Day + 1) */
+      const handleResumeContinue = () => {
+        if (resumeData) {
+          setSpeaker(resumeData.tabKey);
+          // जर पुढचा दिवस उपलब्ध असेल तर Day + 1, नाहीतर शेवटच्या दिवसावरच
+          const nextIndex = Math.min(resumeData.currentIndex + 1, resumeData.totalDays - 1);
+          setCurrentIndex(nextIndex);
+        }
+        setShowResumeModal(false);
+      };
+
+      /* मोडल - 'नको' (त्याच दिवसावर ठेवणे) */
+      const handleResumeDismiss = () => {
+        if (resumeData) {
+          setSpeaker(resumeData.tabKey);
+          setCurrentIndex(resumeData.currentIndex);
+        }
+        setShowResumeModal(false);
+      };
+
       /* GENERATE SNAP IMAGE & SHARE */
       const handleShare = async () => {
-        let sectionName = 'आईचे संवाद';
-        if (speaker === 'father') sectionName = 'बाबांचे संवाद';
-        if (speaker === 'parent') sectionName = 'पालक (एकत्रित) संवाद';
-        if (speaker === 'story') sectionName = 'गोष्टीरूपी गर्भसंवाद (कथा)';
-        if (speaker === 'mantra') sectionName = 'गर्भसंस्कार मंत्र';
-        if (speaker === 'sanskar') sectionName = 'गर्भसंस्कार विचार';
-
+        const sectionName = TAB_NAMES[speaker] || 'संवाद';
         const fullContentText = paragraphs.join('\n\n');
         const shareText = `*उमाभरत नित्य गर्भसंवाद*\n${day} : *${title}* (${sectionName})\n\n${fullContentText}\n\n🙏 प्रिय बाळासाठी, उर्मिला भरत रासवे तर्फे... 🙏`;
 
@@ -970,7 +1114,6 @@
             React.createElement(
               'div',
               { className: 'header-actions' },
-              // केवळ 'दिवस X' दिसेल, '/ 30' चे बंधन कायमचे काढले आहे
               React.createElement('div', { className: 'header-day-counter' }, day),
               React.createElement(
                 'button',
@@ -1084,7 +1227,41 @@
               React.createElement('i', { className: 'fa-solid fa-chevron-right' })
             )
           )
-        )
+        ),
+
+        /* ५. रेझ्युम / पुढे सुरू ठेवा मोडल (Prompt Modal) */
+        showResumeModal && resumeData ? React.createElement(
+          'div',
+          { className: 'resume-modal-backdrop' },
+          React.createElement(
+            'div',
+            { className: 'resume-modal-card' },
+            React.createElement('h3', { className: 'resume-modal-title' }, 'वाचन सुरू ठेवा?'),
+            React.createElement(
+              'p',
+              { className: 'resume-modal-desc' },
+              `तुम्ही मागील वेळी `,
+              React.createElement('strong', null, `'${resumeData.tabName}'`),
+              ` विभागात `,
+              React.createElement('strong', null, `'${resumeData.dayText}'`),
+              ` वर होतात. पुढील दिवसापासून सुरू करायचे का?`
+            ),
+            React.createElement(
+              'div',
+              { className: 'resume-modal-actions' },
+              React.createElement(
+                'button',
+                { className: 'modal-btn-confirm', onClick: handleResumeContinue },
+                'पुढे सुरू ठेवा'
+              ),
+              React.createElement(
+                'button',
+                { className: 'modal-btn-cancel', onClick: handleResumeDismiss },
+                'नको'
+              )
+            )
+          )
+        ) : null
       );
     }
 
