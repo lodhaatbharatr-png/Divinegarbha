@@ -509,96 +509,91 @@
       text-overflow: ellipsis;
     }
 
-    /* RESUME READING MODAL */
+    /* MINIMAL RESUME PROMPT MODAL */
     .resume-modal-backdrop {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      padding: 20px;
-      animation: fadeIn 200ms ease;
+      padding: 16px;
+      animation: fadeIn 180ms ease;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .resume-modal-card {
       background: linear-gradient(180deg, #1b1624 0%, #120d1a 100%);
       border: 1px solid var(--active-accent);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 25px var(--active-glow);
-      border-radius: 18px;
-      padding: 18px 20px;
-      max-width: 360px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75), 0 0 18px var(--active-glow);
+      border-radius: 16px;
+      padding: 16px 18px;
+      max-width: 320px;
       width: 100%;
       text-align: center;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-    }
-
-    .resume-modal-title {
-      font-family: "Rozha One", serif;
-      font-size: 1.2rem;
-      color: #ffffff;
-      margin: 0;
+      gap: 14px;
     }
 
     .resume-modal-desc {
       font-family: "Noto Sans Devanagari", sans-serif;
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       color: #ede5de;
-      line-height: 1.6;
+      line-height: 1.5;
       margin: 0;
     }
 
     .resume-modal-desc strong {
       color: var(--active-accent);
+      font-weight: 700;
     }
 
     .resume-modal-actions {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
-      margin-top: 6px;
     }
 
     .modal-btn-confirm {
-      flex: 1;
+      flex: 1.2;
       background: var(--active-accent);
       color: var(--active-text-dark);
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       border: none;
       border-radius: 99px;
-      padding: 8px 14px;
+      padding: 8px 12px;
       cursor: pointer;
       font-family: "Noto Sans Devanagari", sans-serif;
       transition: all 180ms ease;
-      box-shadow: 0 4px 15px var(--active-glow);
+      box-shadow: 0 3px 12px var(--active-glow);
+      white-space: nowrap;
     }
 
     .modal-btn-cancel {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.06);
+      flex: 0.8;
+      background: rgba(255, 255, 255, 0.05);
       color: var(--text-muted);
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       border: 1px solid var(--line);
       border-radius: 99px;
-      padding: 8px 14px;
+      padding: 8px 12px;
       cursor: pointer;
       font-family: "Noto Sans Devanagari", sans-serif;
       transition: all 180ms ease;
+      white-space: nowrap;
     }
 
     .modal-btn-confirm:active, .modal-btn-cancel:active {
@@ -672,7 +667,7 @@
     ];
 
     function App() {
-      // १. आधीचा टॅब फक्त जर युझरने वाचले असेल तरच लोड करा, नाहीतर डीफॉल्ट 'mother'
+      // १. सुरुवातीला युझरचा आधीचा सेव्ह इतिहास तपासणे
       const [speaker, setSpeaker] = useState(() => {
         const hasHistory = localStorage.getItem('ub_has_read');
         return hasHistory ? (localStorage.getItem('ub_active_tab') || 'mother') : 'mother';
@@ -687,7 +682,7 @@
         sanskar: FALLBACK_DATA
       });
 
-      // २. आधीचा सेव्ह असलेला दिवस वाचणे
+      // २. सेव्ह केलेला अचूक दिवस (किंवा 0)
       const [currentIndex, setCurrentIndex] = useState(() => {
         const hasHistory = localStorage.getItem('ub_has_read');
         if (!hasHistory) return 0;
@@ -696,9 +691,7 @@
         return savedIndex !== null ? parseInt(savedIndex, 10) : 0;
       });
 
-      // डेटा लोड झाला आहे का हे ट्रॅक करण्यासाठी रिफ (जेणेकरून 0 ओव्हरराईट होणार नाही)
       const isDataLoaded = useRef(false);
-
       const [showResumeModal, setShowResumeModal] = useState(false);
       const [resumeData, setResumeData] = useState(null);
 
@@ -760,7 +753,7 @@
           setDataMap(newDataMap);
           isDataLoaded.current = true;
 
-          // जर युझरने खरोखर आधी वाचन केले असेल (`ub_has_read` ट्रू असेल), तरच पॉपअप दाखवणे
+          // जर युझर पहिल्यांदाच आला असेल तर पॉपअप दाखवू नका (थेट आई - दिवस १ उघडेल)
           const hasHistory = localStorage.getItem('ub_has_read');
           const lastTab = localStorage.getItem('ub_active_tab');
 
@@ -796,12 +789,12 @@
       const { day, title, paragraphs } = extractParagraphs(activeList[safeIndex]);
       const progressPercent = totalDays > 0 ? ((safeIndex + 1) / totalDays) * 100 : 0;
 
-      // दिवस किंवा टॅब बदलल्यावर सेव्ह करणे (फक्त डेटा लोड झाल्यानंतरच)
+      // डेटा लोड झाल्यानंतरच अचूक व्हॅल्यू सेव्ह करणे
       useEffect(() => {
         if (isDataLoaded.current) {
           localStorage.setItem(`ub_day_${speaker}`, safeIndex);
           localStorage.setItem('ub_active_tab', speaker);
-          localStorage.setItem('ub_has_read', 'true'); // युझरने वाचन सुरू केले आहे हे मार्क करणे
+          localStorage.setItem('ub_has_read', 'true');
         }
       }, [safeIndex, speaker]);
 
@@ -811,7 +804,7 @@
         }
       }, [safeIndex, speaker]);
 
-      // टॅब स्विच करताना: त्या टॅबचा आधीचा अचूक दिवस लोड करणे
+      // टॅब बदलल्यावर: त्या टॅबचा शेवटचा सोडलेला अचूक दिवस उघडणे
       const handleSpeakerChange = (newSpeaker, event) => {
         setSpeaker(newSpeaker);
         const savedIndex = localStorage.getItem(`ub_day_${newSpeaker}`);
@@ -835,18 +828,17 @@
         if (safeIndex < totalDays - 1) setCurrentIndex(safeIndex + 1);
       };
 
-      /* मोडल - 'पुढे सुरू ठेवा' (Day + 1) */
+      /* मोडल - 'पुढचा दिवस घ्या' (Day + 1) */
       const handleResumeContinue = () => {
         if (resumeData) {
           setSpeaker(resumeData.tabKey);
-          // जर पुढचा दिवस शिल्लक असेल तर Day + 1, अन्यथा शेवटच्या दिवसावर
           const nextIndex = Math.min(resumeData.currentIndex + 1, resumeData.totalDays - 1);
           setCurrentIndex(nextIndex);
         }
         setShowResumeModal(false);
       };
 
-      /* मोडल - 'नको' (सोडलेल्या मूळ दिवसावरच ठेवणे) */
+      /* मोडल - 'नको' (सोडलेल्या त्याच दिवसावर ठेवणे) */
       const handleResumeDismiss = () => {
         if (resumeData) {
           setSpeaker(resumeData.tabKey);
@@ -1032,7 +1024,7 @@
         { id: 'sanskar', label: 'संस्कार' }
       ];
 
-      /* MANTRA / SANSKAR RENDERER */
+      /* CONTENT RENDERER */
       const renderContent = () => {
         if (speaker !== 'mantra') {
           return paragraphs.map((p, idx) => {
@@ -1239,22 +1231,21 @@
           )
         ),
 
-        /* रेझ्युम पॉपअप - फक्त पूर्वी वाचन केले असेल तरच दिसेल */
+        /* मिनिमल रेझ्युम मोडल - No Title */
         showResumeModal && resumeData ? React.createElement(
           'div',
           { className: 'resume-modal-backdrop' },
           React.createElement(
             'div',
             { className: 'resume-modal-card' },
-            React.createElement('h3', { className: 'resume-modal-title' }, 'वाचन सुरू ठेवा?'),
             React.createElement(
               'p',
               { className: 'resume-modal-desc' },
-              `तुम्ही मागील वेळी `,
+              `तुम्ही `,
               React.createElement('strong', null, `'${resumeData.tabName}'`),
-              ` विभागात `,
+              ` , `,
               React.createElement('strong', null, `'${resumeData.dayText}'`),
-              ` वर होतात. पुढील दिवसापासून सुरू करायचे का?`
+              ` वर होते.`
             ),
             React.createElement(
               'div',
@@ -1262,7 +1253,7 @@
               React.createElement(
                 'button',
                 { className: 'modal-btn-confirm', onClick: handleResumeContinue },
-                'पुढे सुरू ठेवा'
+                'पुढचा दिवस घ्या'
               ),
               React.createElement(
                 'button',
